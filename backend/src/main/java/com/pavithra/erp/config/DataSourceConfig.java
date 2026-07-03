@@ -21,8 +21,9 @@ public class DataSourceConfig {
 
     @Bean
     public DataSource dataSource() {
-        if (databaseUrl != null && databaseUrl.startsWith("postgres://")) {
-            String withoutScheme = databaseUrl.substring("postgres://".length());
+        if (databaseUrl != null && (databaseUrl.startsWith("postgres://") || databaseUrl.startsWith("postgresql://"))) {
+            String prefix = databaseUrl.startsWith("postgres://") ? "postgres://" : "postgresql://";
+            String withoutScheme = databaseUrl.substring(prefix.length());
             int atIndex = withoutScheme.lastIndexOf('@');
             String username = databaseUsername;
             String password = databasePassword;
