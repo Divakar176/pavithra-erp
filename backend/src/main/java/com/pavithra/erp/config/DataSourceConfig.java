@@ -35,7 +35,12 @@ public class DataSourceConfig {
                 }
             }
             int port = dbUri.getPort() == -1 ? 5432 : dbUri.getPort();
-            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + port + dbUri.getPath();
+            String query = dbUri.getQuery();
+            String sslParams = "sslmode=require";
+            if (query != null && !query.isEmpty()) {
+                sslParams = query + "&" + sslParams;
+            }
+            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + port + dbUri.getPath() + "?" + sslParams;
 
             return DataSourceBuilder.create()
                     .url(dbUrl)
