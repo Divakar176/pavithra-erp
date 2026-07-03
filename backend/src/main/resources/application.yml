@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    # Do NOT change these three lines. Leave them exactly as ${...}
+    url: ${jdbc:mysql://localhost:3306/pavithra_erp_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${root}
+    password: ${root123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update 
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: INFO

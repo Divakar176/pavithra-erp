@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-[#151515] text-gray-200 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Apple/Stripe inspired utilities updated for Dark Theme */
+@layer utilities {
+  .stripe-card {
+    @apply bg-[#1C1C1C] border border-white/5 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.3)] rounded-2xl transition-all duration-300;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-200 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-300;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
