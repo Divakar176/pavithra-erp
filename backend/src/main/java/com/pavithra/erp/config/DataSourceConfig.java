@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @Configuration
 public class DataSourceConfig {
@@ -22,25 +20,32 @@ public class DataSourceConfig {
     private String databasePassword;
 
     @Bean
-    public DataSource dataSource() throws URISyntaxException {
+    public DataSource dataSource() {
         if (databaseUrl != null && databaseUrl.startsWith("postgres://")) {
-            URI dbUri = new URI(databaseUrl);
+            String withoutScheme = databaseUrl.substring("postgres://".length());
+            int atIndex = withoutScheme.lastIndexOf('@');
             String username = databaseUsername;
             String password = databasePassword;
-            if (dbUri.getUserInfo() != null) {
-                String[] userInfo = dbUri.getUserInfo().split(":");
-                username = userInfo[0];
-                if (userInfo.length > 1) {
-                    password = userInfo[1];
+            String hostPortDb = withoutScheme;
+
+            if (atIndex != -1) {
+                String userInfo = withoutScheme.substring(0, atIndex);
+                hostPortDb = withoutScheme.substring(atIndex + 1);
+                int colonIndex = userInfo.indexOf(':');
+                if (colonIndex != -1) {
+                    username = userInfo.substring(0, colonIndex);
+                    password = userInfo.substring(colonIndex + 1);
+                } else {
+                    username = userInfo;
                 }
             }
-            int port = dbUri.getPort() == -1 ? 5432 : dbUri.getPort();
-            String query = dbUri.getQuery();
-            String sslParams = "sslmode=require";
-            if (query != null && !query.isEmpty()) {
-                sslParams = query + "&" + sslParams;
+
+            String dbUrl = "jdbc:postgresql://" + hostPortDb;
+            if (dbUrl.contains("?")) {
+                dbUrl += "&sslmode=require";
+            } else {
+                dbUrl += "?sslmode=require";
             }
-            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ":" + port + dbUri.getPath() + "?" + sslParams;
 
             return DataSourceBuilder.create()
                     .url(dbUrl)
