@@ -13,11 +13,14 @@ public class DataSourceConfig {
     @Value("${DATABASE_URL:}")
     private String databaseUrl;
 
-    @Value("${DATABASE_USERNAME:}")
+    @Value("${DATABASE_USERNAME:root}")
     private String databaseUsername;
 
-    @Value("${DATABASE_PASSWORD:}")
+    @Value("${DATABASE_PASSWORD:root123}")
     private String databasePassword;
+
+    @Value("${spring.datasource.url:jdbc:mysql://localhost:3306/pavithra_erp_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}")
+    private String defaultUrl;
 
     @Bean
     public DataSource dataSource() {
@@ -55,11 +58,14 @@ public class DataSourceConfig {
                     .driverClassName("org.postgresql.Driver")
                     .build();
         }
+        
+        // Fallback for local development if DATABASE_URL is not provided or not postgres
+        String url = (databaseUrl != null && !databaseUrl.isEmpty()) ? databaseUrl : defaultUrl;
         return DataSourceBuilder.create()
-                .url(databaseUrl)
+                .url(url)
                 .username(databaseUsername)
                 .password(databasePassword)
-                .driverClassName("org.postgresql.Driver")
+                // Let Spring Boot infer the driver class from the URL
                 .build();
     }
 }
