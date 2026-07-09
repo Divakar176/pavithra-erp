@@ -2,11 +2,12 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import api from '../api/axios';
-import { Truck, Lock, User as UserIcon, Loader2, ShieldCheck, Zap } from 'lucide-react';
+import { Truck, Lock, User as UserIcon, Loader2, ShieldCheck, Zap, Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     
@@ -97,15 +98,22 @@ const Login = () => {
                             />
                         </div>
 
-                        <div className="w-full">
+                        <div className="w-full relative">
                             <input
-                                type="password"
-                                className="block w-full px-4 py-3 bg-[#111625]/40 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:bg-[#111625]/60 focus:outline-none focus:border-teal-500/50 transition-all duration-300 text-sm"
+                                type={showPassword ? "text" : "password"}
+                                className="block w-full px-4 py-3 bg-[#111625]/40 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:bg-[#111625]/60 focus:outline-none focus:border-teal-500/50 transition-all duration-300 text-sm pr-10"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 focus:outline-none transition-colors"
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
 
                         <div className="pt-2">

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import com.pavithra.erp.controller.dto.ChangePasswordRequest;
+import com.pavithra.erp.service.AuthenticationService;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserRepository repository;
+    private final AuthenticationService authenticationService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     @GetMapping("/drivers")
@@ -49,5 +53,15 @@ public class UserController {
         }
         repository.save(user);
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
+        try {
+            authenticationService.changePassword(request.getCurrentPassword(), request.getNewPassword());
+            return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        }
     }
 }
