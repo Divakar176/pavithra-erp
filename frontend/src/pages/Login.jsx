@@ -34,38 +34,20 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex w-full bg-gray-950 font-sans">
-            {/* Left Column - Graphic/Branding */}
-            <div className="hidden lg:flex w-[60%] relative overflow-hidden items-end p-16">
-                <div className="absolute inset-0 z-0">
-                    <img 
-                        src="/bg.png" 
-                        alt="Pavithra ERP Background" 
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/60 to-transparent"></div>
-                    <div className="absolute inset-0 bg-brand-900/20 mix-blend-overlay"></div>
-                </div>
-                
-                <div className="relative z-10 w-full max-w-2xl">
-                    <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-6">
-                        <Zap className="w-4 h-4 text-teal-400" />
-                        <span className="text-xs font-semibold text-teal-100 tracking-wider uppercase">Next-Gen Enterprise Platform</span>
-                    </div>
-                    <h1 className="text-7xl lg:text-8xl font-black text-white leading-tight mb-8 tracking-tighter uppercase">
-                        PAVITHRA <br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
-                            ENTERPRISES.
-                        </span>
-                    </h1>
-                    <p className="text-xl text-gray-300 leading-relaxed max-w-xl">
-                        Optimize your logistics, track maintenance effortlessly, and make data-driven decisions with PAVITHRA ENTERPRISES' AI-powered insights.
-                    </p>
-                </div>
+        <div className="min-h-screen flex w-full bg-gray-950 font-sans items-center justify-center relative">
+            {/* Background Graphic */}
+            <div className="absolute inset-0 z-0">
+                <img 
+                    src="/bg.png" 
+                    alt="Pavithra ERP Background" 
+                    className="w-full h-full object-cover opacity-30"
+                />
+                <div className="absolute inset-0 bg-gray-950/70"></div>
             </div>
 
             {/* Right Column - Login Form */}
-            <div className="w-full lg:w-[40%] flex flex-col justify-center items-center p-8 sm:p-12 relative overflow-hidden bg-gray-950">
+            {/* Centered Login Form */}
+            <div className="w-full max-w-md flex flex-col justify-center items-center p-8 sm:p-12 relative z-10 bg-gray-900/80 backdrop-blur-md rounded-2xl border border-gray-800 shadow-2xl">
                 {/* Mobile Background Elements */}
                 <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-teal-500/10 rounded-full filter blur-3xl lg:hidden"></div>
                 
