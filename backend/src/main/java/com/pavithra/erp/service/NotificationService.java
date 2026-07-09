@@ -22,6 +22,9 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final VehicleLoanRepository vehicleLoanRepository;
     private final VehicleRepository vehicleRepository;
+    
+    // 1. We inject the EmailService here!
+    private final EmailService emailService; 
 
     public List<Notification> getUnreadNotifications() {
         return notificationRepository.findByIsReadFalseOrderByCreatedAtDesc();
@@ -50,10 +53,7 @@ public class NotificationService {
             int emiDate = loan.getEmiDate();
             int currentDay = today.getDayOfMonth();
             
-            // Check if EMI is due in the next 3 days or today
             int daysUntilEmi = emiDate - currentDay;
-            
-            // Handle month wraparound roughly (e.g., today is 28th, EMI is 2nd)
             if (daysUntilEmi < 0) {
                 int daysInMonth = today.lengthOfMonth();
                 daysUntilEmi = (daysInMonth - currentDay) + emiDate;
@@ -72,13 +72,19 @@ public class NotificationService {
                         .isRead(false)
                         .build();
                 notificationRepository.save(notification);
+                
+                // 2. Send an Email for EMI alerts!
+                emailService.sendSimpleMessage(
+                    "admin@pavithraenterprises.com", 
+                    "Upcoming EMI Alert: " + loan.getVehicle().getVehicleNumber(), 
+                    message
+                );
             }
         }
     }
 
-    // Mock implementation for Twilio / WhatsApp Business API
+    // Mock implementation for Twilio / WhatsApp
     public void sendWhatsAppAlert(String mobileNumber, String message) {
-        // In reality, use Twilio API: Message.creator(new com.twilio.type.PhoneNumber("whatsapp:"+mobileNumber), ...).create();
         log.info("Sending WhatsApp Alert to {}: {}", mobileNumber, message);
     }
 
@@ -108,7 +114,6 @@ public class NotificationService {
         if (daysLeft <= 30 && daysLeft >= 0) {
             String message = String.format("EXPIRY ALERT: %s for Vehicle %s is expiring in %d days!", docName, vehicleNumber, daysLeft);
             
-            // Check if we already have an unread notification for this exact message to avoid spamming
             boolean exists = notificationRepository.findByIsReadFalseOrderByCreatedAtDesc().stream()
                 .anyMatch(n -> n.getMessage().equals(message));
                 
@@ -119,6 +124,13 @@ public class NotificationService {
                         .isRead(false)
                         .build();
                 notificationRepository.save(notification);
+                
+                // 3. Send an Email for Document Expiry!
+                emailService.sendSimpleMessage(
+                    "admin@pavithraenterprises.com", 
+                    "Document Expiry Warning: " + vehicleNumber, 
+                    message
+                );
             }
         } else if (daysLeft < 0) {
             String message = String.format("CRITICAL: %s for Vehicle %s has EXPIRED %d days ago!", docName, vehicleNumber, Math.abs(daysLeft));
@@ -133,6 +145,13 @@ public class NotificationService {
                         .isRead(false)
                         .build();
                 notificationRepository.save(notification);
+                
+                // 4. Send an Email for already expired documents!
+                emailService.sendSimpleMessage(
+                    "admin@pavithraenterprises.com", 
+                    "CRITICAL: Document Expired for " + vehicleNumber, 
+                    message
+                );
             }
         }
     }

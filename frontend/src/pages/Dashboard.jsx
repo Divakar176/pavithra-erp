@@ -24,7 +24,6 @@ const DashboardLayout = () => {
         };
         fetchNotifications();
         
-        // Optional: poll every minute
         const interval = setInterval(fetchNotifications, 60000);
         return () => clearInterval(interval);
     }, []);
@@ -53,49 +52,51 @@ const DashboardLayout = () => {
         navigate('/login');
     };
 
+    // RBAC: Added roles array to each item
     const sections = [
         {
             title: "OVERVIEW",
             items: [
-                { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard }
+                { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['SUPER_ADMIN', 'ADMIN', 'ACCOUNTANT'] }
             ]
         },
         {
             title: "OPERATIONS",
             items: [
-                { path: '/dashboard/vehicles', label: 'Vehicles', icon: Truck },
-                { path: '/dashboard/drivers', label: 'Drivers', icon: Users },
-                { path: '/dashboard/trips', label: 'Trips', icon: Navigation },
-                { path: '/dashboard/maintenance', label: 'Maintenance', icon: Wrench },
-                { path: '/dashboard/inventory', label: 'Inventory', icon: Package },
-                { path: '/dashboard/customers', label: 'Customers', icon: Users }
+                { path: '/dashboard/vehicles', label: 'Vehicles', icon: Truck, roles: ['SUPER_ADMIN', 'ADMIN'] },
+                { path: '/dashboard/drivers', label: 'Drivers', icon: Users, roles: ['SUPER_ADMIN', 'ADMIN'] },
+                { path: '/dashboard/trips', label: 'Trips', icon: Navigation, roles: ['SUPER_ADMIN', 'ADMIN', 'ACCOUNTANT'] },
+                { path: '/dashboard/maintenance', label: 'Maintenance', icon: Wrench, roles: ['SUPER_ADMIN', 'ADMIN'] },
+                { path: '/dashboard/inventory', label: 'Inventory', icon: Package, roles: ['SUPER_ADMIN', 'ADMIN'] },
+                { path: '/dashboard/customers', label: 'Customers', icon: Users, roles: ['SUPER_ADMIN', 'ADMIN', 'ACCOUNTANT'] }
             ]
         },
         {
             title: 'Analytics',
             items: [
-                { path: '/dashboard/finances', label: 'Finances', icon: PieChart },
-                { path: '/dashboard/reports', label: 'Reports', icon: FileText },
-                { path: '/dashboard/billing', label: 'Billing', icon: Receipt },
-                { path: '/dashboard/ledger', label: 'Expenses', icon: IndianRupee }
+                { path: '/dashboard/finances', label: 'Finances', icon: PieChart, roles: ['SUPER_ADMIN', 'ACCOUNTANT'] },
+                { path: '/dashboard/reports', label: 'Reports', icon: FileText, roles: ['SUPER_ADMIN', 'ACCOUNTANT', 'ADMIN'] },
+                { path: '/dashboard/billing', label: 'Billing', icon: Receipt, roles: ['SUPER_ADMIN', 'ACCOUNTANT'] },
+                { path: '/dashboard/ledger', label: 'Expenses', icon: IndianRupee, roles: ['SUPER_ADMIN', 'ACCOUNTANT'] }
             ]
         },
         {
             title: 'ADMIN',
             items: [
-                { path: '/dashboard/ai', label: 'AI Assistant', icon: Sparkles, badge: '✨' },
-                { path: '/dashboard/documents/slip', label: 'Documents', icon: FileText },
-                { path: '/dashboard/activity', label: 'Activity Log', icon: Activity },
-                { path: '/dashboard/archive', label: 'Archive', icon: ArchiveIcon },
-                { path: '/dashboard/settings', label: 'Settings', icon: SettingsIcon }
+                { path: '/dashboard/ai', label: 'AI Assistant', icon: Sparkles, badge: '✨', roles: ['SUPER_ADMIN'] },
+                { path: '/dashboard/documents/slip', label: 'Documents', icon: FileText, roles: ['SUPER_ADMIN', 'ADMIN'] },
+                { path: '/dashboard/activity', label: 'Activity Log', icon: Activity, roles: ['SUPER_ADMIN'] },
+                { path: '/dashboard/archive', label: 'Archive', icon: ArchiveIcon, roles: ['SUPER_ADMIN'] },
+                { path: '/dashboard/settings', label: 'Settings', icon: SettingsIcon, roles: ['SUPER_ADMIN'] }
             ]
         }
     ];
 
+    const userRole = user?.role || 'SUPER_ADMIN';
+
     return (
         <div className="min-h-screen bg-[#1A1A1A] text-gray-200 flex font-sans selection:bg-orange-500/30 print:bg-white print:text-black overflow-hidden relative">
             
-            {/* Mobile Sidebar Overlay */}
             {isSidebarOpen && (
                 <div 
                     className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-sm"
@@ -103,7 +104,6 @@ const DashboardLayout = () => {
                 />
             )}
 
-            {/* Sidebar */}
             <aside className={`w-64 bg-[#1E1E1E] border-r border-[#2A2A2A] flex flex-col fixed inset-y-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 print:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="h-[72px] flex items-center px-6 border-b border-[#2A2A2A]">
                     <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-lg shadow-orange-500/20 mr-3 shrink-0 overflow-hidden">
@@ -116,37 +116,45 @@ const DashboardLayout = () => {
                 </div>
 
                 <nav className="flex-1 px-4 py-6 overflow-y-auto custom-scrollbar flex flex-col gap-6">
-                    {sections.map((section, idx) => (
-                        <div key={idx}>
-                            <div className="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2.5">
-                                {section.title}
+                    {sections.map((section, idx) => {
+                        // RBAC: Filter out items the user doesn't have permission to see
+                        const allowedItems = section.items.filter(item => item.roles.includes(userRole));
+                        
+                        // If they can't see any items in this section, hide the whole section
+                        if (allowedItems.length === 0) return null;
+
+                        return (
+                            <div key={idx}>
+                                <div className="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2.5">
+                                    {section.title}
+                                </div>
+                                <div className="space-y-1">
+                                    {allowedItems.map(item => {
+                                        const Icon = item.icon;
+                                        const isActive = location.pathname === item.path || (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
+                                        return (
+                                            <Link 
+                                                key={item.label}
+                                                to={item.path} 
+                                                onClick={() => setIsSidebarOpen(false)}
+                                                className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'}`}
+                                            >
+                                                <div className="flex items-center">
+                                                    <Icon className={`w-4 h-4 mr-3 transition-colors ${isActive ? 'text-[#D8621C]' : 'text-gray-500'}`} />
+                                                    <span className="text-sm">{item.label}</span>
+                                                </div>
+                                                {item.badge && (
+                                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.badge === '✨' ? 'bg-indigo-500 text-white' : 'bg-red-500 text-white'}`}>
+                                                        {item.badge}
+                                                    </span>
+                                                )}
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                            <div className="space-y-1">
-                                {section.items.map(item => {
-                                    const Icon = item.icon;
-                                    const isActive = location.pathname === item.path || (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
-                                    return (
-                                        <Link 
-                                            key={item.label}
-                                            to={item.path} 
-                                            onClick={() => setIsSidebarOpen(false)}
-                                            className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'}`}
-                                        >
-                                            <div className="flex items-center">
-                                                <Icon className={`w-4 h-4 mr-3 transition-colors ${isActive ? 'text-[#D8621C]' : 'text-gray-500'}`} />
-                                                <span className="text-sm">{item.label}</span>
-                                            </div>
-                                            {item.badge && (
-                                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.badge === '3' ? 'bg-red-500 text-white' : 'bg-indigo-500 text-white'}`}>
-                                                    {item.badge}
-                                                </span>
-                                            )}
-                                        </Link>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </nav>
                 
                 <div className="p-4 border-t border-[#2A2A2A] mt-auto">
@@ -167,9 +175,7 @@ const DashboardLayout = () => {
                 </div>
             </aside>
 
-            {/* Main Content */}
             <div className="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#121212] lg:w-[calc(100%-16rem)] print:h-auto print:overflow-visible print:bg-white">
-                {/* Topbar for internal pages */}
                 <header className="h-[72px] border-b border-[#2A2A2A] flex items-center justify-between px-4 lg:px-8 shrink-0 sticky top-0 z-10 bg-[#121212] print:hidden">
                     <div className="flex items-center">
                         <button 
@@ -194,7 +200,6 @@ const DashboardLayout = () => {
                             )}
                         </button>
 
-                        {/* Notification Dropdown */}
                         {isNotificationOpen && (
                             <div className="absolute top-12 right-0 w-80 bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl shadow-2xl z-50 overflow-hidden">
                                 <div className="p-4 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515]">
@@ -230,10 +235,6 @@ const DashboardLayout = () => {
                                 </div>
                             </div>
                         )}
-
-                        <button className="hidden lg:flex items-center px-4 py-2 bg-transparent border border-[#2A2A2A] text-gray-300 rounded-xl text-sm font-semibold hover:bg-white/5 transition-all">
-                            <span className="mr-2">+</span> Add Trip
-                        </button>
                     </div>
                 </header>
 

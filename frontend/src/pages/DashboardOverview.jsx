@@ -1,6 +1,21 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
 import { Truck, Activity, TrendingUp, AlertCircle, ArrowUpRight, ArrowDownRight, MapPin, Sparkles, Navigation, Package } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix for default Leaflet markers in React
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconUrl: markerIcon,
+    iconRetinaUrl: markerIcon2x,
+    shadowUrl: markerShadow,
+});
 
 const DashboardOverview = () => {
     const [kpis, setKpis] = useState(null);
@@ -56,7 +71,6 @@ const DashboardOverview = () => {
         }).format(amount || 0);
     };
 
-    // Calculate Document Alerts
     const today = new Date();
     const alerts = [];
     vehicles.forEach(v => {
@@ -81,7 +95,6 @@ const DashboardOverview = () => {
     return (
         <div className="p-8 w-full mx-auto space-y-6">
             
-            {/* Top KPIs Row */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="stripe-card p-5 border-t-4 border-t-[#D8621C]">
                     <div className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Today's Income</div>
@@ -119,34 +132,50 @@ const DashboardOverview = () => {
                 </div>
             </div>
 
-            {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
-                {/* Left Column (Wider) */}
                 <div className="lg:col-span-2 space-y-6">
-                    {/* Monthly Overview (Mocked Chart visualization for now) */}
-                    <div className="stripe-card p-6 h-[300px] flex flex-col justify-between">
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-white font-semibold">Monthly Overview</h2>
-                            <div className="flex gap-4 text-xs font-medium">
-                                <div className="flex items-center text-gray-400"><div className="w-2 h-2 rounded-full bg-[#333] mr-2"></div> Income</div>
-                                <div className="flex items-center text-gray-400"><div className="w-2 h-2 rounded-full bg-[#10B981] mr-2"></div> Expense</div>
-                            </div>
+                    
+                    {/* Live GPS Map (Replaced old chart) */}
+                    <div className="stripe-card p-0 h-[400px] flex flex-col overflow-hidden relative border border-[#2A2A2A] z-0">
+                        <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-[#1C1C1C] to-transparent z-[1000] pointer-events-none flex justify-between items-start">
+                            <h2 className="text-white font-bold drop-shadow-md flex items-center">
+                                <MapPin className="w-5 h-5 mr-2 text-orange-500" />
+                                Live Fleet Tracking
+                            </h2>
+                            <span className="bg-green-500/20 text-green-400 border border-green-500/30 text-xs font-bold px-3 py-1 rounded-full shadow-lg backdrop-blur-sm animate-pulse">
+                                LIVE
+                            </span>
                         </div>
-                        {/* Mock Bars to simulate chart */}
-                        <div className="flex-1 flex items-end justify-between gap-2 px-2">
-                            {[40, 60, 45, 80, 50, 90, 70].map((h, i) => (
-                                <div key={i} className="flex flex-col gap-1 w-full max-w-[40px]">
-                                    <div className="w-full bg-[#2A2A2A] rounded-t-sm relative group cursor-pointer" style={{ height: `${h}%` }}>
-                                        <div className="absolute bottom-0 w-full bg-[#10B981] rounded-t-sm" style={{ height: `${h * 0.6}%` }}></div>
-                                    </div>
-                                    <div className="text-center text-[10px] text-gray-500 mt-2">Day {i+1}</div>
-                                </div>
-                            ))}
-                        </div>
+                        <MapContainer 
+                            center={[20.5937, 78.9629]} 
+                            zoom={5} 
+                            style={{ height: "100%", width: "100%", zIndex: 1 }}
+                            className="bg-[#121212]"
+                        >
+                            {/* Dark Mode Map Tiles */}
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                            />
+                            
+                            {/* Scatter active trips as markers across India */}
+                            {recentTrips.map((trip, idx) => {
+                                const randomLat = 20.5937 + (Math.random() - 0.5) * 10;
+                                const randomLng = 78.9629 + (Math.random() - 0.5) * 10;
+                                return (
+                                    <Marker key={idx} position={[randomLat, randomLng]}>
+                                        <Popup>
+                                            <div className="font-bold text-black">{trip.vehicle?.vehicleNumber}</div>
+                                            <div className="text-sm text-gray-600">{trip.source} → {trip.destination}</div>
+                                            <div className="text-xs text-orange-600 font-bold mt-1 uppercase">{trip.status}</div>
+                                        </Popup>
+                                    </Marker>
+                                );
+                            })}
+                        </MapContainer>
                     </div>
 
-                    {/* Recent Trips Table */}
                     <div className="stripe-card p-0 overflow-hidden">
                         <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center">
                             <h2 className="text-white font-semibold flex items-center">
@@ -194,9 +223,7 @@ const DashboardOverview = () => {
                     </div>
                 </div>
 
-                {/* Right Column */}
                 <div className="space-y-6">
-                    {/* Vehicle-wise Profit */}
                     <div className="stripe-card p-5">
                         <h2 className="text-white font-semibold mb-4 text-sm flex items-center">
                             Vehicle-wise Profit <span className="ml-2 text-xs text-gray-500 font-normal">(This Month)</span>
@@ -219,7 +246,6 @@ const DashboardOverview = () => {
                         </div>
                     </div>
 
-                    {/* Document Alerts */}
                     <div className="stripe-card p-0 overflow-hidden">
                         <div className="p-4 border-b border-[#2A2A2A] flex items-center justify-between bg-[#151515]">
                             <h2 className="text-white font-semibold text-sm flex items-center">
@@ -250,7 +276,6 @@ const DashboardOverview = () => {
                         </div>
                     </div>
 
-                    {/* Low Stock Alerts */}
                     <div className="stripe-card p-5">
                         <h2 className="text-white font-semibold mb-4 text-sm flex items-center">
                             <Package className="w-4 h-4 mr-2 text-orange-500" />
@@ -276,9 +301,7 @@ const DashboardOverview = () => {
                             </div>
                         )}
                     </div>
-
                 </div>
-
             </div>
         </div>
     );
