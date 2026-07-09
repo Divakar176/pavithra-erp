@@ -446,7 +446,7 @@ const Trips = () => {
     });
 
     return (
-        <div className="p-8 max-w-7xl mx-auto space-y-6 relative">
+        <div className="p-8 w-full mx-auto space-y-6 relative">
             
             {/* Header & Controls */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

@@ -196,7 +196,7 @@ const Billing = () => {
     }
 
     return (
-        <div className="p-8 animate-fade-in max-w-7xl mx-auto h-full flex flex-col">
+        <div className="p-8 animate-fade-in w-full mx-auto h-full flex flex-col">
             <div className="flex justify-between items-center mb-8 shrink-0">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-200 tracking-tight">Billing & Invoices</h1>

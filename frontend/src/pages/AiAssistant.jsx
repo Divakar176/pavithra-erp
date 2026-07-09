@@ -24,7 +24,7 @@ const AiAssistant = () => {
     };
 
     return (
-        <div className="p-8 animate-fade-in max-w-7xl mx-auto">
+        <div className="p-8 animate-fade-in w-full mx-auto">
             <div className="mb-8 flex items-center">
                 <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-center mr-5 shadow-sm">
                     <Sparkles className="w-6 h-6 text-indigo-600" />

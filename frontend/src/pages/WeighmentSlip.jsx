@@ -38,7 +38,7 @@ const WeighmentSlip = () => {
     }, []);
 
     return (
-        <div className="p-8 animate-fade-in max-w-7xl mx-auto h-full flex flex-col print:p-0 print:bg-white print:block">
+        <div className="p-8 animate-fade-in w-full mx-auto h-full flex flex-col print:p-0 print:bg-white print:block">
             <div className="flex justify-between items-center mb-8 shrink-0 print:hidden">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-200 tracking-tight">Documents & Slips</h1>

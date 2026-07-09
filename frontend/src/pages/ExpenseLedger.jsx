@@ -108,7 +108,7 @@ const ExpenseLedger = () => {
     };
 
     return (
-        <div className="p-8 animate-fade-in max-w-7xl mx-auto">
+        <div className="p-8 animate-fade-in w-full mx-auto">
             <div className="flex justify-between items-center mb-8">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Expense Ledger</h1>

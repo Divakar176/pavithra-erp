@@ -186,7 +186,7 @@ const Vehicles = () => {
     const onTripCount = vehicles.filter(v => v.status === 'In-Trip').length;
 
     return (
-        <div className="p-8 max-w-7xl mx-auto space-y-6 relative">
+        <div className="p-8 w-full mx-auto space-y-6 relative">
 
             <div className="flex justify-between items-center">
                 <div>
