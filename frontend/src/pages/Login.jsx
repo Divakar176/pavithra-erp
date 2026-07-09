@@ -40,9 +40,8 @@ const Login = () => {
                 <img 
                     src="/bg.png" 
                     alt="Pavithra ERP Background" 
-                    className="w-full h-full object-cover opacity-30"
+                    className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gray-950/70"></div>
             </div>
 
             {/* Right Column - Login Form */}
