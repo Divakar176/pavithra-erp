@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import api from '../api/axios';
 import { useNavigate, Outlet, Link, useLocation } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Truck, Users, Activity, Navigation, IndianRupee, Sparkles, Bell, Search, BookOpen, FileText, PieChart, Wrench, Receipt, Package, Settings as SettingsIcon, Archive as ArchiveIcon } from 'lucide-react';
+import { LogOut, LayoutDashboard, Truck, Users, Activity, Navigation, IndianRupee, Sparkles, Bell, Search, BookOpen, FileText, PieChart, Wrench, Receipt, Package, Settings as SettingsIcon, Archive as ArchiveIcon, Menu, X } from 'lucide-react';
 
 const DashboardLayout = () => {
     const { user, logout } = useContext(AuthContext);
@@ -11,6 +11,7 @@ const DashboardLayout = () => {
 
     const [notifications, setNotifications] = useState([]);
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         const fetchNotifications = async () => {
@@ -92,9 +93,18 @@ const DashboardLayout = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-[#1A1A1A] text-gray-200 flex font-sans selection:bg-orange-500/30 print:bg-white print:text-black">
+        <div className="min-h-screen bg-[#1A1A1A] text-gray-200 flex font-sans selection:bg-orange-500/30 print:bg-white print:text-black overflow-hidden relative">
+            
+            {/* Mobile Sidebar Overlay */}
+            {isSidebarOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-sm"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className="w-64 bg-[#1E1E1E] border-r border-[#2A2A2A] flex flex-col relative z-20 shadow-2xl print:hidden">
+            <aside className={`w-64 bg-[#1E1E1E] border-r border-[#2A2A2A] flex flex-col fixed inset-y-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 print:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="h-[72px] flex items-center px-6 border-b border-[#2A2A2A]">
                     <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-lg shadow-orange-500/20 mr-3 shrink-0 overflow-hidden">
                         <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
@@ -119,6 +129,7 @@ const DashboardLayout = () => {
                                         <Link 
                                             key={item.label}
                                             to={item.path} 
+                                            onClick={() => setIsSidebarOpen(false)}
                                             className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'}`}
                                         >
                                             <div className="flex items-center">
@@ -157,14 +168,22 @@ const DashboardLayout = () => {
             </aside>
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#121212] print:h-auto print:overflow-visible print:bg-white">
-                {/* Topbar for internal pages (Dashboard Overview might have its own header) */}
-                <header className="h-[72px] border-b border-[#2A2A2A] flex items-center justify-between px-8 shrink-0 sticky top-0 z-10 bg-[#121212] print:hidden">
-                    <div className="flex items-center text-xl font-bold text-gray-200 capitalize tracking-tight">
-                        {location.pathname.split('/').pop() === 'dashboard' ? 'Dashboard' : location.pathname.split('/').pop()}
+            <div className="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#121212] lg:w-[calc(100%-16rem)] print:h-auto print:overflow-visible print:bg-white">
+                {/* Topbar for internal pages */}
+                <header className="h-[72px] border-b border-[#2A2A2A] flex items-center justify-between px-4 lg:px-8 shrink-0 sticky top-0 z-10 bg-[#121212] print:hidden">
+                    <div className="flex items-center">
+                        <button 
+                            className="lg:hidden p-2 mr-3 text-gray-400 hover:text-white"
+                            onClick={() => setIsSidebarOpen(true)}
+                        >
+                            <Menu className="w-6 h-6" />
+                        </button>
+                        <div className="flex items-center text-xl font-bold text-gray-200 capitalize tracking-tight truncate max-w-[150px] lg:max-w-none">
+                            {location.pathname.split('/').pop() === 'dashboard' ? 'Dashboard' : location.pathname.split('/').pop()}
+                        </div>
                     </div>
                     
-                    <div className="flex items-center gap-4 relative">
+                    <div className="flex items-center gap-2 lg:gap-4 relative">
                         <button 
                             onClick={() => setIsNotificationOpen(!isNotificationOpen)}
                             className="relative p-2.5 text-gray-400 border border-[#2A2A2A] rounded-xl hover:text-gray-200 hover:bg-white/5 transition-all"
@@ -212,7 +231,7 @@ const DashboardLayout = () => {
                             </div>
                         )}
 
-                        <button className="flex items-center px-4 py-2 bg-transparent border border-[#2A2A2A] text-gray-300 rounded-xl text-sm font-semibold hover:bg-white/5 transition-all">
+                        <button className="hidden lg:flex items-center px-4 py-2 bg-transparent border border-[#2A2A2A] text-gray-300 rounded-xl text-sm font-semibold hover:bg-white/5 transition-all">
                             <span className="mr-2">+</span> Add Trip
                         </button>
                     </div>
