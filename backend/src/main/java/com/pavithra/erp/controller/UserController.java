@@ -33,7 +33,7 @@ public class UserController {
         // Return only drivers (or everyone if role is not fully strict yet, but we have
         // Role.DRIVER)
         List<User> drivers = repository.findAll().stream()
-                .filter(u -> "DRIVER".equals(u.getRole().name()) || "SUPER_ADMIN".equals(u.getRole().name()))
+                .filter(u -> "DRIVER".equals(u.getRole().name()) || "SUPER_ADMIN".equals(u.getRole().name()) || "ADMIN".equals(u.getRole().name()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(drivers);
     }
