@@ -40,7 +40,7 @@ public class UserController {
                 .mobile(mobile != null && mobile.isBlank() ? null : mobile)
                 .password(passwordEncoder.encode("Driver123@"))
                 .securityPin("1234")
-                .role(com.pavithra.erp.model.entity.Role.DRIVER)
+                .role(com.pavithra.erp.model.enums.Role.DRIVER)
                 .build();
         repository.save(user);
         return ResponseEntity.ok(user);
