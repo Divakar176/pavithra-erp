@@ -170,19 +170,18 @@ public class FinancialService {
         LocalDate startOfMonth = YearMonth.now().atDay(1);
         LocalDate endOfMonth = YearMonth.now().atEndOfMonth();
 
+        List<com.pavithra.erp.model.entity.Trip> allTrips = tripRepository.findAll();
+        List<com.pavithra.erp.model.entity.Expense> allExpenses = expenseRepository.findAll();
+
         for (com.pavithra.erp.model.entity.Vehicle v : vehicles) {
-            // Get all trips for vehicle in this month to calculate income
-            List<com.pavithra.erp.model.entity.Trip> trips = tripRepository.findByVehicleId(v.getId());
             double totalIncome = 0;
-            for (com.pavithra.erp.model.entity.Trip t : trips) {
-                if (t.getEndDate() != null && !t.getEndDate().isBefore(startOfMonth) && !t.getEndDate().isAfter(endOfMonth)) {
+            for (com.pavithra.erp.model.entity.Trip t : allTrips) {
+                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId()) 
+                    && t.getEndDate() != null && !t.getEndDate().isBefore(startOfMonth) && !t.getEndDate().isAfter(endOfMonth)) {
                     totalIncome += (t.getTripCharges() != null ? t.getTripCharges() : 0);
                 }
             }
 
-            // Get all expenses for vehicle in this month
-            // We don't have a direct method for vehicle + date, so we'll do it manually
-            List<com.pavithra.erp.model.entity.Expense> allExpenses = expenseRepository.findAll();
             double totalExpense = 0;
             for (com.pavithra.erp.model.entity.Expense e : allExpenses) {
                 if (e.getVehicle() != null && e.getVehicle().getId().equals(v.getId()) 
@@ -198,7 +197,6 @@ public class FinancialService {
             map.put("profit", totalIncome - totalExpense);
             result.add(map);
         }
-        // Sort descending by profit
         result.sort((a, b) -> Double.compare((Double)b.get("profit"), (Double)a.get("profit")));
         return result;
     }
@@ -235,16 +233,19 @@ public class FinancialService {
 
         List<Map<String, Object>> reportList = new java.util.ArrayList<>();
 
+        List<com.pavithra.erp.model.entity.Trip> allTrips = tripRepository.findAll();
+        List<com.pavithra.erp.model.entity.Expense> allExpenses = expenseRepository.findAll();
+
         for (com.pavithra.erp.model.entity.Vehicle v : targetVehicles) {
-            List<com.pavithra.erp.model.entity.Trip> trips = tripRepository.findByVehicleId(v.getId());
             double tripRevenue = 0;
             double tripDiesel = 0;
             double tripSalary = 0;
             double tripFood = 0;
             double tripMaterialPurchase = 0;
 
-            for (com.pavithra.erp.model.entity.Trip t : trips) {
-                if (t.getEndDate() != null && !t.getEndDate().isBefore(startDate) && !t.getEndDate().isAfter(endDate)) {
+            for (com.pavithra.erp.model.entity.Trip t : allTrips) {
+                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId()) && 
+                    t.getEndDate() != null && !t.getEndDate().isBefore(startDate) && !t.getEndDate().isAfter(endDate)) {
                     tripRevenue += (t.getTripCharges() != null ? t.getTripCharges() : 0);
                     tripDiesel += (t.getDieselCost() != null ? t.getDieselCost() : 0);
                     tripSalary += (t.getDriverSalary() != null ? t.getDriverSalary() : 0);
@@ -253,7 +254,6 @@ public class FinancialService {
                 }
             }
 
-            List<com.pavithra.erp.model.entity.Expense> allExpenses = expenseRepository.findAll();
             double externalDiesel = 0;
             double externalSalary = 0;
             double maintenance = 0;

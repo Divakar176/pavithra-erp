@@ -137,6 +137,19 @@ const Drivers = () => {
         setIsEditModalOpen(true);
     };
 
+    const handleDeleteDriver = async (driverID) => {
+        if (window.confirm("Are you sure you want to delete this driver? This cannot be undone.")) {
+            try {
+                await api.delete(`/users/drivers/${driverID}`);
+                fetchData(); // Refresh the list after deleting
+            } catch (error) {
+                console.error("Error deleting driver:", error);
+                const errorMsg = error.response?.data?.message || error.message || "Unknown error";
+                alert(`Failed to delete the driver: ${errorMsg}`);
+            }
+        }
+    };
+
     const handleSaveEdit = async (e) => {
         e.preventDefault();
         try {
@@ -246,6 +259,13 @@ const Drivers = () => {
                                             title="Edit Driver"
                                         >
                                             ✏️
+                                        </button>
+                                        <button 
+                                            onClick={() => handleDeleteDriver(driver.id)}
+                                            className="text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-500/10 transition-colors ml-1"
+                                            title="Delete Driver"
+                                        >
+                                            🗑️
                                         </button>
                                         <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                                             ACTIVE

@@ -76,6 +76,29 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
+    @org.springframework.web.bind.annotation.DeleteMapping("/drivers/{id}")
+    public ResponseEntity<?> deleteDriver(@PathVariable Long id) {
+        User target = repository.findById(id).orElse(null);
+        if (target == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        if (com.pavithra.erp.model.enums.Role.SUPER_ADMIN.equals(target.getRole()) || 
+            com.pavithra.erp.model.enums.Role.ADMIN.equals(target.getRole())) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Cannot delete an Admin or Owner account from the Drivers page."));
+        }
+
+        try {
+            repository.deleteById(id);
+            return ResponseEntity.ok(Map.of("message", "Driver deleted successfully"));
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Cannot delete driver because they have associated trips, attendance, or expenses."));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("message", "An error occurred while deleting the driver."));
+        }
+    }
+
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
         try {
