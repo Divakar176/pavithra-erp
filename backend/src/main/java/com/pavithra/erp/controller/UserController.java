@@ -26,6 +26,25 @@ public class UserController {
 
     private final UserRepository repository;
     private final AuthenticationService authenticationService;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
+    @PostMapping("/drivers")
+    public ResponseEntity<User> createDriver(@RequestBody Map<String, String> payload) {
+        String email = payload.get("email");
+        String mobile = payload.get("mobile");
+        
+        User user = User.builder()
+                .username(payload.get("username"))
+                .email(email != null && email.isBlank() ? null : email)
+                .mobile(mobile != null && mobile.isBlank() ? null : mobile)
+                .password(passwordEncoder.encode("Driver123@"))
+                .securityPin("1234")
+                .role(com.pavithra.erp.model.entity.Role.DRIVER)
+                .build();
+        repository.save(user);
+        return ResponseEntity.ok(user);
+    }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     @GetMapping("/drivers")

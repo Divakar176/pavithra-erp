@@ -20,6 +20,10 @@ const Drivers = () => {
     const [editingDriver, setEditingDriver] = useState(null);
     const [editForm, setEditForm] = useState({ username: '', mobile: '', email: '' });
 
+    // Add State
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [addForm, setAddForm] = useState({ username: '', mobile: '', email: '' });
+
     // Payment State
     const [selectedDriverForPayment, setSelectedDriverForPayment] = useState(null);
     const [paymentForm, setPaymentForm] = useState({
@@ -146,6 +150,20 @@ const Drivers = () => {
         }
     };
 
+    const handleAddDriver = async (e) => {
+        e.preventDefault();
+        try {
+            await api.post('/users/drivers', addForm);
+            setIsAddModalOpen(false);
+            setAddForm({ username: '', mobile: '', email: '' });
+            fetchData();
+        } catch (error) {
+            console.error("Error adding driver", error);
+            const errorMsg = error.response?.data?.message || error.message || "Unknown error";
+            alert(`Failed to add driver: ${errorMsg}`);
+        }
+    };
+
     const handleSaveAttendance = async () => {
         setIsSaving(true);
         const payload = Object.entries(attendanceDraft).map(([driverId, data]) => ({
@@ -182,6 +200,13 @@ const Drivers = () => {
                     <h1 className="text-2xl font-bold text-white tracking-tight">Driver Management</h1>
                     <p className="text-sm text-gray-500 font-medium mt-1">Manage staff directory, daily attendance, and salary settlements</p>
                 </div>
+                <button 
+                    onClick={() => setIsAddModalOpen(true)}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#D8621C] text-white rounded-xl font-semibold hover:bg-orange-700 transition-colors"
+                >
+                    <Plus size={18} />
+                    <span>Add Driver</span>
+                </button>
             </div>
 
             <div className="flex border-b border-[#2A2A2A] overflow-x-auto custom-scrollbar">
@@ -491,6 +516,55 @@ const Drivers = () => {
                             <div className="pt-4 flex justify-end gap-3">
                                 <button type="button" onClick={() => setIsEditModalOpen(false)} className="px-4 py-2 text-gray-400 hover:text-white font-medium">Cancel</button>
                                 <button type="submit" className="bg-[#D8621C] hover:bg-orange-700 text-white px-6 py-2 rounded-xl font-bold transition-colors shadow-lg">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Add Driver Modal */}
+            {isAddModalOpen && (
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
+                        <div className="flex justify-between items-center p-6 border-b border-[#333]">
+                            <h3 className="text-xl font-bold text-white">Add New Driver</h3>
+                            <button onClick={() => setIsAddModalOpen(false)} className="text-gray-400 hover:text-white">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <form onSubmit={handleAddDriver} className="p-6 space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-400 mb-1">Full Name</label>
+                                <input
+                                    type="text"
+                                    required
+                                    value={addForm.username}
+                                    onChange={(e) => setAddForm({...addForm, username: e.target.value})}
+                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-white focus:border-[#D8621C] outline-none"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-400 mb-1">Phone Number</label>
+                                <input
+                                    type="text"
+                                    required
+                                    value={addForm.mobile}
+                                    onChange={(e) => setAddForm({...addForm, mobile: e.target.value})}
+                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-white focus:border-[#D8621C] outline-none"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-400 mb-1">Email Address (Optional)</label>
+                                <input
+                                    type="email"
+                                    value={addForm.email}
+                                    onChange={(e) => setAddForm({...addForm, email: e.target.value})}
+                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-white focus:border-[#D8621C] outline-none"
+                                />
+                            </div>
+                            <div className="pt-4 flex justify-end gap-3">
+                                <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-4 py-2 text-gray-400 hover:text-white font-medium">Cancel</button>
+                                <button type="submit" className="bg-[#D8621C] hover:bg-orange-700 text-white px-6 py-2 rounded-xl font-bold transition-colors shadow-lg">Add Driver</button>
                             </div>
                         </form>
                     </div>
