@@ -41,10 +41,10 @@ public class User implements UserDetails {
     @Column(nullable = true)
     private String securityPin;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String email;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String mobile;
 
     @CreationTimestamp

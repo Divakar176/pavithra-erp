@@ -141,7 +141,8 @@ const Drivers = () => {
             fetchData();
         } catch (error) {
             console.error("Error updating driver", error);
-            alert("Failed to update driver details.");
+            const errorMsg = error.response?.data?.message || error.message || "Unknown error";
+            alert(`Failed to update driver details: ${errorMsg}`);
         }
     };
 

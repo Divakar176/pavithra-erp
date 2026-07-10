@@ -43,10 +43,12 @@ public class UserController {
     public ResponseEntity<User> updateDriver(@PathVariable Long id, @RequestBody Map<String, String> payload) {
         User user = repository.findById(id).orElseThrow(() -> new RuntimeException("Driver not found"));
         if (payload.containsKey("mobile")) {
-            user.setMobile(payload.get("mobile"));
+            String mobile = payload.get("mobile");
+            user.setMobile(mobile != null && mobile.isBlank() ? null : mobile);
         }
         if (payload.containsKey("email")) {
-            user.setEmail(payload.get("email"));
+            String email = payload.get("email");
+            user.setEmail(email != null && email.isBlank() ? null : email);
         }
         if (payload.containsKey("username")) {
             user.setUsername(payload.get("username"));
