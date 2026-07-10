@@ -170,6 +170,12 @@ const Trips = () => {
     const handleAddSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        if (!newTrip.vehicleId) {
+            alert("Please select a vehicle!");
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
             const existingCustomer = customers.find(c => c.name && c.name.toLowerCase() === (isBikeOrCar ? 'Internal' : newTrip.customerName).toLowerCase());
             const customerPayload = existingCustomer ? { id: existingCustomer.id } : { name: isBikeOrCar ? 'Internal' : newTrip.customerName };
@@ -185,7 +191,7 @@ const Trips = () => {
                 destination: isMachinery || isBikeOrCar ? "-" : newTrip.destination,
                 material: isBikeOrCar ? newTrip.material : (isTipper ? newTrip.material : "-"),
                 loadWeight: isMachinery || isBikeOrCar ? 0 : parseFloat(newTrip.loadWeight),
-                tripCharges: isBikeOrCar ? 0 : (isMonthly ? null : (isMachinery ? ((parseFloat(calculatedTotalHours) || 0) * (parseFloat(newTrip.hourlyRate) || 0)) : parseFloat(newTrip.tripCharges || 0))),
+                tripCharges: isBikeOrCar ? 0 : (isMonthly ? 0 : (isMachinery ? ((parseFloat(calculatedTotalHours) || 0) * (parseFloat(newTrip.hourlyRate) || 0)) : parseFloat(newTrip.tripCharges || 0))),
                 dieselCost: parseFloat(newTrip.dieselCost || 0),
                 status: newTrip.status,
                 startDate: newTrip.startDate,
