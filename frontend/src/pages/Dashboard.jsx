@@ -175,7 +175,7 @@ const DashboardLayout = () => {
                 </div>
             </aside>
 
-            <div className="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#121212] lg:w-[calc(100%-16rem)] print:h-auto print:overflow-visible print:bg-white">
+            <div className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden relative bg-[#121212] print:h-auto print:overflow-visible print:bg-white">
                 <header className="h-[72px] border-b border-[#2A2A2A] flex items-center justify-between px-4 lg:px-8 shrink-0 sticky top-0 z-10 bg-[#121212] print:hidden">
                     <div className="flex items-center">
                         <button 

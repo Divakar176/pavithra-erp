@@ -166,12 +166,14 @@ const Drivers = () => {
 
     const handleSaveAttendance = async () => {
         setIsSaving(true);
-        const payload = Object.entries(attendanceDraft).map(([driverId, data]) => ({
-            driverId: parseInt(driverId),
-            date: selectedDate,
-            status: data.status,
-            remarks: data.remarks
-        }));
+        const payload = Object.entries(attendanceDraft).map(([driverId, data]) => {
+            return {
+                driverId: parseInt(driverId),
+                date: selectedDate,
+                status: data.status,
+                remarks: data.remarks
+            };
+        });
 
         try {
             await api.post('/attendance/batch', payload);
