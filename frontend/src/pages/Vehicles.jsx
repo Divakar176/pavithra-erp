@@ -116,13 +116,24 @@ const Vehicles = () => {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            await api.post('/vehicles', newVehicle);
+            const payload = { ...newVehicle };
+            if (payload.maxLoadTons === '') payload.maxLoadTons = null;
+            if (payload.purchasePrice === '') payload.purchasePrice = null;
+            if (payload.insuranceExpiry === '') payload.insuranceExpiry = null;
+            if (payload.fcExpiry === '') payload.fcExpiry = null;
+            if (payload.taxExpiry === '') payload.taxExpiry = null;
+            if (payload.permitExpiry === '') payload.permitExpiry = null;
+            if (payload.pollutionExpiry === '') payload.pollutionExpiry = null;
+            if (payload.containerSize === '') payload.containerSize = null;
+
+            await api.post('/vehicles', payload);
             setIsAddModalOpen(false);
             resetNewVehicle();
             fetchData(); // Refresh list
         } catch (error) {
             console.error("Failed to add vehicle", error);
-            alert("Failed to add vehicle");
+            const msg = error.response?.data?.message || error.response?.data?.error || "Failed to add vehicle. The vehicle number might already exist.";
+            alert(msg);
         } finally {
             setIsSubmitting(false);
         }
@@ -137,13 +148,24 @@ const Vehicles = () => {
     const confirmEditVehicle = async () => {
         setIsSubmitting(true);
         try {
-            await api.put(`/vehicles/${editingVehicle.id}`, newVehicle);
+            const payload = { ...newVehicle };
+            if (payload.maxLoadTons === '') payload.maxLoadTons = null;
+            if (payload.purchasePrice === '') payload.purchasePrice = null;
+            if (payload.insuranceExpiry === '') payload.insuranceExpiry = null;
+            if (payload.fcExpiry === '') payload.fcExpiry = null;
+            if (payload.taxExpiry === '') payload.taxExpiry = null;
+            if (payload.permitExpiry === '') payload.permitExpiry = null;
+            if (payload.pollutionExpiry === '') payload.pollutionExpiry = null;
+            if (payload.containerSize === '') payload.containerSize = null;
+
+            await api.put(`/vehicles/${editingVehicle.id}`, payload);
             setIsEditVehicleModalOpen(false);
             resetNewVehicle();
             fetchData();
         } catch (error) {
             console.error("Failed to update vehicle", error);
-            alert("Failed to update vehicle");
+            const msg = error.response?.data?.message || error.response?.data?.error || "Failed to update vehicle";
+            alert(msg);
         } finally {
             setIsSubmitting(false);
         }
