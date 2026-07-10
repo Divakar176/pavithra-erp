@@ -25,6 +25,9 @@ public class VehicleService {
     private final AuditLogService auditLogService;
 
     public Vehicle addVehicle(Vehicle vehicle) {
+        if (repository.findByVehicleNumber(vehicle.getVehicleNumber()).isPresent()) {
+            throw new RuntimeException("Vehicle number already exists: " + vehicle.getVehicleNumber());
+        }
         if (vehicle.getIsDeleted() == null) {
             vehicle.setIsDeleted(false);
         }
@@ -41,6 +44,15 @@ public class VehicleService {
 
     public Vehicle updateVehicle(Long id, Vehicle vehicleDetails) {
         Vehicle vehicle = getVehicleById(id);
+        
+        // Check for duplicate vehicle number
+        repository.findByVehicleNumber(vehicleDetails.getVehicleNumber())
+                .ifPresent(existing -> {
+                    if (!existing.getId().equals(id)) {
+                        throw new RuntimeException("Vehicle number already exists: " + vehicleDetails.getVehicleNumber());
+                    }
+                });
+
         vehicle.setVehicleNumber(vehicleDetails.getVehicleNumber());
         vehicle.setType(vehicleDetails.getType());
         vehicle.setStatus(vehicleDetails.getStatus());
