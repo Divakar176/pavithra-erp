@@ -12,12 +12,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-    mail:
+  mail:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
     username: your_company_email@gmail.com
     password: your_google_app_password
-
     properties:
       mail:
         smtp:

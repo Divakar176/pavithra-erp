@@ -67,4 +67,14 @@ public class TripController {
         service.restoreTrip(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/active/locations")
+    public ResponseEntity<List<Trip>> getActiveTripLocations() {
+        return ResponseEntity.ok(service.getActiveTripLocations());
+    }
+
+    @PostMapping("/{id}/location")
+    public ResponseEntity<Trip> updateTripLocation(@PathVariable Long id, @RequestBody com.pavithra.erp.dto.LocationUpdateRequest req) {
+        return ResponseEntity.ok(service.updateTripLocation(id, req));
+    }
 }

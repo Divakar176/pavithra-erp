@@ -22,6 +22,8 @@ import ActivityLog from './pages/ActivityLog';
 import DriverPortalLayout from './pages/DriverPortalLayout';
 import DriverHome from './pages/DriverHome';
 import DriverTrips from './pages/DriverTrips';
+import DriverTracking from './pages/DriverTracking';
+import LandingPage from './pages/LandingPage';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useContext(AuthContext);
@@ -88,7 +90,9 @@ function App() {
             <Route path="trips" element={<DriverTrips />} />
           </Route>
 
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/track/:tripId" element={<DriverTracking />} />
+
+          <Route path="/" element={<LandingPage />} />
         </Routes>
       </Router>
     </AuthProvider>

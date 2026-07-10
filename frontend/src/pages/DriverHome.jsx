@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import api from '../api/axios';
 import { IndianRupee, MapPin, Truck, AlertCircle } from 'lucide-react';
+import InstallAppBanner from '../components/InstallAppBanner';
 
 const DriverHome = () => {
     const { user } = useContext(AuthContext);
@@ -40,6 +41,8 @@ const DriverHome = () => {
                 <h1 className="text-2xl font-bold">Hello, {user.username}! 👋</h1>
                 <p className="text-gray-400 text-sm mt-1">Drive safe. Here's your overview.</p>
             </div>
+
+            <InstallAppBanner />
 
             {/* Balance Card */}
             <div className="bg-gradient-to-br from-[#D8621C] to-orange-600 rounded-2xl p-5 shadow-lg relative overflow-hidden">

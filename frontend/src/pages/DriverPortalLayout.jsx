@@ -1,11 +1,25 @@
 import React, { useContext } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { Home, Route as RouteIcon, LogOut, Truck } from 'lucide-react';
+import { Home, Route as RouteIcon, LogOut, Truck, WifiOff } from 'lucide-react';
 
 const DriverPortalLayout = () => {
     const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isOffline, setIsOffline] = React.useState(!navigator.onLine);
+
+    React.useEffect(() => {
+        const handleOnline = () => setIsOffline(false);
+        const handleOffline = () => setIsOffline(true);
+
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+
+        return () => {
+            window.removeEventListener('online', handleOnline);
+            window.removeEventListener('offline', handleOffline);
+        };
+    }, []);
 
     const handleLogout = () => {
         logout();
@@ -32,6 +46,14 @@ const DriverPortalLayout = () => {
                     </button>
                 </div>
             </header>
+
+            {/* Offline Indicator */}
+            {isOffline && (
+                <div className="bg-red-500 text-white text-xs font-bold uppercase tracking-wider text-center py-1.5 flex items-center justify-center gap-2 shadow-inner z-10 relative">
+                    <WifiOff className="w-3 h-3" />
+                    You are offline. Showing cached data.
+                </div>
+            )}
 
             {/* Main Content Area */}
             <main className="flex-1 overflow-y-auto pb-20 custom-scrollbar relative">

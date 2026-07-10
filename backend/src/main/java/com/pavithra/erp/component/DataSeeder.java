@@ -273,19 +273,6 @@ public class DataSeeder implements CommandLineRunner {
 
                         log.info("Database seeding completed successfully.");
                 } else {
-                        // Ensure owners exist even if DB was already seeded
-                        if (userRepository.findByEmail("owner1@pavithraerp.com").isEmpty()) {
-                                userRepository.save(User.builder().username("owner1").email("owner1@pavithraerp.com")
-                                                .mobile("1111111111").password(passwordEncoder.encode("password"))
-                                                .securityPin("1111").role(Role.SUPER_ADMIN).build());
-                                userRepository.save(User.builder().username("owner2").email("owner2@pavithraerp.com")
-                                                .mobile("2222222222").password(passwordEncoder.encode("password"))
-                                                .securityPin("2222").role(Role.SUPER_ADMIN).build());
-                                userRepository.save(User.builder().username("owner3").email("owner3@pavithraerp.com")
-                                                .mobile("3333333333").password(passwordEncoder.encode("password"))
-                                                .securityPin("3333").role(Role.SUPER_ADMIN).build());
-                                log.info("Owners added to existing database.");
-                        }
                         // Ensure existing users have a PIN (specifically the original divakar user)
                         List<User> existingUsers = userRepository.findAll();
                         for (User u : existingUsers) {

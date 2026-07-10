@@ -57,6 +57,12 @@ public class TripService {
         if (trip.getStatus() == null || trip.getStatus().isBlank()) {
             trip.setStatus("PENDING");
         }
+        if (trip.getIsDeleted() == null) {
+            trip.setIsDeleted(false);
+        }
+        if (trip.getPaymentStatus() == null) {
+            trip.setPaymentStatus("UNPAID");
+        }
         return repository.save(trip);
     }
 
@@ -176,6 +182,21 @@ public class TripService {
         Trip trip = repository.findById(id).orElseThrow(() -> new RuntimeException("Trip not found"));
         trip.setIsDeleted(false);
         repository.save(trip);
+    }
+
+    public Trip updateTripLocation(Long tripId, com.pavithra.erp.dto.LocationUpdateRequest req) {
+        Trip trip = repository.findById(tripId)
+            .orElseThrow(() -> new RuntimeException("Trip not found"));
+        trip.setCurrentLatitude(req.getLatitude());
+        trip.setCurrentLongitude(req.getLongitude());
+        trip.setLastLocationUpdate(java.time.LocalDateTime.now());
+        return repository.save(trip);
+    }
+
+    public List<Trip> getActiveTripLocations() {
+        return repository.findAll().stream()
+            .filter(t -> "IN_PROGRESS".equals(t.getStatus()) && (t.getIsDeleted() == null || !t.getIsDeleted()) && t.getCurrentLatitude() != null)
+            .collect(java.util.stream.Collectors.toList());
     }
 
     /**

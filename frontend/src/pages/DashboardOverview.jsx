@@ -1,49 +1,33 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
 import { Truck, Activity, TrendingUp, AlertCircle, ArrowUpRight, ArrowDownRight, MapPin, Sparkles, Navigation, Package } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-
-// Fix for default Leaflet markers in React
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-    iconUrl: markerIcon,
-    iconRetinaUrl: markerIcon2x,
-    shadowUrl: markerShadow,
-});
+import LiveFleetMap from '../components/LiveFleetMap';
 
 const DashboardOverview = () => {
     const [kpis, setKpis] = useState(null);
     const [vehicles, setVehicles] = useState([]);
     const [vehicleProfit, setVehicleProfit] = useState([]);
     const [recentTrips, setRecentTrips] = useState([]);
-    const [expiringDocs, setExpiringDocs] = useState([]);
     const [lowStockItems, setLowStockItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
-                const [kpisRes, vehiclesRes, profitRes, tripsRes, docsRes, stockRes] = await Promise.all([
+                // FIXED BUG 2: Removed the nonexistent /documents/expiring API call so it stops throwing 500 errors!
+                const [kpisRes, vehiclesRes, profitRes, tripsRes, stockRes] = await Promise.all([
                     api.get('/finances/kpis'),
                     api.get('/vehicles'),
                     api.get('/finances/vehicle-profit'),
                     api.get('/trips'),
-                    api.get('/vehicles/documents/expiring'),
                     api.get('/inventory/low-stock')
                 ]);
-                
+
                 setKpis(kpisRes.data);
                 setVehicles(vehiclesRes.data);
                 setVehicleProfit(profitRes.data);
-                setExpiringDocs(docsRes.data);
                 setLowStockItems(stockRes.data);
-                
+
                 const sortedTrips = tripsRes.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5);
                 setRecentTrips(sortedTrips);
             } catch (error) {
@@ -94,7 +78,7 @@ const DashboardOverview = () => {
 
     return (
         <div className="p-8 w-full mx-auto space-y-6">
-            
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="stripe-card p-5 border-t-4 border-t-[#D8621C]">
                     <div className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Today's Income</div>
@@ -133,10 +117,10 @@ const DashboardOverview = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
+
                 <div className="lg:col-span-2 space-y-6">
-                    
-                    {/* Live GPS Map (Replaced old chart) */}
+
+                    {/* FIXED BUG 1: Safe Map Embed (Replaced buggy Leaflet) */}
                     <div className="stripe-card p-0 h-[400px] flex flex-col overflow-hidden relative border border-[#2A2A2A] z-0">
                         <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-[#1C1C1C] to-transparent z-[1000] pointer-events-none flex justify-between items-start">
                             <h2 className="text-white font-bold drop-shadow-md flex items-center">
@@ -147,33 +131,10 @@ const DashboardOverview = () => {
                                 LIVE
                             </span>
                         </div>
-                        <MapContainer 
-                            center={[20.5937, 78.9629]} 
-                            zoom={5} 
-                            style={{ height: "100%", width: "100%", zIndex: 1 }}
-                            className="bg-[#121212]"
-                        >
-                            {/* Dark Mode Map Tiles */}
-                            <TileLayer
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-                            />
-                            
-                            {/* Scatter active trips as markers across India */}
-                            {recentTrips.map((trip, idx) => {
-                                const randomLat = 20.5937 + (Math.random() - 0.5) * 10;
-                                const randomLng = 78.9629 + (Math.random() - 0.5) * 10;
-                                return (
-                                    <Marker key={idx} position={[randomLat, randomLng]}>
-                                        <Popup>
-                                            <div className="font-bold text-black">{trip.vehicle?.vehicleNumber}</div>
-                                            <div className="text-sm text-gray-600">{trip.source} → {trip.destination}</div>
-                                            <div className="text-xs text-orange-600 font-bold mt-1 uppercase">{trip.status}</div>
-                                        </Popup>
-                                    </Marker>
-                                );
-                            })}
-                        </MapContainer>
+                        {/* Live Vehicle Tracking Map powered by Leaflet */}
+                        <div className="absolute inset-0 z-0">
+                            <LiveFleetMap />
+                        </div>
                     </div>
 
                     <div className="stripe-card p-0 overflow-hidden">
@@ -198,8 +159,12 @@ const DashboardOverview = () => {
                                         <tr key={trip.id} className="border-b border-[#2A2A2A] hover:bg-white/5 transition-colors">
                                             <td className="px-5 py-4">
                                                 <div className="text-white font-medium">{trip.vehicle?.vehicleNumber}</div>
-                                                <div className="text-xs text-gray-500">{trip.driver?.username}</div>
+                                                <div className="text-xs text-gray-400 font-medium">{trip.driver?.username}</div>
+                                                <div className="text-[10px] text-gray-500 mt-0.5 tracking-wide">
+                                                    📞 {trip.driver?.mobile || 'No Number'}
+                                                </div>
                                             </td>
+
                                             <td className="px-5 py-4">
                                                 <div className="flex items-center text-gray-300">
                                                     <span>{trip.source}</span>
@@ -209,9 +174,8 @@ const DashboardOverview = () => {
                                             </td>
                                             <td className="px-5 py-4 text-white font-medium">{formatCurrency(trip.tripCharges)}</td>
                                             <td className="px-5 py-4">
-                                                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                                                    trip.status === 'COMPLETED' ? 'bg-[#10B981]/10 text-[#10B981]' : 'bg-[#D8621C]/10 text-[#D8621C]'
-                                                }`}>
+                                                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${trip.status === 'COMPLETED' ? 'bg-[#10B981]/10 text-[#10B981]' : 'bg-[#D8621C]/10 text-[#D8621C]'
+                                                    }`}>
                                                     {trip.status}
                                                 </span>
                                             </td>
@@ -236,8 +200,8 @@ const DashboardOverview = () => {
                                         <span className="text-[#10B981] font-semibold">{formatCurrency(vp.profit)}</span>
                                     </div>
                                     <div className="w-full bg-[#2A2A2A] rounded-full h-1.5">
-                                        <div 
-                                            className="bg-[#D8621C] h-1.5 rounded-full" 
+                                        <div
+                                            className="bg-[#D8621C] h-1.5 rounded-full"
                                             style={{ width: `${Math.min(100, (Math.max(vp.profit, 0) / 50000) * 100)}%` }}
                                         ></div>
                                     </div>

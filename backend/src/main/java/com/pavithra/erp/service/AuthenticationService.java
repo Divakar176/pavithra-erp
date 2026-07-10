@@ -46,8 +46,8 @@ public class AuthenticationService {
         public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
                 var user = repository.findByUsername(request.getUsername())
-                                .orElseThrow(() -> new org.springframework.security.authentication.BadCredentialsException(
-                                                "User not found"));
+                                .orElseGet(() -> repository.findByEmail(request.getUsername())
+                                .orElseThrow(() -> new org.springframework.security.authentication.BadCredentialsException("User not found")));
 
                 boolean isPasswordCorrect = passwordEncoder.matches(request.getPassword(), user.getPassword());
 

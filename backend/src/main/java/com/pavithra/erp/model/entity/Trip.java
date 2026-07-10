@@ -84,6 +84,11 @@ public class Trip {
     
     private Double totalHours;
 
+    // Live Tracking Fields
+    private Double currentLatitude;
+    private Double currentLongitude;
+    private LocalDateTime lastLocationUpdate;
+
     @Builder.Default
     @Column(nullable = false)
     private Boolean isDeleted = false;
