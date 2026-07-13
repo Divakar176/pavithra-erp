@@ -84,7 +84,8 @@ const DashboardLayout = () => {
             title: 'ADMIN',
             items: [
                 { path: '/dashboard/ai', label: 'AI Assistant', icon: Sparkles, badge: '✨', roles: ['SUPER_ADMIN'] },
-                { path: '/dashboard/documents/slip', label: 'Documents', icon: FileText, roles: ['SUPER_ADMIN', 'ADMIN'] },
+                { path: '/dashboard/documents/slip', label: 'Weighment Slips', icon: FileText, roles: ['SUPER_ADMIN', 'ADMIN'] },
+                { path: '/dashboard/documents/receipt', label: 'Payment Receipts', icon: Receipt, roles: ['SUPER_ADMIN', 'ADMIN', 'ACCOUNTANT'] },
                 { path: '/dashboard/activity', label: 'Activity Log', icon: Activity, roles: ['SUPER_ADMIN'] },
                 { path: '/dashboard/archive', label: 'Archive', icon: ArchiveIcon, roles: ['SUPER_ADMIN'] },
                 { path: '/dashboard/settings', label: 'Settings', icon: SettingsIcon, roles: ['SUPER_ADMIN'] }

@@ -14,6 +14,7 @@ import AiAssistant from './pages/AiAssistant';
 import Maintenance from './pages/Maintenance';
 import Billing from './pages/Billing';
 import WeighmentSlip from './pages/WeighmentSlip';
+import PaymentReceipt from './pages/PaymentReceipt';
 import Inventory from './pages/Inventory';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
@@ -72,6 +73,7 @@ function App() {
             <Route path="ledger" element={<ExpenseLedger />} />
             <Route path="maintenance" element={<Maintenance />} />
             <Route path="documents/slip" element={<WeighmentSlip />} />
+            <Route path="documents/receipt" element={<PaymentReceipt />} />
             <Route path="ai" element={<AiAssistant />} />
             <Route path="settings" element={<Settings />} />
             <Route path="archive" element={<Archive />} />
