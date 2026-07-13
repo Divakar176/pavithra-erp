@@ -5,7 +5,7 @@ import { jsPDF } from 'jspdf';
 
 const PaymentReceipt = () => {
     const [formData, setFormData] = useState({
-        companyName: 'SHARA BRICKS & MINERALS PRIVATE LIMITED',
+        companyName: 'PAVITHRA ENTERPRISES',
         receiptNo: `PR-${new Date().getFullYear()}${Math.floor(Math.random() * 100000)}`,
         date: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }),
         time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
