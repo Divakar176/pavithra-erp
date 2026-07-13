@@ -103,7 +103,7 @@ const LandingPage = () => {
                                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
                                     {/* Lorry Image from Unsplash */}
                                     <img 
-                                        src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2070&auto=format&fit=crop" 
+                                        src="/vehicles/lorry.png?v=2" 
                                         alt="Modern Lorry Fleet" 
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                                     />
