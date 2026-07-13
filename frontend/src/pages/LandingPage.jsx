@@ -73,7 +73,7 @@ const LandingPage = () => {
                             <h2 className="text-5xl md:text-7xl font-black tracking-tight mb-6 leading-[1.1]">
                                 Master Your <br/>
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 animate-gradient-x">
-                                    Heavy Fleet
+                                    Transport Fleet
                                 </span>
                             </h2>
                             <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
@@ -103,7 +103,7 @@ const LandingPage = () => {
                                 <div className="relative rounded-2xl overflow-hidden group border border-white/5 shadow-2xl">
                                     {/* Custom Fleet Banner */}
                                     <img 
-                                        src="/fleet_banner.jpg?v=1" 
+                                        src="/fleet_banner_v2.jpg" 
                                         alt="Pavithra Enterprises Fleet" 
                                         className="w-full h-auto object-contain group-hover:scale-[1.02] transition-transform duration-1000"
                                     />
@@ -112,6 +112,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             </main>
 
             {/* --- FEATURES GRID --- */}
