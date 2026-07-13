@@ -36,7 +36,15 @@ const WeighmentSlip = () => {
         if (!slipElement) return;
 
         try {
-            const canvas = await html2canvas(slipElement, { scale: 2 });
+            // Temporarily reset scroll to fix html2canvas cropping bug
+            window.scrollTo(0, 0);
+            
+            const canvas = await html2canvas(slipElement, { 
+                scale: 2,
+                useCORS: true,
+                scrollY: 0,
+                scrollX: 0
+            });
             const imgData = canvas.toDataURL('image/jpeg', 1.0);
 
             const pdf = new jsPDF({
@@ -191,7 +199,7 @@ return (
                         <h3 className="text-[14px] font-medium mt-4 tracking-wider">WEIGHMENT SLIP</h3>
                     </div>
 
-                    <div className="text-center mb-4 overflow-hidden">
+                    <div className="text-center mb-4">
                         {/* Barcode Mock */}
                         <div className="flex justify-center w-full">
                             <p className="text-5xl my-2 tracking-widest" style={{ fontFamily: "'Libre Barcode 39 Text', cursive", transform: "scaleX(1.2)" }}>{formData.tokenNo}</p>
