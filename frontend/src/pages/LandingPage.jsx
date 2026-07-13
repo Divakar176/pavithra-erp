@@ -100,45 +100,14 @@ const LandingPage = () => {
                             
                             {/* Main Glass Panel */}
                             <div className="relative z-10 bg-white/[0.02] border border-white/10 backdrop-blur-2xl rounded-3xl p-2 shadow-2xl transform perspective-1000 rotate-y-[-5deg] rotate-x-[5deg] hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700">
-                                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-                                    {/* Lorry Image from Unsplash */}
+                                <div className="relative rounded-2xl overflow-hidden group border border-white/5 shadow-2xl">
+                                    {/* Custom Fleet Banner */}
                                     <img 
-                                        src="/vehicles/lorry.png?v=2" 
-                                        alt="Modern Lorry Fleet" 
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                                        src="/fleet_banner.jpg?v=1" 
+                                        alt="Pavithra Enterprises Fleet" 
+                                        className="w-full h-auto object-contain group-hover:scale-[1.02] transition-transform duration-1000"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-80"></div>
-                                    
-                                    {/* Glassmorphic Overlay Card - Floating */}
-                                    <div className="absolute bottom-6 left-6 right-6 bg-black/40 backdrop-blur-xl border border-white/10 p-5 rounded-2xl animate-float">
-                                        <div className="flex items-center justify-between">
-                                            <div>
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-                                                    <span className="text-xs font-medium text-emerald-400 uppercase tracking-wider">Live Tracking</span>
-                                                </div>
-                                                <h4 className="text-lg font-bold text-white">Volvo FH16 - Route Active</h4>
-                                            </div>
-                                            <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
-                                                <Activity className="w-6 h-6 text-blue-400" />
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                            
-                            {/* Floating JCB Card */}
-                            <div className="absolute -bottom-10 -left-10 z-20 bg-[#0a0f1c]/80 backdrop-blur-xl border border-white/10 p-3 rounded-2xl shadow-2xl animate-float-delayed hidden md:block">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop" 
-                                    alt="JCB Excavator" 
-                                    className="w-48 h-32 object-cover rounded-xl border border-white/5 mb-3"
-                                />
-                                <div className="px-2 pb-1">
-                                    <h5 className="text-sm font-bold">JCB 3DX Super</h5>
-                                    <p className="text-xs text-gray-400">Site B - Active</p>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
