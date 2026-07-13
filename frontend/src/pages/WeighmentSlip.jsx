@@ -39,15 +39,15 @@ const WeighmentSlip = () => {
 
     return (
         <div className="p-8 animate-fade-in w-full mx-auto h-full flex flex-col print:p-0 print:bg-white print:block">
-            <div className="flex justify-between items-center mb-8 shrink-0 print:hidden">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6 print:hidden">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-200 tracking-tight">Documents & Slips</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Documents & Slips</h1>
                     <p className="text-sm text-gray-500 font-medium mt-1">Generate and print professional Weighment Slips instantly</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="w-full md:w-auto">
                     <button 
-                        onClick={handlePrint}
-                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm flex items-center"
+                        onClick={() => window.print()} 
+                        className="w-full md:w-auto justify-center bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 md:py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm flex items-center"
                     >
                         <Printer className="w-4 h-4 mr-2" /> Print Slip
                     </button>
@@ -132,8 +132,8 @@ const WeighmentSlip = () => {
                 </div>
 
                 {/* Right Panel: Live Receipt Preview (Visible on Print) */}
-                <div className="flex justify-center items-start print:w-full print:justify-start">
-                    <div className="bg-white text-black w-[350px] p-6 shadow-2xl print:shadow-none print:w-full print:max-w-[80mm] print:p-0 print:m-0 font-sans">
+                <div className="flex justify-center items-start print:w-full print:justify-start w-full overflow-x-auto pb-4">
+                    <div className="bg-white text-black w-full min-w-[300px] max-w-[350px] p-4 sm:p-6 shadow-2xl print:shadow-none print:w-full print:max-w-[80mm] print:p-0 print:m-0 font-sans mx-auto">
                         
                         <div className="text-center mb-6">
                             <div className="border-t-2 border-black mb-3"></div>
