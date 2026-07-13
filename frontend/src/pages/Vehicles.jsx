@@ -208,19 +208,20 @@ const Vehicles = () => {
     const onTripCount = vehicles.filter(v => v.status === 'In-Trip').length;
 
     return (
-        <div className="p-8 w-full mx-auto space-y-6 relative">
+        <div className="p-4 md:p-8 w-full mx-auto space-y-6 relative">
 
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                 <div>
                     <h1 className="text-2xl font-bold text-white tracking-tight">Vehicles Fleet</h1>
                     <p className="text-sm text-gray-500 font-medium mt-1">Manage your trucks, earthmovers, and compliance documents</p>
                 </div>
-                <div className="flex flex-wrap gap-2 py-2">
+                
+                <div className="flex flex-wrap lg:flex-nowrap gap-2 py-2 w-full lg:w-auto overflow-x-auto custom-scrollbar pb-2">
                     {filterTypes.map(type => (
                         <button
                             key={type}
                             onClick={() => setFilter(type)}
-                            className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${filter === type
+                            className={`px-5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${filter === type
                                     ? 'bg-[#D8621C] text-white shadow-lg shadow-orange-500/20'
                                     : 'bg-[#1C1C1C] text-gray-400 border border-[#2A2A2A] hover:bg-[#2A2A2A] hover:text-white'
                                 }`}
@@ -229,9 +230,10 @@ const Vehicles = () => {
                         </button>
                     ))}
                 </div>
+
                 <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center px-4 py-2 bg-[#10B981] text-white rounded-xl text-sm font-medium hover:bg-[#059669] transition-colors shadow-lg shadow-green-500/20"
+                    className="flex items-center justify-center w-full lg:w-auto px-4 py-3 lg:py-2 bg-[#10B981] text-white rounded-xl text-sm font-medium hover:bg-[#059669] transition-colors shadow-lg shadow-green-500/20 shrink-0"
                 >
                     <Plus className="w-4 h-4 mr-2" />
                     Add Vehicle
