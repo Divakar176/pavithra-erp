@@ -226,7 +226,7 @@ const DashboardOverview = () => {
                             {alerts.length === 0 ? (
                                 <div className="text-gray-500 text-sm text-center py-4">No urgent alerts</div>
                             ) : (
-                                alerts.slice(0, 5).map((alert, idx) => (
+                                alerts.map((alert, idx) => (
                                     <div key={idx} className={`p-3 rounded-xl border border-white/5 flex items-start ${alert.bg}`}>
                                         <AlertCircle className={`w-4 h-4 mt-0.5 mr-3 shrink-0 ${alert.color}`} />
                                         <div>
