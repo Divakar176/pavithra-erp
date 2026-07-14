@@ -65,6 +65,7 @@ public class VehicleService {
         vehicle.setFcExpiry(vehicleDetails.getFcExpiry());
         vehicle.setTaxExpiry(vehicleDetails.getTaxExpiry());
         vehicle.setPermitExpiry(vehicleDetails.getPermitExpiry());
+        vehicle.setStatePermitExpiry(vehicleDetails.getStatePermitExpiry());
         vehicle.setPollutionExpiry(vehicleDetails.getPollutionExpiry());
         return repository.save(vehicle);
     }
