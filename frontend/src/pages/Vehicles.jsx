@@ -26,7 +26,7 @@ const Vehicles = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [newVehicle, setNewVehicle] = useState({
         vehicleNumber: '', type: 'Tipper Lorry', status: 'Active', billingType: 'PER_TRIP', containerSize: '', maxLoadTons: '', purchasePrice: '',
-        insuranceExpiry: '', fcExpiry: '', taxExpiry: '', permitExpiry: '', pollutionExpiry: ''
+        insuranceExpiry: '', fcExpiry: '', taxExpiry: '', permitExpiry: '', statePermitExpiry: '', pollutionExpiry: ''
     });
     const [newLoan, setNewLoan] = useState({
         bankName: '', loanAmount: '', emiAmount: '', emiDate: '', tenureMonths: '', startDate: new Date().toISOString().split('T')[0], status: 'Active'
@@ -108,7 +108,7 @@ const Vehicles = () => {
     const resetNewVehicle = () => {
         setNewVehicle({
             vehicleNumber: '', type: 'Tipper Lorry', status: 'Active', billingType: 'PER_TRIP', containerSize: '', maxLoadTons: '', purchasePrice: '',
-            insuranceExpiry: '', fcExpiry: '', taxExpiry: '', permitExpiry: '', pollutionExpiry: ''
+            insuranceExpiry: '', fcExpiry: '', taxExpiry: '', permitExpiry: '', statePermitExpiry: '', pollutionExpiry: ''
         });
     };
 
@@ -123,6 +123,7 @@ const Vehicles = () => {
             if (payload.fcExpiry === '') payload.fcExpiry = null;
             if (payload.taxExpiry === '') payload.taxExpiry = null;
             if (payload.permitExpiry === '') payload.permitExpiry = null;
+            if (payload.statePermitExpiry === '') payload.statePermitExpiry = null;
             if (payload.pollutionExpiry === '') payload.pollutionExpiry = null;
             if (payload.containerSize === '') payload.containerSize = null;
 
@@ -155,6 +156,7 @@ const Vehicles = () => {
             if (payload.fcExpiry === '') payload.fcExpiry = null;
             if (payload.taxExpiry === '') payload.taxExpiry = null;
             if (payload.permitExpiry === '') payload.permitExpiry = null;
+            if (payload.statePermitExpiry === '') payload.statePermitExpiry = null;
             if (payload.pollutionExpiry === '') payload.pollutionExpiry = null;
             if (payload.containerSize === '') payload.containerSize = null;
 
@@ -251,7 +253,7 @@ const Vehicles = () => {
                             <div
                                 className="absolute inset-0 z-0 opacity-100 transition-opacity duration-500 group-hover:scale-105 transform"
                                 style={{
-                                    backgroundImage: `url('/vehicles/${getBackgroundImage(vehicle.type)}')`,
+                                    backgroundImage: `url('/vehicles/${getBackgroundImage(vehicle.type)}?v=2')`,
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
                                 }}
@@ -331,7 +333,7 @@ const Vehicles = () => {
                                     <div className="pt-3 border-t border-[#2A2A2A] mt-3">
                                         <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Compliance Status</div>
                                         <div className="flex flex-wrap gap-1.5">
-                                            {['insuranceExpiry', 'fcExpiry', 'taxExpiry', 'permitExpiry', 'pollutionExpiry'].map(doc => {
+                                            {['insuranceExpiry', 'fcExpiry', 'taxExpiry', 'permitExpiry', 'statePermitExpiry', 'pollutionExpiry'].map(doc => {
                                                 if (!vehicle[doc]) return null;
                                                 const daysLeft = Math.ceil((new Date(vehicle[doc]) - new Date()) / (1000 * 60 * 60 * 24));
                                                 let badgeColor = 'bg-gray-500/10 text-gray-400 border-gray-500/20';
@@ -339,7 +341,7 @@ const Vehicles = () => {
                                                 else if (daysLeft <= 30) badgeColor = 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20';
                                                 else badgeColor = 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
 
-                                                const docName = doc.replace('Expiry', '').toUpperCase();
+                                                const docName = doc.replace('Expiry', '').replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
                                                 return (
                                                     <span key={doc} className={`px-2 py-0.5 rounded text-[10px] font-bold border ${badgeColor}`}>
                                                         {docName} {daysLeft < 0 ? 'EXP' : `${daysLeft}d`}
@@ -517,6 +519,10 @@ const Vehicles = () => {
                                 <div>
                                     <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">National Permit</label>
                                     <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.permitExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, permitExpiry: e.target.value })} />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">State Permit</label>
+                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.statePermitExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, statePermitExpiry: e.target.value })} />
                                 </div>
                                 <div className="col-span-2">
                                     <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Pollution</label>
@@ -748,6 +754,10 @@ const Vehicles = () => {
                                 <div>
                                     <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">National Permit</label>
                                     <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.permitExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, permitExpiry: e.target.value })} />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">State Permit</label>
+                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.statePermitExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, statePermitExpiry: e.target.value })} />
                                 </div>
                                 <div className="col-span-2">
                                     <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Pollution</label>

@@ -49,6 +49,8 @@ public class Vehicle {
     
     private LocalDate permitExpiry;
     
+    private LocalDate statePermitExpiry;
+    
     private LocalDate pollutionExpiry;
 
     @Builder.Default

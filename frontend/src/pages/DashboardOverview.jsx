@@ -68,6 +68,7 @@ const DashboardOverview = () => {
         };
         checkExpiry(v.insuranceExpiry, 'Insurance');
         checkExpiry(v.permitExpiry, 'National Permit');
+        checkExpiry(v.statePermitExpiry, 'State Permit');
         checkExpiry(v.fcExpiry, 'Fitness Cert (FC)');
         checkExpiry(v.taxExpiry, 'Road Tax');
         checkExpiry(v.pollutionExpiry, 'Pollution Cert');
