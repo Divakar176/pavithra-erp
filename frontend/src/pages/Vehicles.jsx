@@ -499,9 +499,24 @@ const Vehicles = () => {
                                 />
                             </div>
 
+                            <div>
+                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Assign Driver (Optional)</label>
+                                <select
+                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                    value={newVehicle.assignedDriver?.id || ''}
+                                    onChange={(e) => setNewVehicle({ ...newVehicle, assignedDriver: e.target.value ? { id: e.target.value } : null })}
+                                >
+                                    <option value="">-- No Driver --</option>
+                                    {drivers.map(d => (
+                                        <option key={d.id} value={d.id}>{d.username}</option>
+                                    ))}
+                                </select>
+                            </div>
+
                             <div className="pt-4 pb-2 border-b border-[#2A2A2A]">
                                 <h3 className="text-white font-bold text-sm">Compliance Documents Expiry</h3>
                                 <p className="text-xs text-gray-500">Set expiry dates to receive dashboard alerts</p>
+
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>

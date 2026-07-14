@@ -51,7 +51,10 @@ const Trips = () => {
         breakHours: '1',
         driverSalary: '',
         foodAmount: '',
-        materialPurchaseCost: ''
+        materialPurchaseCost: '',
+        calculationType: 'TIME',
+        startMeter: '',
+        endMeter: ''
     });
 
     const fetchTrips = async () => {
@@ -129,7 +132,11 @@ const Trips = () => {
         return Math.max(0, totalHrs).toFixed(2);
     };
 
-    const calculatedTotalHours = isMachinery ? calculateHours(newTrip.startTime, newTrip.endTime, newTrip.breakHours) : null;
+    const calculatedTotalHours = isMachinery ? (
+        newTrip.calculationType === 'METER' ? 
+            Math.max(0, (parseFloat(newTrip.endMeter) || 0) - (parseFloat(newTrip.startMeter) || 0)).toFixed(2)
+        : calculateHours(newTrip.startTime, newTrip.endTime, newTrip.breakHours)
+    ) : null;
 
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
@@ -195,9 +202,11 @@ const Trips = () => {
                 dieselCost: parseFloat(newTrip.dieselCost || 0),
                 status: newTrip.status,
                 startDate: newTrip.startDate,
-                startTime: isMachinery ? newTrip.startTime : null,
-                endTime: isMachinery ? newTrip.endTime : null,
-                breakHours: isMachinery ? parseFloat(newTrip.breakHours) : null,
+                startTime: isMachinery && newTrip.calculationType !== 'METER' ? newTrip.startTime : null,
+                endTime: isMachinery && newTrip.calculationType !== 'METER' ? newTrip.endTime : null,
+                startMeter: isMachinery && newTrip.calculationType === 'METER' ? parseFloat(newTrip.startMeter) : null,
+                endMeter: isMachinery && newTrip.calculationType === 'METER' ? parseFloat(newTrip.endMeter) : null,
+                breakHours: isMachinery && newTrip.calculationType !== 'METER' ? parseFloat(newTrip.breakHours) : null,
                 totalHours: isMachinery ? parseFloat(calculatedTotalHours) : null,
                 driverSalary: isBikeOrCar ? 0 : parseFloat(newTrip.driverSalary || 0),
                 foodAmount: isBikeOrCar ? 0 : parseFloat(newTrip.foodAmount || 0),
@@ -228,7 +237,10 @@ const Trips = () => {
                 breakHours: '1',
                 driverSalary: '',
                 foodAmount: '',
-                materialPurchaseCost: ''
+                materialPurchaseCost: '',
+                calculationType: 'TIME',
+                startMeter: '',
+                endMeter: ''
             });
         } catch (error) {
             console.error("Failed to add trip", error);
@@ -617,7 +629,9 @@ const Trips = () => {
                                                     <>
                                                         <span className="font-semibold text-black">{trip.source}</span>
                                                         <span className="text-xs text-orange-600 mt-1">
-                                                            {trip.startTime && trip.endTime ? `${trip.startTime} to ${trip.endTime} (${trip.totalHours} Hrs)` : `${trip.totalHours || 0} Hrs Total`}
+                                                            {trip.startTime && trip.endTime ? `${trip.startTime} to ${trip.endTime} (${trip.totalHours} Hrs)` : 
+                                                             trip.startMeter && trip.endMeter ? `Meter: ${trip.startMeter} to ${trip.endMeter} (${trip.totalHours} Hrs)` : 
+                                                             `${trip.totalHours || 0} Hrs Total`}
                                                         </span>
                                                     </>
                                                 ) : (
@@ -821,32 +835,73 @@ const Trips = () => {
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-4 gap-4">
-                                        <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Start Time</label>
-                                            <input 
-                                                type="time" required 
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
-                                                value={newTrip.startTime} onChange={(e) => setNewTrip({...newTrip, startTime: e.target.value})}
-                                            />
+                                        <div className="col-span-4 flex items-center gap-4 mb-2">
+                                            <span className="text-xs text-gray-400 uppercase tracking-wider">Calculate By:</span>
+                                            <label className="flex items-center gap-2 cursor-pointer">
+                                                <input type="radio" name="calcType" value="TIME" 
+                                                    checked={newTrip.calculationType === 'TIME' || !newTrip.calculationType} 
+                                                    onChange={() => setNewTrip({...newTrip, calculationType: 'TIME'})} 
+                                                    className="accent-[#D8621C]" />
+                                                <span className="text-sm text-white">Time (HH:MM)</span>
+                                            </label>
+                                            <label className="flex items-center gap-2 cursor-pointer">
+                                                <input type="radio" name="calcType" value="METER" 
+                                                    checked={newTrip.calculationType === 'METER'} 
+                                                    onChange={() => setNewTrip({...newTrip, calculationType: 'METER'})} 
+                                                    className="accent-[#D8621C]" />
+                                                <span className="text-sm text-white">Meter Reading</span>
+                                            </label>
                                         </div>
+                                        {(newTrip.calculationType === 'TIME' || !newTrip.calculationType) ? (
+                                            <>
+                                                <div>
+                                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Start Time</label>
+                                                    <input 
+                                                        type="time" required={newTrip.calculationType !== 'METER'} 
+                                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                        value={newTrip.startTime || ''} onChange={(e) => setNewTrip({...newTrip, startTime: e.target.value})}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">End Time</label>
+                                                    <input 
+                                                        type="time" required={newTrip.calculationType !== 'METER'} 
+                                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                        value={newTrip.endTime || ''} onChange={(e) => setNewTrip({...newTrip, endTime: e.target.value})}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2" title="Lunch / Break (Hrs)">Break (Hr)</label>
+                                                    <input 
+                                                        type="number" step="0.5" min="0"
+                                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-3 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                        value={newTrip.breakHours || ''} onChange={(e) => setNewTrip({...newTrip, breakHours: e.target.value})}
+                                                    />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div>
+                                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Start Meter</label>
+                                                    <input 
+                                                        type="number" step="0.1" min="0" required={newTrip.calculationType === 'METER'} 
+                                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                        value={newTrip.startMeter || ''} onChange={(e) => setNewTrip({...newTrip, startMeter: e.target.value})}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">End Meter</label>
+                                                    <input 
+                                                        type="number" step="0.1" min="0" required={newTrip.calculationType === 'METER'} 
+                                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                        value={newTrip.endMeter || ''} onChange={(e) => setNewTrip({...newTrip, endMeter: e.target.value})}
+                                                    />
+                                                </div>
+                                                <div></div>
+                                            </>
+                                        )}
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">End Time</label>
-                                            <input 
-                                                type="time" required 
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
-                                                value={newTrip.endTime} onChange={(e) => setNewTrip({...newTrip, endTime: e.target.value})}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2" title="Lunch / Break (Hrs)">Break (Hr)</label>
-                                            <input 
-                                                type="number" step="0.5" min="0" required
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-3 py-3 text-white focus:outline-none focus:border-[#D8621C]"
-                                                value={newTrip.breakHours} onChange={(e) => setNewTrip({...newTrip, breakHours: e.target.value})}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total</label>
+                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Hours</label>
                                             <div className="w-full h-[46px] bg-[#1C1C1C] border border-[#2A2A2A] rounded-xl px-2 py-3 text-orange-400 font-bold flex items-center justify-center">
                                                 {calculatedTotalHours} h
                                             </div>

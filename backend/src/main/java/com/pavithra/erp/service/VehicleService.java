@@ -1,5 +1,6 @@
 package com.pavithra.erp.service;
 
+import com.pavithra.erp.repository.UserRepository;
 import com.pavithra.erp.model.entity.Expense;
 import com.pavithra.erp.model.entity.Income;
 import com.pavithra.erp.model.entity.Trip;
@@ -7,6 +8,7 @@ import com.pavithra.erp.model.entity.Vehicle;
 import com.pavithra.erp.repository.ExpenseRepository;
 import com.pavithra.erp.repository.IncomeRepository;
 import com.pavithra.erp.repository.TripRepository;
+import com.pavithra.erp.repository.UserRepository;
 import com.pavithra.erp.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class VehicleService {
     private final ExpenseRepository expenseRepository;
     private final IncomeRepository incomeRepository;
     private final AuditLogService auditLogService;
+    private final UserRepository UserRespository;
 
     public Vehicle addVehicle(Vehicle vehicle) {
         if (repository.findByVehicleNumber(vehicle.getVehicleNumber()).isPresent()) {
@@ -44,12 +47,13 @@ public class VehicleService {
 
     public Vehicle updateVehicle(Long id, Vehicle vehicleDetails) {
         Vehicle vehicle = getVehicleById(id);
-        
+
         // Check for duplicate vehicle number
         repository.findByVehicleNumber(vehicleDetails.getVehicleNumber())
                 .ifPresent(existing -> {
                     if (!existing.getId().equals(id)) {
-                        throw new RuntimeException("Vehicle number already exists: " + vehicleDetails.getVehicleNumber());
+                        throw new RuntimeException(
+                                "Vehicle number already exists: " + vehicleDetails.getVehicleNumber());
                     }
                 });
 
@@ -67,6 +71,7 @@ public class VehicleService {
         vehicle.setPermitExpiry(vehicleDetails.getPermitExpiry());
         vehicle.setStatePermitExpiry(vehicleDetails.getStatePermitExpiry());
         vehicle.setPollutionExpiry(vehicleDetails.getPollutionExpiry());
+        vehicle.setAssignedDriver(vehicleDetails.getAssignedDriver());
         return repository.save(vehicle);
     }
 

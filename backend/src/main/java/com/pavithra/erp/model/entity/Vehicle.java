@@ -10,6 +10,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Data
 @Builder
@@ -42,15 +44,15 @@ public class Vehicle {
     private String rcDetails;
 
     private LocalDate insuranceExpiry;
-    
+
     private LocalDate fcExpiry;
-    
+
     private LocalDate taxExpiry;
-    
+
     private LocalDate permitExpiry;
-    
+
     private LocalDate statePermitExpiry;
-    
+
     private LocalDate pollutionExpiry;
 
     @Builder.Default
@@ -62,4 +64,9 @@ public class Vehicle {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "assigned_driver_id")
+    private User assignedDriver;
+
 }
