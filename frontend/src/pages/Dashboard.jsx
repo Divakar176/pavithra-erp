@@ -126,7 +126,7 @@ const DashboardLayout = () => {
 
                         return (
                             <div key={idx}>
-                                <div className="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2.5">
+                                <div className="px-3 text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2.5">
                                     {section.title}
                                 </div>
                                 <div className="space-y-1">
@@ -138,10 +138,10 @@ const DashboardLayout = () => {
                                                 key={item.label}
                                                 to={item.path} 
                                                 onClick={() => setIsSidebarOpen(false)}
-                                                className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'}`}
+                                                className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium group ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-white hover:text-[#D8621C] hover:bg-white/5'}`}
                                             >
                                                 <div className="flex items-center">
-                                                    <Icon className={`w-4 h-4 mr-3 transition-colors ${isActive ? 'text-[#D8621C]' : 'text-gray-500'}`} />
+                                                    <Icon className={`w-4 h-4 mr-3 transition-colors ${isActive ? 'text-[#D8621C]' : 'text-white group-hover:text-[#D8621C]'}`} />
                                                     <span className="text-sm">{item.label}</span>
                                                 </div>
                                                 {item.badge && (
