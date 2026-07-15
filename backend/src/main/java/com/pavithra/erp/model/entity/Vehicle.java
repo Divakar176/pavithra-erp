@@ -41,6 +41,8 @@ public class Vehicle {
 
     private Double purchasePrice; // Initial investment / cost of the vehicle
 
+    private Double monthlyContractAmount; // Expected revenue for MONTHLY billing type
+
     private String rcDetails;
 
     private LocalDate insuranceExpiry;

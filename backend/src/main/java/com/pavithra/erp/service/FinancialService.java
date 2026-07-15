@@ -11,6 +11,7 @@ import java.time.YearMonth;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.temporal.ChronoUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +42,15 @@ public class FinancialService {
         Double tripExpense = tripRepository.sumTripExpensesByDateBetween(startDate, endDate);
         Double maintenanceExpense = maintenanceLogRepository.sumTotalCostByDateBetween(startDate, endDate);
 
-        double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0);
+        List<com.pavithra.erp.model.entity.Vehicle> allVehicles = vehicleRepository.findAll();
+        double monthlyContractRevenue = 0;
+        for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
+            if (!Boolean.TRUE.equals(v.getIsDeleted()) && "MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null) {
+                monthlyContractRevenue += v.getMonthlyContractAmount();
+            }
+        }
+
+        double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0) + monthlyContractRevenue;
         double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0) + (tripExpense != null ? tripExpense : 0.0)
                 + (maintenanceExpense != null ? maintenanceExpense : 0.0);
 
@@ -193,6 +202,9 @@ public class FinancialService {
             }
 
             double totalExpense = 0;
+            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
+                totalIncome += v.getMonthlyContractAmount();
+            }
             for (com.pavithra.erp.model.entity.Expense e : allExpenses) {
                 if (e.getVehicle() != null && e.getVehicle().getId().equals(v.getId())
                         && !e.getDate().isBefore(startOfMonth) && !e.getDate().isAfter(endOfMonth)) {
@@ -269,6 +281,12 @@ public class FinancialService {
                         tripMaterialPurchase += (t.getMaterialPurchaseCost() != null ? t.getMaterialPurchaseCost() : 0);
                     }
                 }
+            }
+
+            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
+                long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+                double proratedAmount = (v.getMonthlyContractAmount() / 30.0) * days;
+                tripRevenue += proratedAmount;
             }
 
             double externalDiesel = 0;
@@ -362,7 +380,16 @@ public class FinancialService {
         Double tripExpenses = tripRepository.sumTripExpensesByDateBetween(startDate, endDate);
         Double maintenanceExpense = maintenanceLogRepository.sumTotalCostByDateBetween(startDate, endDate);
 
-        double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0);
+        List<com.pavithra.erp.model.entity.Vehicle> allVehicles = vehicleRepository.findAll();
+        double monthlyContractRevenue = 0;
+        for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
+            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
+                long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+                monthlyContractRevenue += (v.getMonthlyContractAmount() / 30.0) * days;
+            }
+        }
+
+        double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0) + monthlyContractRevenue;
         double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0)
                 + (tripExpenses != null ? tripExpenses : 0.0) + (maintenanceExpense != null ? maintenanceExpense : 0.0);
         if (dieselSpend == null)

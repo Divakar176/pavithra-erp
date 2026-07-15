@@ -25,7 +25,7 @@ const Vehicles = () => {
     const [editingVehicle, setEditingVehicle] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [newVehicle, setNewVehicle] = useState({
-        vehicleNumber: '', type: 'Tipper Lorry', status: 'Active', billingType: 'PER_TRIP', containerSize: '', maxLoadTons: '', purchasePrice: '',
+        vehicleNumber: '', type: 'Tipper Lorry', status: 'Active', billingType: 'PER_TRIP', containerSize: '', maxLoadTons: '', purchasePrice: '', monthlyContractAmount: '',
         insuranceExpiry: '', fcExpiry: '', taxExpiry: '', permitExpiry: '', statePermitExpiry: '', pollutionExpiry: ''
     });
     const [newLoan, setNewLoan] = useState({
@@ -108,7 +108,7 @@ const Vehicles = () => {
 
     const resetNewVehicle = () => {
         setNewVehicle({
-            vehicleNumber: '', type: 'Tipper Lorry', status: 'Active', billingType: 'PER_TRIP', containerSize: '', maxLoadTons: '', purchasePrice: '',
+            vehicleNumber: '', type: 'Tipper Lorry', status: 'Active', billingType: 'PER_TRIP', containerSize: '', maxLoadTons: '', purchasePrice: '', monthlyContractAmount: '',
             insuranceExpiry: '', fcExpiry: '', taxExpiry: '', permitExpiry: '', statePermitExpiry: '', pollutionExpiry: ''
         });
     };
@@ -120,6 +120,7 @@ const Vehicles = () => {
             const payload = { ...newVehicle };
             if (payload.maxLoadTons === '') payload.maxLoadTons = null;
             if (payload.purchasePrice === '') payload.purchasePrice = null;
+            if (payload.monthlyContractAmount === '') payload.monthlyContractAmount = null;
             if (payload.insuranceExpiry === '') payload.insuranceExpiry = null;
             if (payload.fcExpiry === '') payload.fcExpiry = null;
             if (payload.taxExpiry === '') payload.taxExpiry = null;
@@ -153,6 +154,7 @@ const Vehicles = () => {
             const payload = { ...newVehicle };
             if (payload.maxLoadTons === '') payload.maxLoadTons = null;
             if (payload.purchasePrice === '') payload.purchasePrice = null;
+            if (payload.monthlyContractAmount === '') payload.monthlyContractAmount = null;
             if (payload.insuranceExpiry === '') payload.insuranceExpiry = null;
             if (payload.fcExpiry === '') payload.fcExpiry = null;
             if (payload.taxExpiry === '') payload.taxExpiry = null;
@@ -500,6 +502,19 @@ const Vehicles = () => {
                                 />
                             </div>
 
+                            {newVehicle.billingType === 'MONTHLY' && (
+                                <div>
+                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Monthly Contract Amount (₹)</label>
+                                    <input
+                                        type="number"
+                                        placeholder="e.g. 88000"
+                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        value={newVehicle.monthlyContractAmount || ''}
+                                        onChange={(e) => setNewVehicle({ ...newVehicle, monthlyContractAmount: e.target.value })}
+                                    />
+                                </div>
+                            )}
+
                             <div>
                                 <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Assign Driver (Optional)</label>
                                 <select
@@ -750,6 +765,19 @@ const Vehicles = () => {
                                     onChange={(e) => setNewVehicle({ ...newVehicle, purchasePrice: e.target.value })}
                                 />
                             </div>
+
+                            {newVehicle.billingType === 'MONTHLY' && (
+                                <div>
+                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Monthly Contract Amount (₹)</label>
+                                    <input
+                                        type="number"
+                                        placeholder="e.g. 88000"
+                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        value={newVehicle.monthlyContractAmount || ''}
+                                        onChange={(e) => setNewVehicle({ ...newVehicle, monthlyContractAmount: e.target.value })}
+                                    />
+                                </div>
+                            )}
 
                             <div className="pt-4 pb-2 border-b border-[#2A2A2A]">
                                 <h3 className="text-white font-bold text-sm">Compliance Documents Expiry</h3>
