@@ -256,7 +256,7 @@ public class FinancialService {
             double tripMaterialPurchase = 0;
 
             for (com.pavithra.erp.model.entity.Trip t : allTrips) {
-                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId())) {
+                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId()) && !Boolean.TRUE.equals(t.getIsDeleted())) {
                     
                     // Use endDate if available, otherwise fallback to startDate
                     java.time.LocalDate tripDate = t.getEndDate() != null ? t.getEndDate() : t.getStartDate();
