@@ -75,6 +75,7 @@ const Vehicles = () => {
             case 'Tractor': return 'tractor.png';
             case 'Tipper Lorry': return 'tipper.png';
             case 'Container Lorry': return 'container.png';
+            case 'Open Type Lorry': return 'open_lorry.png';
             default: return 'lorry.png';
         }
     };
