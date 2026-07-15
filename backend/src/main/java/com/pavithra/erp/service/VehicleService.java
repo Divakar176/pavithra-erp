@@ -64,6 +64,7 @@ public class VehicleService {
         vehicle.setMaxLoadTons(vehicleDetails.getMaxLoadTons());
         vehicle.setContainerSize(vehicleDetails.getContainerSize());
         vehicle.setPurchasePrice(vehicleDetails.getPurchasePrice());
+        vehicle.setMonthlyContractAmount(vehicleDetails.getMonthlyContractAmount());
         vehicle.setRcDetails(vehicleDetails.getRcDetails());
         vehicle.setInsuranceExpiry(vehicleDetails.getInsuranceExpiry());
         vehicle.setFcExpiry(vehicleDetails.getFcExpiry());
