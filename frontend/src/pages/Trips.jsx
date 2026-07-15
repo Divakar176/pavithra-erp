@@ -989,14 +989,16 @@ const Trips = () => {
                                         <option value="COMPLETED">Completed</option>
                                     </select>
                                 </div>
-                                <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">{isBikeOrCar ? 'Fuel Cost (₹)' : 'Diesel Cost (₹)'}</label>
-                                    <input
-                                        type="number" placeholder="Actual cost e.g. 5000"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
-                                        value={newTrip.dieselCost} onChange={(e) => setNewTrip({ ...newTrip, dieselCost: e.target.value })}
-                                    />
-                                </div>
+                                {!isMonthly && (
+                                    <div>
+                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">{isBikeOrCar ? 'Fuel Cost (₹)' : 'Diesel Cost (₹)'}</label>
+                                        <input
+                                            type="number" placeholder="Actual cost e.g. 5000"
+                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            value={newTrip.dieselCost} onChange={(e) => setNewTrip({ ...newTrip, dieselCost: e.target.value })}
+                                        />
+                                    </div>
+                                )}
                             </div>
 
                             {!isBikeOrCar && (
@@ -1105,15 +1107,17 @@ const Trips = () => {
                                         onChange={(e) => setEditingTrip({ ...editingTrip, tripCharges: parseFloat(e.target.value) || 0 })}
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Diesel Cost</label>
-                                    <input
-                                        type="number"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
-                                        value={editingTrip.dieselCost || ''}
-                                        onChange={(e) => setEditingTrip({ ...editingTrip, dieselCost: parseFloat(e.target.value) || 0 })}
-                                    />
-                                </div>
+                                {editingTrip?.vehicle?.billingType !== 'MONTHLY' && (
+                                    <div>
+                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Diesel Cost</label>
+                                        <input
+                                            type="number"
+                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            value={editingTrip.dieselCost || ''}
+                                            onChange={(e) => setEditingTrip({ ...editingTrip, dieselCost: parseFloat(e.target.value) || 0 })}
+                                        />
+                                    </div>
+                                )}
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
