@@ -42,7 +42,8 @@ public class FinancialService {
         Double maintenanceExpense = maintenanceLogRepository.sumTotalCostByDateBetween(startDate, endDate);
 
         double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0);
-        double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0) + (tripExpense != null ? tripExpense : 0.0) + (maintenanceExpense != null ? maintenanceExpense : 0.0);
+        double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0) + (tripExpense != null ? tripExpense : 0.0)
+                + (maintenanceExpense != null ? maintenanceExpense : 0.0);
 
         double netProfit = totalIncome - totalExpense;
 
@@ -59,8 +60,8 @@ public class FinancialService {
      */
     public List<Map<String, Object>> getYearlyProfitTrend() {
         int year = java.time.Year.now().getValue();
-        String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                               "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String[] monthNames = { "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
         // Build month -> total maps
         List<Object[]> incomeRows = incomeRepository.monthlyIncomeTotals(year);
@@ -69,7 +70,10 @@ public class FinancialService {
 
         Map<Integer, Double> incomeMap = new HashMap<>();
         Map<Integer, Double> expenseMap = new HashMap<>();
-        for (int m = 1; m <= 12; m++) { incomeMap.put(m, 0.0); expenseMap.put(m, 0.0); }
+        for (int m = 1; m <= 12; m++) {
+            incomeMap.put(m, 0.0);
+            expenseMap.put(m, 0.0);
+        }
 
         for (Object[] row : incomeRows) {
             incomeMap.put(((Number) row[0]).intValue(), row[1] != null ? ((Number) row[1]).doubleValue() : 0.0);
@@ -108,13 +112,14 @@ public class FinancialService {
             Double total = row[1] != null ? ((Number) row[1]).doubleValue() : 0.0;
             result.put(type, total);
         }
-        
+
         // Add maintenance costs
-        Double totalMaintenance = maintenanceLogRepository.sumTotalCostByDateBetween(LocalDate.of(2000, 1, 1), LocalDate.now().plusYears(100));
+        Double totalMaintenance = maintenanceLogRepository.sumTotalCostByDateBetween(LocalDate.of(2000, 1, 1),
+                LocalDate.now().plusYears(100));
         if (totalMaintenance != null && totalMaintenance > 0) {
             result.put("Maintenance", totalMaintenance);
         }
-        
+
         return result;
     }
 
@@ -130,7 +135,8 @@ public class FinancialService {
         Double maintenanceExpense = maintenanceLogRepository.sumTotalCostByDateBetween(today, today);
 
         double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0);
-        double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0) + (tripExpense != null ? tripExpense : 0.0) + (maintenanceExpense != null ? maintenanceExpense : 0.0);
+        double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0) + (tripExpense != null ? tripExpense : 0.0)
+                + (maintenanceExpense != null ? maintenanceExpense : 0.0);
 
         double netProfit = totalIncome - totalExpense;
 
@@ -142,16 +148,19 @@ public class FinancialService {
     }
 
     /**
-     * Returns top-level KPIs: activeTrips, totalVehicles, monthlyRevenue, monthlyExpense, and today metrics.
+     * Returns top-level KPIs: activeTrips, totalVehicles, monthlyRevenue,
+     * monthlyExpense, and today metrics.
      */
     public Map<String, Object> getDashboardKpis() {
         Map<String, Double> monthly = getCurrentMonthSummary();
         Map<String, Double> today = getTodaySummary();
         long activeTrips = tripRepository.findByStatus("IN_PROGRESS").size()
-                         + tripRepository.findByStatus("PENDING").size();
-        // Since we don't have vehicleRepo injected here natively, we use trip count as a placeholder, 
-        // but for exact total vehicles we really need vehicleRepository. 
-        // For the sake of the dashboard, the frontend will just use the length of the /vehicles array anyway.
+                + tripRepository.findByStatus("PENDING").size();
+        // Since we don't have vehicleRepo injected here natively, we use trip count as
+        // a placeholder,
+        // but for exact total vehicles we really need vehicleRepository.
+        // For the sake of the dashboard, the frontend will just use the length of the
+        // /vehicles array anyway.
 
         Map<String, Object> kpis = new HashMap<>();
         kpis.put("activeTrips", activeTrips);
@@ -176,16 +185,17 @@ public class FinancialService {
         for (com.pavithra.erp.model.entity.Vehicle v : vehicles) {
             double totalIncome = 0;
             for (com.pavithra.erp.model.entity.Trip t : allTrips) {
-                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId()) 
-                    && t.getEndDate() != null && !t.getEndDate().isBefore(startOfMonth) && !t.getEndDate().isAfter(endOfMonth)) {
+                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId())
+                        && t.getEndDate() != null && !t.getEndDate().isBefore(startOfMonth)
+                        && !t.getEndDate().isAfter(endOfMonth)) {
                     totalIncome += (t.getTripCharges() != null ? t.getTripCharges() : 0);
                 }
             }
 
             double totalExpense = 0;
             for (com.pavithra.erp.model.entity.Expense e : allExpenses) {
-                if (e.getVehicle() != null && e.getVehicle().getId().equals(v.getId()) 
-                    && !e.getDate().isBefore(startOfMonth) && !e.getDate().isAfter(endOfMonth)) {
+                if (e.getVehicle() != null && e.getVehicle().getId().equals(v.getId())
+                        && !e.getDate().isBefore(startOfMonth) && !e.getDate().isAfter(endOfMonth)) {
                     totalExpense += (e.getAmount() != null ? e.getAmount() : 0);
                 }
             }
@@ -197,7 +207,7 @@ public class FinancialService {
             map.put("profit", totalIncome - totalExpense);
             result.add(map);
         }
-        result.sort((a, b) -> Double.compare((Double)b.get("profit"), (Double)a.get("profit")));
+        result.sort((a, b) -> Double.compare((Double) b.get("profit"), (Double) a.get("profit")));
         return result;
     }
 
@@ -235,6 +245,8 @@ public class FinancialService {
 
         List<com.pavithra.erp.model.entity.Trip> allTrips = tripRepository.findAll();
         List<com.pavithra.erp.model.entity.Expense> allExpenses = expenseRepository.findAll();
+        // add new lines because vehicle wise not showing properly
+        List<com.pavithra.erp.model.entity.MaintenanceLog> allMaintenance = maintenanceLogRepository.findAll();
 
         for (com.pavithra.erp.model.entity.Vehicle v : targetVehicles) {
             double tripRevenue = 0;
@@ -244,8 +256,9 @@ public class FinancialService {
             double tripMaterialPurchase = 0;
 
             for (com.pavithra.erp.model.entity.Trip t : allTrips) {
-                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId()) && 
-                    t.getEndDate() != null && !t.getEndDate().isBefore(startDate) && !t.getEndDate().isAfter(endDate)) {
+                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId()) &&
+                        t.getEndDate() != null && !t.getEndDate().isBefore(startDate)
+                        && !t.getEndDate().isAfter(endDate)) {
                     tripRevenue += (t.getTripCharges() != null ? t.getTripCharges() : 0);
                     tripDiesel += (t.getDieselCost() != null ? t.getDieselCost() : 0);
                     tripSalary += (t.getDriverSalary() != null ? t.getDriverSalary() : 0);
@@ -260,12 +273,12 @@ public class FinancialService {
             double otherExpenses = 0;
 
             for (com.pavithra.erp.model.entity.Expense e : allExpenses) {
-                if (e.getVehicle() != null && e.getVehicle().getId().equals(v.getId()) 
-                    && e.getDate() != null && !e.getDate().isBefore(startDate) && !e.getDate().isAfter(endDate)) {
-                    
+                if (e.getVehicle() != null && e.getVehicle().getId().equals(v.getId())
+                        && e.getDate() != null && !e.getDate().isBefore(startDate) && !e.getDate().isAfter(endDate)) {
+
                     double amt = e.getAmount() != null ? e.getAmount() : 0;
                     String type = e.getExpenseType() != null ? e.getExpenseType() : "";
-                    
+
                     if (type.equalsIgnoreCase("Fuel")) {
                         externalDiesel += amt;
                     } else if (type.equalsIgnoreCase("Driver Salary")) {
@@ -275,6 +288,15 @@ public class FinancialService {
                     } else {
                         otherExpenses += amt;
                     }
+                }
+            }
+            // this is new loop
+
+            for (com.pavithra.erp.model.entity.MaintenanceLog m : allMaintenance) {
+                if (m.getVehicle() != null && m.getVehicle().getId().equals(v.getId())
+                        && m.getDate() != null && !m.getDate().isBefore(startDate) && !m.getDate().isAfter(endDate)) {
+
+                    maintenance += (m.getTotalCost() != null ? m.getTotalCost() : 0);
                 }
             }
 
@@ -297,11 +319,11 @@ public class FinancialService {
             map.put("otherExpenses", otherExpenses);
             map.put("totalExpense", totalExpense);
             map.put("netProfit", netProfit);
-            
+
             reportList.add(map);
         }
 
-        reportList.sort((a, b) -> Double.compare((Double)b.get("netProfit"), (Double)a.get("netProfit")));
+        reportList.sort((a, b) -> Double.compare((Double) b.get("netProfit"), (Double) a.get("netProfit")));
         return reportList;
     }
 
@@ -337,25 +359,28 @@ public class FinancialService {
         Double maintenanceExpense = maintenanceLogRepository.sumTotalCostByDateBetween(startDate, endDate);
 
         double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0);
-        double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0) + (tripExpenses != null ? tripExpenses : 0.0) + (maintenanceExpense != null ? maintenanceExpense : 0.0);
-        if (dieselSpend == null) dieselSpend = 0.0;
-        
+        double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0)
+                + (tripExpenses != null ? tripExpenses : 0.0) + (maintenanceExpense != null ? maintenanceExpense : 0.0);
+        if (dieselSpend == null)
+            dieselSpend = 0.0;
+
         // Let's add Trip's diesel costs to dieselSpend using DB query directly
         Double tripDiesel = tripRepository.sumTripDieselCostByDateBetween(startDate, endDate);
         if (tripDiesel != null) {
             dieselSpend += tripDiesel;
         }
 
-        if (dieselSpend == null) dieselSpend = 0.0;
+        if (dieselSpend == null)
+            dieselSpend = 0.0;
 
         double netProfit = totalIncome - totalExpense;
 
         double totalInvestment = 0.0;
         List<com.pavithra.erp.model.entity.Vehicle> allVehicles = vehicleRepository.findAll();
         for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
-             if (v.getPurchasePrice() != null) {
-                 totalInvestment += v.getPurchasePrice();
-             }
+            if (v.getPurchasePrice() != null) {
+                totalInvestment += v.getPurchasePrice();
+            }
         }
 
         Map<String, Double> result = new HashMap<>();
@@ -388,21 +413,25 @@ public class FinancialService {
         for (Map.Entry<String, Double> entry : breakdown.entrySet()) {
             csv.append(entry.getKey()).append(",").append(entry.getValue()).append("\n");
         }
-        
+
         // Add Trip Expenses to breakdown
         double tripDiesel = 0, tripSalary = 0, tripFood = 0, tripMaterial = 0;
         List<com.pavithra.erp.model.entity.Trip> allTrips = tripRepository.findByStatus("COMPLETED");
-        for(com.pavithra.erp.model.entity.Trip t : allTrips) {
-             tripDiesel += (t.getDieselCost() != null ? t.getDieselCost() : 0);
-             tripSalary += (t.getDriverSalary() != null ? t.getDriverSalary() : 0);
-             tripFood += (t.getFoodAmount() != null ? t.getFoodAmount() : 0);
-             tripMaterial += (t.getMaterialPurchaseCost() != null ? t.getMaterialPurchaseCost() : 0);
+        for (com.pavithra.erp.model.entity.Trip t : allTrips) {
+            tripDiesel += (t.getDieselCost() != null ? t.getDieselCost() : 0);
+            tripSalary += (t.getDriverSalary() != null ? t.getDriverSalary() : 0);
+            tripFood += (t.getFoodAmount() != null ? t.getFoodAmount() : 0);
+            tripMaterial += (t.getMaterialPurchaseCost() != null ? t.getMaterialPurchaseCost() : 0);
         }
-        if (tripDiesel > 0) csv.append("Trip Diesel Cost,").append(tripDiesel).append("\n");
-        if (tripSalary > 0) csv.append("Trip Driver Salary,").append(tripSalary).append("\n");
-        if (tripFood > 0) csv.append("Trip Driver Food,").append(tripFood).append("\n");
-        if (tripMaterial > 0) csv.append("Trip Material Cost,").append(tripMaterial).append("\n");
-        
+        if (tripDiesel > 0)
+            csv.append("Trip Diesel Cost,").append(tripDiesel).append("\n");
+        if (tripSalary > 0)
+            csv.append("Trip Driver Salary,").append(tripSalary).append("\n");
+        if (tripFood > 0)
+            csv.append("Trip Driver Food,").append(tripFood).append("\n");
+        if (tripMaterial > 0)
+            csv.append("Trip Material Cost,").append(tripMaterial).append("\n");
+
         csv.append("\n");
 
         // 3. Investment Breakdown (Vehicles)
@@ -412,8 +441,8 @@ public class FinancialService {
         for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
             String price = v.getPurchasePrice() != null ? String.valueOf(v.getPurchasePrice()) : "0.0";
             csv.append(v.getVehicleNumber()).append(",")
-               .append(v.getType()).append(",")
-               .append(price).append("\n");
+                    .append(v.getType()).append(",")
+                    .append(price).append("\n");
         }
 
         return csv.toString();
@@ -431,16 +460,15 @@ public class FinancialService {
         for (com.pavithra.erp.model.entity.Trip t : allTrips) {
             if (t.getDriver() != null) {
                 Long driverId = t.getDriver().getId();
-                com.pavithra.erp.dto.DriverSalaryResponse dto = map.getOrDefault(driverId, 
-                    com.pavithra.erp.dto.DriverSalaryResponse.builder()
-                        .driverId(driverId)
-                        .driverName(t.getDriver().getUsername())
-                        .mobile(t.getDriver().getMobile())
-                        .totalTripSalary(0.0)
-                        .totalAdvances(0.0)
-                        .totalTrips(0)
-                        .build()
-                );
+                com.pavithra.erp.dto.DriverSalaryResponse dto = map.getOrDefault(driverId,
+                        com.pavithra.erp.dto.DriverSalaryResponse.builder()
+                                .driverId(driverId)
+                                .driverName(t.getDriver().getUsername())
+                                .mobile(t.getDriver().getMobile())
+                                .totalTripSalary(0.0)
+                                .totalAdvances(0.0)
+                                .totalTrips(0)
+                                .build());
                 dto.setTotalTrips(dto.getTotalTrips() + 1);
                 if (t.getDriverSalary() != null) {
                     dto.setTotalTripSalary(dto.getTotalTripSalary() + t.getDriverSalary());
@@ -452,17 +480,16 @@ public class FinancialService {
         // Add expenses
         for (com.pavithra.erp.model.entity.Expense e : allDriverExpenses) {
             Long driverId = e.getDriver().getId();
-            com.pavithra.erp.dto.DriverSalaryResponse dto = map.getOrDefault(driverId, 
-                com.pavithra.erp.dto.DriverSalaryResponse.builder()
-                    .driverId(driverId)
-                    .driverName(e.getDriver().getUsername())
-                    .mobile(e.getDriver().getMobile())
-                    .totalTripSalary(0.0)
-                    .totalAdvances(0.0)
-                    .totalTrips(0)
-                    .build()
-            );
-            
+            com.pavithra.erp.dto.DriverSalaryResponse dto = map.getOrDefault(driverId,
+                    com.pavithra.erp.dto.DriverSalaryResponse.builder()
+                            .driverId(driverId)
+                            .driverName(e.getDriver().getUsername())
+                            .mobile(e.getDriver().getMobile())
+                            .totalTripSalary(0.0)
+                            .totalAdvances(0.0)
+                            .totalTrips(0)
+                            .build());
+
             if (e.getAmount() != null) {
                 dto.setTotalAdvances(dto.getTotalAdvances() + e.getAmount());
             }
