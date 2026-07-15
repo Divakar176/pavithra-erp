@@ -642,7 +642,7 @@ const Finances = () => {
                         className={`py-4 px-6 text-sm font-medium border-b-2 transition-all ${
                             activeTab === tab 
                             ? 'border-[#D8621C] text-[#D8621C]' 
-                            : 'border-transparent text-gray-500 hover:text-gray-300'
+                            : 'border-transparent text-gray-200 hover:text-white'
                         }`}
                     >
                         {tab}
