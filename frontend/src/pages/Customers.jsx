@@ -8,6 +8,7 @@ const Customers = () => {
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+    const [isChargeModalOpen, setIsChargeModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
     const [pendingSecurityAction, setPendingSecurityAction] = useState(null);
@@ -24,6 +25,7 @@ const Customers = () => {
 
     // Payment State
     const [paymentAmount, setPaymentAmount] = useState('');
+    const [chargeAmount, setChargeAmount] = useState('');
     const [paymentMode, setPaymentMode] = useState('Bank Transfer');
     const [referenceNotes, setReferenceNotes] = useState('');
 
@@ -141,6 +143,29 @@ const Customers = () => {
         }
     };
 
+    const handleAddCharge = async (e) => {
+        e.preventDefault();
+        setError('');
+        if (!selectedCustomer) return;
+
+        try {
+            // Sending negative amount acts as a charge instead of payment
+            await api.post(`/customers/${selectedCustomer.id}/payments`, {
+                amount: -Math.abs(parseFloat(chargeAmount)),
+                paymentMode: 'Manual Charge',
+                referenceNotes: referenceNotes || 'Manual Monthly/Adjustment Charge',
+                paymentDate: new Date().toISOString().split('T')[0]
+            });
+            setIsChargeModalOpen(false);
+            setChargeAmount('');
+            setReferenceNotes('');
+            fetchCustomers();
+            alert(`Charge of ₹${chargeAmount} added successfully!`);
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to add charge.');
+        }
+    };
+
     return (
         <div className="p-8 w-full mx-auto space-y-6">
             
@@ -213,6 +238,12 @@ const Customers = () => {
                                             className="px-4 py-2 bg-[#10B981]/10 hover:bg-[#10B981]/20 text-[#10B981] text-xs font-bold rounded-lg transition-colors mr-2 border border-[#10B981]/20"
                                         >
                                             Receive Payment
+                                        </button>
+                                        <button 
+                                            onClick={() => { setSelectedCustomer(c); setIsChargeModalOpen(true); }}
+                                            className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-xs font-bold rounded-lg transition-colors mr-2 border border-red-500/20"
+                                        >
+                                            Add Charge
                                         </button>
                                         <button 
                                             onClick={() => openEditModal(c)}
@@ -398,6 +429,66 @@ const Customers = () => {
                     </div>
                 </div>
             )}
+            {/* Add Charge Modal */}
+            {isChargeModalOpen && selectedCustomer && (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-[#121212] rounded-2xl w-full max-w-md border border-[#2A2A2A] shadow-2xl overflow-hidden">
+                        <div className="p-6 border-b border-[#2A2A2A] flex justify-between items-center bg-[#1A1A1A]">
+                            <div>
+                                <h3 className="text-xl font-bold text-white tracking-tight">Add Manual Charge</h3>
+                                <p className="text-xs text-red-500 font-bold mt-1">Increases balance owed by customer</p>
+                            </div>
+                            <button onClick={() => setIsChargeModalOpen(false)} className="text-gray-500 hover:text-white bg-[#2A2A2A] hover:bg-[#333] p-1.5 rounded-lg transition-colors">
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+                        <form onSubmit={handleAddCharge} className="p-6 space-y-5 bg-[#121212]">
+                            {error && <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 text-xs rounded-xl">{error}</div>}
+                            
+                            <div className="p-4 bg-[#1A1A1A] rounded-xl border border-[#2A2A2A]">
+                                <div className="text-xs text-gray-500 font-bold mb-1">CUSTOMER</div>
+                                <div className="text-sm text-white font-bold">{selectedCustomer.name}</div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-gray-400 mb-2">Charge Amount (₹)</label>
+                                <div className="relative">
+                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                                    <input
+                                        type="number"
+                                        required
+                                        min="1"
+                                        className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors"
+                                        placeholder="e.g. 88000"
+                                        value={chargeAmount}
+                                        onChange={(e) => setChargeAmount(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-gray-400 mb-2">Description / Notes</label>
+                                <textarea
+                                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-500 transition-colors min-h-[100px]"
+                                    placeholder="e.g. Monthly Contract Bill for July"
+                                    value={referenceNotes}
+                                    onChange={(e) => setReferenceNotes(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="flex gap-3 pt-4">
+                                <button type="button" onClick={() => setIsChargeModalOpen(false)} className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-[#2A2A2A] hover:bg-[#2A2A2A] text-gray-300 font-bold rounded-xl transition-colors">
+                                    Cancel
+                                </button>
+                                <button type="submit" disabled={!chargeAmount} className="flex-1 py-3 px-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all shadow-md shadow-red-500/20 disabled:opacity-50">
+                                    Add Charge
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+            
             {/* Edit Customer Modal */}
             {isEditModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in">
