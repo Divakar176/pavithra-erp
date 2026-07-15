@@ -256,14 +256,18 @@ public class FinancialService {
             double tripMaterialPurchase = 0;
 
             for (com.pavithra.erp.model.entity.Trip t : allTrips) {
-                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId()) &&
-                        t.getEndDate() != null && !t.getEndDate().isBefore(startDate)
-                        && !t.getEndDate().isAfter(endDate)) {
-                    tripRevenue += (t.getTripCharges() != null ? t.getTripCharges() : 0);
-                    tripDiesel += (t.getDieselCost() != null ? t.getDieselCost() : 0);
-                    tripSalary += (t.getDriverSalary() != null ? t.getDriverSalary() : 0);
-                    tripFood += (t.getFoodAmount() != null ? t.getFoodAmount() : 0);
-                    tripMaterialPurchase += (t.getMaterialPurchaseCost() != null ? t.getMaterialPurchaseCost() : 0);
+                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId())) {
+                    
+                    // Use endDate if available, otherwise fallback to startDate
+                    java.time.LocalDate tripDate = t.getEndDate() != null ? t.getEndDate() : t.getStartDate();
+                    
+                    if (tripDate != null && !tripDate.isBefore(startDate) && !tripDate.isAfter(endDate)) {
+                        tripRevenue += (t.getTripCharges() != null ? t.getTripCharges() : 0);
+                        tripDiesel += (t.getDieselCost() != null ? t.getDieselCost() : 0);
+                        tripSalary += (t.getDriverSalary() != null ? t.getDriverSalary() : 0);
+                        tripFood += (t.getFoodAmount() != null ? t.getFoodAmount() : 0);
+                        tripMaterialPurchase += (t.getMaterialPurchaseCost() != null ? t.getMaterialPurchaseCost() : 0);
+                    }
                 }
             }
 
