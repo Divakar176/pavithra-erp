@@ -284,9 +284,9 @@ public class FinancialService {
             }
 
             if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
-                long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
-                double proratedAmount = (v.getMonthlyContractAmount() / 30.0) * days;
-                tripRevenue += proratedAmount;
+                long months = ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), endDate.withDayOfMonth(1)) + 1;
+                double expectedRevenue = v.getMonthlyContractAmount() * months;
+                tripRevenue += expectedRevenue;
             }
 
             double externalDiesel = 0;
