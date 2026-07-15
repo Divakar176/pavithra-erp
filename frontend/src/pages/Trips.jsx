@@ -1034,12 +1034,14 @@ const Trips = () => {
                                 </>
                             )}
 
-                            {!isMonthly && !isMachinery && !isBikeOrCar && (
-                                <div className="grid grid-cols-1 gap-4">
+                            {!isMachinery && !isBikeOrCar && (
+                                <div className="grid grid-cols-1 gap-4 mt-4">
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Expected Trip Charge (₹)</label>
+                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">
+                                            {isMonthly ? 'Extra Trip Charge (Optional)' : 'Expected Trip Charge (₹)'}
+                                        </label>
                                         <input
-                                            type="number" required placeholder="15000"
+                                            type="number" required={!isMonthly} placeholder="e.g. 5000"
                                             className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newTrip.tripCharges} onChange={(e) => setNewTrip({ ...newTrip, tripCharges: e.target.value })}
                                         />
