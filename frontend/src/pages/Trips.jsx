@@ -111,7 +111,7 @@ const Trips = () => {
     const isMachinery = selectedVehicle && (selectedVehicle.type === 'JCB' || selectedVehicle.type === 'Harvesting Machine');
     const isMonthly = selectedVehicle && selectedVehicle.billingType === 'MONTHLY';
     const isBikeOrCar = selectedVehicle && (selectedVehicle.type === 'Bikes' || selectedVehicle.type === 'Cars');
-    const isTipper = selectedVehicle && (selectedVehicle.type === 'Tipper' || selectedVehicle.type === 'Tipper lorry') && selectedVehicle.billingType === ' Per_Trip';
+    const isTipper = selectedVehicle && (selectedVehicle.type === 'Tipper' || selectedVehicle.type === 'Tipper Lorry') && selectedVehicle.billingType === 'PER_TRIP';
 
 
     // Calculate total hours for machinery
