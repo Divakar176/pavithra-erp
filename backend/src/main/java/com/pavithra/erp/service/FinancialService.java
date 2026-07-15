@@ -407,7 +407,7 @@ public class FinancialService {
         double netProfit = totalIncome - totalExpense;
 
         double totalInvestment = 0.0;
-        List<com.pavithra.erp.model.entity.Vehicle> allVehicles = vehicleRepository.findAll();
+        allVehicles = vehicleRepository.findAll();
         for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
             if (v.getPurchasePrice() != null) {
                 totalInvestment += v.getPurchasePrice();
