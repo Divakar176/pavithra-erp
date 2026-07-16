@@ -57,7 +57,8 @@ const Trips = () => {
         materialPurchaseCost: '',
         calculationType: 'TIME',
         startMeter: '',
-        endMeter: ''
+        endMeter: '',
+        manualTotalHours: ''
     });
 
     const fetchTrips = async () => {
@@ -110,6 +111,20 @@ const Trips = () => {
         }
     }, [location]);
 
+    useEffect(() => {
+        if (newTrip.vehicleId && vehicles.length > 0) {
+            const v = vehicles.find(veh => veh.id.toString() === newTrip.vehicleId.toString());
+            if (v && (v.type === 'JCB' || v.type === 'Harvesting Machine' || v.type === 'Tractor')) {
+                if (v.billingType === 'PER_TRIP') {
+                    setNewTrip(prev => ({ ...prev, machineryBillingMode: 'TRIP' }));
+                } else if (v.billingType === 'HOURLY') {
+                    setNewTrip(prev => ({ ...prev, machineryBillingMode: 'HOURLY' }));
+                }
+            }
+        }
+    }, [newTrip.vehicleId, vehicles]);
+
+
     const selectedVehicle = vehicles.find(v => v.id.toString() === newTrip.vehicleId.toString());
     const isMachinery = selectedVehicle && (selectedVehicle.type === 'JCB' || selectedVehicle.type === 'Harvesting Machine' || selectedVehicle.type === 'Tractor');
     const isMonthly = selectedVehicle && selectedVehicle.billingType === 'MONTHLY';
@@ -139,8 +154,19 @@ const Trips = () => {
     const calculatedTotalHours = (isMachinery && newTrip.machineryBillingMode === 'HOURLY') ? (
         newTrip.calculationType === 'METER' ?
             Math.max(0, (parseFloat(newTrip.endMeter) || 0) - (parseFloat(newTrip.startMeter) || 0)).toFixed(2)
-            : calculateHours(newTrip.startTime, newTrip.endTime, newTrip.breakHours)
+            : newTrip.calculationType === 'MANUAL' ?
+                (parseFloat(newTrip.manualTotalHours) || 0).toFixed(2)
+                : calculateHours(newTrip.startTime, newTrip.endTime, newTrip.breakHours)
     ) : null;
+
+    useEffect(() => {
+        if (isMachinery && newTrip.machineryBillingMode === 'HOURLY') {
+            const calculated = ((parseFloat(calculatedTotalHours) || 0) * (parseFloat(newTrip.hourlyRate) || 0)).toFixed(0);
+            if (calculated > 0) {
+                setNewTrip(prev => ({ ...prev, tripCharges: calculated }));
+            }
+        }
+    }, [calculatedTotalHours, newTrip.hourlyRate, isMachinery, newTrip.machineryBillingMode]);
 
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
@@ -202,26 +228,17 @@ const Trips = () => {
                 destination: isMachinery || isBikeOrCar ? "-" : newTrip.destination,
                 material: isMachinery || isBikeOrCar ? "-" : newTrip.material,
                 loadWeight: isMachinery || isBikeOrCar ? 0 : parseFloat(newTrip.loadWeight),
-                tripCharges: isBikeOrCar ? 0 : (
-                    isMachinery ? (
-                        newTrip.machineryBillingMode === 'HOURLY' ? ((parseFloat(calculatedTotalHours) || 0) * (parseFloat(newTrip.hourlyRate) || 0)) :
-                        newTrip.machineryBillingMode === 'DAILY' ? ((parseFloat(newTrip.numberOfDays) || 0) * (parseFloat(newTrip.dailyRate) || 0)) :
-                        parseFloat(newTrip.tripCharges || 0)
-                    ) : parseFloat(newTrip.tripCharges || 0)
-                ),
+                tripCharges: isBikeOrCar ? 0 : parseFloat(newTrip.tripCharges || 0),
                 paymentStatus: "UNPAID",
                 startDate: newTrip.startDate,
-                startTime: (isMachinery && newTrip.machineryBillingMode === 'HOURLY' && newTrip.calculationType !== 'METER') ? newTrip.startTime : null,
-                endTime: (isMachinery && newTrip.machineryBillingMode === 'HOURLY' && newTrip.calculationType !== 'METER') ? newTrip.endTime : null,
+                startTime: (isMachinery && newTrip.machineryBillingMode === 'HOURLY' && (newTrip.calculationType === 'TIME' || !newTrip.calculationType)) ? newTrip.startTime : null,
+                endTime: (isMachinery && newTrip.machineryBillingMode === 'HOURLY' && (newTrip.calculationType === 'TIME' || !newTrip.calculationType)) ? newTrip.endTime : null,
                 startMeter: (isMachinery && newTrip.machineryBillingMode === 'HOURLY' && newTrip.calculationType === 'METER') ? parseFloat(newTrip.startMeter) : null,
                 endMeter: (isMachinery && newTrip.machineryBillingMode === 'HOURLY' && newTrip.calculationType === 'METER') ? parseFloat(newTrip.endMeter) : null,
-                breakHours: (isMachinery && newTrip.machineryBillingMode === 'HOURLY' && newTrip.calculationType !== 'METER') ? parseFloat(newTrip.breakHours) : null,
+                breakHours: (isMachinery && newTrip.machineryBillingMode === 'HOURLY' && (newTrip.calculationType === 'TIME' || !newTrip.calculationType)) ? parseFloat(newTrip.breakHours) : null,
                 totalHours: (isMachinery && newTrip.machineryBillingMode === 'HOURLY') ? parseFloat(calculatedTotalHours) : null,
                 dieselCost: parseFloat(newTrip.dieselCost || 0),
                 status: newTrip.status,
-                endMeter: isMachinery && newTrip.calculationType === 'METER' ? parseFloat(newTrip.endMeter) : null,
-                breakHours: isMachinery && newTrip.calculationType !== 'METER' ? parseFloat(newTrip.breakHours) : null,
-                totalHours: isMachinery ? parseFloat(calculatedTotalHours) : null,
                 driverSalary: isBikeOrCar ? 0 : parseFloat(newTrip.driverSalary || 0),
                 foodAmount: isBikeOrCar ? 0 : parseFloat(newTrip.foodAmount || 0),
                 materialPurchaseCost: isBikeOrCar || !isTipper ? 0 : parseFloat(newTrip.materialPurchaseCost || 0)
@@ -257,7 +274,8 @@ const Trips = () => {
                 materialPurchaseCost: '',
                 calculationType: 'TIME',
                 startMeter: '',
-                endMeter: ''
+                endMeter: '',
+                manualTotalHours: ''
             });
         } catch (error) {
             console.error("Failed to add trip", error);
@@ -884,6 +902,13 @@ const Trips = () => {
                                                         className="accent-[#D8621C]" />
                                                     <span className="text-sm text-white">Meter Reading</span>
                                                 </label>
+                                                <label className="flex items-center gap-2 cursor-pointer">
+                                                    <input type="radio" name="calcType" value="MANUAL"
+                                                        checked={newTrip.calculationType === 'MANUAL'}
+                                                        onChange={() => setNewTrip({ ...newTrip, calculationType: 'MANUAL' })}
+                                                        className="accent-[#D8621C]" />
+                                                    <span className="text-sm text-white">Manual Entry</span>
+                                                </label>
                                             </div>
                                             {(newTrip.calculationType === 'TIME' || !newTrip.calculationType) ? (
                                                 <>
@@ -912,7 +937,7 @@ const Trips = () => {
                                                         />
                                                     </div>
                                                 </>
-                                            ) : (
+                                            ) : newTrip.calculationType === 'METER' ? (
                                                 <>
                                                     <div>
                                                         <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Start Meter</label>
@@ -931,6 +956,18 @@ const Trips = () => {
                                                         />
                                                     </div>
                                                     <div></div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div>
+                                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Hours</label>
+                                                        <input
+                                                            type="number" step="0.5" min="0" required={newTrip.calculationType === 'MANUAL'}
+                                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                            value={newTrip.manualTotalHours || ''} onChange={(e) => setNewTrip({ ...newTrip, manualTotalHours: e.target.value })}
+                                                        />
+                                                    </div>
+                                                    <div className="col-span-2"></div>
                                                 </>
                                             )}
                                             <div>
@@ -1092,10 +1129,12 @@ const Trips = () => {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Charge</label>
-                                        <div className="w-full h-[46px] bg-[#1C1C1C] border border-[#2A2A2A] rounded-xl px-4 py-3 text-[#10B981] font-bold flex items-center">
-                                            ₹{((parseFloat(calculatedTotalHours) || 0) * (parseFloat(newTrip.hourlyRate) || 0)).toFixed(0)}
-                                        </div>
+                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Charge (₹)</label>
+                                        <input
+                                            type="number" required placeholder="Calculated automatically or enter manually"
+                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-[#10B981] font-bold focus:outline-none focus:border-[#D8621C]"
+                                            value={newTrip.tripCharges} onChange={(e) => setNewTrip({ ...newTrip, tripCharges: e.target.value })}
+                                        />
                                     </div>
                                 </div>
                             )}
@@ -1111,10 +1150,12 @@ const Trips = () => {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Charge</label>
-                                        <div className="w-full h-[46px] bg-[#1C1C1C] border border-[#2A2A2A] rounded-xl px-4 py-3 text-[#10B981] font-bold flex items-center">
-                                            ₹{((parseFloat(newTrip.numberOfDays) || 0) * (parseFloat(newTrip.dailyRate) || 0)).toFixed(0)}
-                                        </div>
+                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Charge (₹)</label>
+                                        <input
+                                            type="number" required placeholder="e.g. 8000"
+                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-[#10B981] font-bold focus:outline-none focus:border-[#D8621C]"
+                                            value={newTrip.tripCharges} onChange={(e) => setNewTrip({ ...newTrip, tripCharges: e.target.value })}
+                                        />
                                     </div>
                                 </div>
                             )}
