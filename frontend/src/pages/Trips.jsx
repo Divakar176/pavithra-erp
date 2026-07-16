@@ -639,7 +639,7 @@ const Trips = () => {
                                 const isMonthly = trip.vehicle && trip.vehicle.billingType === 'MONTHLY';
                                 const isPersonalVehicle = trip.vehicle && (trip.vehicle.type === 'Bikes' || trip.vehicle.type === 'Cars');
                                 const estProfit = isMonthly || isPersonalVehicle ? 0 : ((trip.tripCharges || 0) - dieselCost - (trip.driverSalary || 0) - (trip.foodAmount || 0) - (trip.materialPurchaseCost || 0));
-                                const isMachineTrip = trip.vehicle?.type === 'JCB' || trip.vehicle?.type === 'Harvesting Machine';
+                                const isMachineTrip = trip.vehicle?.type === 'JCB' || trip.vehicle?.type === 'Harvesting Machine' || trip.vehicle?.type === 'Tractor';
 
                                 return (
                                     <tr key={trip.id} className="hover:bg-blue-50 transition-colors group">
@@ -887,7 +887,21 @@ const Trips = () => {
                                             </label>
                                         </div>
                                     </div>
+                            ) : null}
 
+                            {/* Fields based on condition */}
+                            {isMachinery && newTrip.machineryBillingMode !== 'TRIP' && !isMonthly ? (
+                                <>
+                                    <div className="grid grid-cols-1 gap-4 mb-4">
+                                        <div>
+                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Site Location</label>
+                                            <input
+                                                type="text" required placeholder="e.g. Kodur Site"
+                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                value={newTrip.source} onChange={(e) => setNewTrip({ ...newTrip, source: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
                                     {newTrip.machineryBillingMode === 'HOURLY' && (
                                         <div className="grid grid-cols-4 gap-4">
                                             <div className="col-span-4 flex items-center gap-4 mb-2">
