@@ -126,7 +126,11 @@ const Trips = () => {
 
 
     const selectedVehicle = vehicles.find(v => v.id.toString() === newTrip.vehicleId.toString());
-    const isMachinery = selectedVehicle && (selectedVehicle.type === 'JCB' || selectedVehicle.type === 'Harvesting Machine' || selectedVehicle.type === 'Tractor');
+    const isMachinery = selectedVehicle && (
+        selectedVehicle.type.trim().toLowerCase() === 'jcb' || 
+        selectedVehicle.type.trim().toLowerCase() === 'harvesting machine' || 
+        selectedVehicle.type.trim().toLowerCase() === 'tractor'
+    );
     const isMonthly = selectedVehicle && selectedVehicle.billingType === 'MONTHLY';
     const isBikeOrCar = selectedVehicle && (selectedVehicle.type === 'Bikes' || selectedVehicle.type === 'Cars');
     const isTipper = selectedVehicle && (selectedVehicle.type === 'Tipper' || selectedVehicle.type === 'Tipper Lorry') && selectedVehicle.billingType === 'PER_TRIP';
