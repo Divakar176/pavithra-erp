@@ -34,13 +34,21 @@ public class UserController {
         String email = payload.get("email");
         String mobile = payload.get("mobile");
         
+        String roleStr = payload.get("role");
+        com.pavithra.erp.model.enums.Role role = com.pavithra.erp.model.enums.Role.DRIVER;
+        if (roleStr != null && !roleStr.isBlank()) {
+            try {
+                role = com.pavithra.erp.model.enums.Role.valueOf(roleStr.toUpperCase());
+            } catch (IllegalArgumentException e) {}
+        }
+
         User user = User.builder()
                 .username(payload.get("username"))
                 .email(email != null && email.isBlank() ? null : email)
                 .mobile(mobile != null && mobile.isBlank() ? null : mobile)
-                .password(passwordEncoder.encode("Driver123@"))
+                .password(passwordEncoder.encode("Pass123@"))
                 .securityPin("1234")
-                .role(com.pavithra.erp.model.enums.Role.DRIVER)
+                .role(role)
                 .build();
         repository.save(user);
         return ResponseEntity.ok(user);
@@ -71,6 +79,14 @@ public class UserController {
         }
         if (payload.containsKey("username")) {
             user.setUsername(payload.get("username"));
+        }
+        if (payload.containsKey("role")) {
+            String roleStr = payload.get("role");
+            if (roleStr != null && !roleStr.isBlank()) {
+                try {
+                    user.setRole(com.pavithra.erp.model.enums.Role.valueOf(roleStr.toUpperCase()));
+                } catch (IllegalArgumentException e) {}
+            }
         }
         repository.save(user);
         return ResponseEntity.ok(user);

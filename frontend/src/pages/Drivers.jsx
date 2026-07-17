@@ -18,11 +18,11 @@ const Drivers = () => {
     // Edit State
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingDriver, setEditingDriver] = useState(null);
-    const [editForm, setEditForm] = useState({ username: '', mobile: '', email: '' });
+    const [editForm, setEditForm] = useState({ username: '', mobile: '', email: '', role: 'DRIVER' });
 
     // Add State
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [addForm, setAddForm] = useState({ username: '', mobile: '', email: '' });
+    const [addForm, setAddForm] = useState({ username: '', mobile: '', email: '', role: 'DRIVER' });
 
     // Payment State
     const [selectedDriverForPayment, setSelectedDriverForPayment] = useState(null);
@@ -133,7 +133,7 @@ const Drivers = () => {
 
     const handleEditClick = (driver) => {
         setEditingDriver(driver);
-        setEditForm({ username: driver.username, mobile: driver.mobile || '', email: driver.email || '' });
+        setEditForm({ username: driver.username, mobile: driver.mobile || '', email: driver.email || '', role: driver.role || 'DRIVER' });
         setIsEditModalOpen(true);
     };
 
@@ -168,7 +168,7 @@ const Drivers = () => {
         try {
             await api.post('/users/drivers', addForm);
             setIsAddModalOpen(false);
-            setAddForm({ username: '', mobile: '', email: '' });
+            setAddForm({ username: '', mobile: '', email: '', role: 'DRIVER' });
             fetchData();
         } catch (error) {
             console.error("Error adding driver", error);
@@ -212,15 +212,15 @@ const Drivers = () => {
         <div className="p-8 w-full mx-auto space-y-6 relative">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-white tracking-tight">Driver Management</h1>
-                    <p className="text-sm text-gray-500 font-medium mt-1">Manage staff directory, daily attendance, and salary settlements</p>
+                    <h1 className="text-2xl font-bold text-white tracking-tight">Staff Management</h1>
+                    <p className="text-sm text-gray-500 font-medium mt-1">Manage staff directory, roles, daily attendance, and salary settlements</p>
                 </div>
                 <button 
                     onClick={() => setIsAddModalOpen(true)}
                     className="flex items-center gap-2 px-4 py-2 bg-[#D8621C] text-white rounded-xl font-semibold hover:bg-orange-700 transition-colors"
                 >
                     <Plus size={18} />
-                    <span>Add Driver</span>
+                    <span>Add Staff</span>
                 </button>
             </div>
 
@@ -277,8 +277,8 @@ const Drivers = () => {
                                     <p>📱 {driver.mobile}</p>
                                     <p>✉️ {driver.email}</p>
                                 </div>
-                                <div className="pt-3 border-t border-[#2A2A2A] text-xs font-medium text-gray-500 flex justify-between">
-                                    <span>Role: {driver.role}</span>
+                                <div className="pt-3 border-t border-[#2A2A2A] text-xs font-medium text-gray-500 flex justify-between items-center">
+                                    <span className={`px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase ${driver.role === 'SUPER_ADMIN' ? 'bg-purple-500/20 text-purple-400' : driver.role === 'ADMIN' ? 'bg-blue-500/20 text-blue-400' : 'bg-gray-800 text-gray-400'}`}>{driver.role.replace('_', ' ')}</span>
                                     <span>ID: #{driver.id}</span>
                                 </div>
                             </div>
@@ -500,7 +500,7 @@ const Drivers = () => {
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
                         <div className="flex justify-between items-center p-6 border-b border-[#333]">
-                            <h3 className="text-xl font-bold text-white">Edit Driver Profile</h3>
+                            <h3 className="text-xl font-bold text-white">Edit Staff Profile</h3>
                             <button onClick={() => setIsEditModalOpen(false)} className="text-gray-400 hover:text-white">
                                 <X size={20} />
                             </button>
@@ -535,6 +535,18 @@ const Drivers = () => {
                                     className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-400 mb-1">Role</label>
+                                <select
+                                    value={editForm.role}
+                                    onChange={(e) => setEditForm({...editForm, role: e.target.value})}
+                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-white focus:border-[#D8621C] outline-none"
+                                >
+                                    <option value="DRIVER">Driver</option>
+                                    <option value="ADMIN">Admin</option>
+                                    <option value="SUPER_ADMIN">Super Admin</option>
+                                </select>
+                            </div>
                             <div className="pt-4 flex justify-end gap-3">
                                 <button type="button" onClick={() => setIsEditModalOpen(false)} className="px-4 py-2 text-gray-400 hover:text-white font-medium">Cancel</button>
                                 <button type="submit" className="bg-[#D8621C] hover:bg-orange-700 text-white px-6 py-2 rounded-xl font-bold transition-colors shadow-lg">Save Changes</button>
@@ -549,7 +561,7 @@ const Drivers = () => {
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
                         <div className="flex justify-between items-center p-6 border-b border-[#333]">
-                            <h3 className="text-xl font-bold text-white">Add New Driver</h3>
+                            <h3 className="text-xl font-bold text-white">Add New Staff</h3>
                             <button onClick={() => setIsAddModalOpen(false)} className="text-gray-400 hover:text-white">
                                 <X size={20} />
                             </button>
@@ -584,9 +596,21 @@ const Drivers = () => {
                                     className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-400 mb-1">Role</label>
+                                <select
+                                    value={addForm.role}
+                                    onChange={(e) => setAddForm({...addForm, role: e.target.value})}
+                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-white focus:border-[#D8621C] outline-none"
+                                >
+                                    <option value="DRIVER">Driver</option>
+                                    <option value="ADMIN">Admin</option>
+                                    <option value="SUPER_ADMIN">Super Admin</option>
+                                </select>
+                            </div>
                             <div className="pt-4 flex justify-end gap-3">
                                 <button type="button" onClick={() => setIsAddModalOpen(false)} className="px-4 py-2 text-gray-400 hover:text-white font-medium">Cancel</button>
-                                <button type="submit" className="bg-[#D8621C] hover:bg-orange-700 text-white px-6 py-2 rounded-xl font-bold transition-colors shadow-lg">Add Driver</button>
+                                <button type="submit" className="bg-[#D8621C] hover:bg-orange-700 text-white px-6 py-2 rounded-xl font-bold transition-colors shadow-lg">Add Staff</button>
                             </div>
                         </form>
                     </div>

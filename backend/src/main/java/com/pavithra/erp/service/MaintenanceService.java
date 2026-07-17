@@ -39,6 +39,26 @@ public class MaintenanceService {
         return mapToResponse(saved);
     }
 
+    public MaintenanceResponse updateMaintenanceLog(Long id, MaintenanceRequest request) {
+        MaintenanceLog log = maintenanceLogRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Maintenance log not found"));
+        
+        Vehicle vehicle = vehicleRepository.findById(request.getVehicleId())
+                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
+
+        log.setVehicle(vehicle);
+        log.setDate(request.getDate());
+        log.setServiceType(request.getServiceType());
+        log.setVendorDetails(request.getVendorDetails());
+        log.setSparePartsCost(request.getSparePartsCost());
+        log.setLabourCost(request.getLabourCost());
+        log.setTotalCost(request.getTotalCost());
+        log.setBillUrl(request.getBillUrl());
+
+        MaintenanceLog updated = maintenanceLogRepository.save(log);
+        return mapToResponse(updated);
+    }
+
     public List<MaintenanceResponse> getAllMaintenanceLogs() {
         return maintenanceLogRepository.findAll().stream()
                 .map(this::mapToResponse)

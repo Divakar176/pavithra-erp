@@ -22,6 +22,11 @@ public class MaintenanceController {
         return ResponseEntity.ok(maintenanceService.addMaintenanceLog(request));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<MaintenanceResponse> updateMaintenanceLog(@PathVariable Long id, @RequestBody MaintenanceRequest request) {
+        return ResponseEntity.ok(maintenanceService.updateMaintenanceLog(id, request));
+    }
+
     @GetMapping
     public ResponseEntity<List<MaintenanceResponse>> getAllMaintenanceLogs() {
         return ResponseEntity.ok(maintenanceService.getAllMaintenanceLogs());

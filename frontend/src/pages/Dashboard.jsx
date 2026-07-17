@@ -64,7 +64,7 @@ const DashboardLayout = () => {
             title: "OPERATIONS",
             items: [
                 { path: '/dashboard/vehicles', label: 'Vehicles', icon: Truck, roles: ['SUPER_ADMIN', 'ADMIN'] },
-                { path: '/dashboard/drivers', label: 'Drivers', icon: Users, roles: ['SUPER_ADMIN', 'ADMIN'] },
+                { path: '/dashboard/drivers', label: 'Staff', icon: Users, roles: ['SUPER_ADMIN', 'ADMIN'] },
                 { path: '/dashboard/trips', label: 'Trips', icon: Navigation, roles: ['SUPER_ADMIN', 'ADMIN', 'ACCOUNTANT'] },
                 { path: '/dashboard/maintenance', label: 'Maintenance', icon: Wrench, roles: ['SUPER_ADMIN', 'ADMIN'] },
                 { path: '/dashboard/inventory', label: 'Inventory', icon: Package, roles: ['SUPER_ADMIN', 'ADMIN'] },
@@ -186,7 +186,9 @@ const DashboardLayout = () => {
                             <Menu className="w-6 h-6" />
                         </button>
                         <div className="flex items-center text-xl font-bold text-gray-200 capitalize tracking-tight truncate max-w-[150px] lg:max-w-none">
-                            {location.pathname.split('/').pop() === 'dashboard' ? 'Dashboard' : location.pathname.split('/').pop()}
+                            {location.pathname.split('/').pop() === 'dashboard' ? 'Dashboard' : 
+                             location.pathname.split('/').pop() === 'drivers' ? 'Staff Management' :
+                             location.pathname.split('/').pop()}
                         </div>
                     </div>
                     

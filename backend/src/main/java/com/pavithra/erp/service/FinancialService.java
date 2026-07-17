@@ -195,6 +195,7 @@ public class FinancialService {
             double totalIncome = 0;
             for (com.pavithra.erp.model.entity.Trip t : allTrips) {
                 if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId())
+                        && !Boolean.TRUE.equals(t.getIsDeleted())
                         && t.getEndDate() != null && !t.getEndDate().isBefore(startOfMonth)
                         && !t.getEndDate().isAfter(endOfMonth)) {
                     totalIncome += (t.getTripCharges() != null ? t.getTripCharges() : 0);
@@ -284,7 +285,13 @@ public class FinancialService {
             }
 
             if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
-                long months = ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), endDate.withDayOfMonth(1)) + 1;
+                LocalDate effectiveStartDate = startDate;
+                if (v.getCreatedAt() != null && v.getCreatedAt().toLocalDate().isAfter(startDate)) {
+                    effectiveStartDate = v.getCreatedAt().toLocalDate();
+                } else if (v.getCreatedAt() == null && startDate.getYear() == 2000) {
+                    effectiveStartDate = LocalDate.now().withDayOfYear(1);
+                }
+                long months = ChronoUnit.MONTHS.between(effectiveStartDate.withDayOfMonth(1), endDate.withDayOfMonth(1)) + 1;
                 double expectedRevenue = v.getMonthlyContractAmount() * months;
                 tripRevenue += expectedRevenue;
             }
@@ -384,7 +391,13 @@ public class FinancialService {
         double monthlyContractRevenue = 0;
         for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
             if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
-                long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+                LocalDate effectiveStartDate = startDate;
+                if (v.getCreatedAt() != null && v.getCreatedAt().toLocalDate().isAfter(startDate)) {
+                    effectiveStartDate = v.getCreatedAt().toLocalDate();
+                } else if (v.getCreatedAt() == null && startDate.getYear() == 2000) {
+                    effectiveStartDate = LocalDate.now().withDayOfYear(1);
+                }
+                long days = ChronoUnit.DAYS.between(effectiveStartDate, endDate) + 1;
                 monthlyContractRevenue += (v.getMonthlyContractAmount() / 30.0) * days;
             }
         }

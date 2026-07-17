@@ -12,6 +12,9 @@ const Maintenance = () => {
     const [filterVehicle, setFilterVehicle] = useState('All');
     const [isScanningBill, setIsScanningBill] = useState(false);
 
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [editId, setEditId] = useState(null);
+
     // Form State
     const [formData, setFormData] = useState({
         vehicleId: '',
@@ -60,16 +63,53 @@ const Maintenance = () => {
             return;
         }
         try {
-            await api.post('/maintenance', formData);
+            if (isEditMode) {
+                await api.put(`/maintenance/${editId}`, formData);
+            } else {
+                await api.post('/maintenance', formData);
+            }
             setIsModalOpen(false);
-            setFormData({
-                vehicleId: '', date: new Date().toISOString().split('T')[0], serviceType: 'General Service', 
-                vendorDetails: '', sparePartsCost: '', labourCost: '', totalCost: '', billUrl: ''
-            });
+            resetForm();
             fetchData();
         } catch (err) {
-            setError('Failed to save maintenance log');
+            setError(isEditMode ? 'Failed to update maintenance log' : 'Failed to save maintenance log');
             console.error(err);
+        }
+    };
+
+    const resetForm = () => {
+        setFormData({
+            vehicleId: '', date: new Date().toISOString().split('T')[0], serviceType: 'General Service', 
+            vendorDetails: '', sparePartsCost: '', labourCost: '', totalCost: '', billUrl: ''
+        });
+        setIsEditMode(false);
+        setEditId(null);
+    };
+
+    const handleEdit = (log) => {
+        setFormData({
+            vehicleId: log.vehicleId || '',
+            date: log.date ? new Date(log.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+            serviceType: log.serviceType || 'General Service',
+            vendorDetails: log.vendorDetails || '',
+            sparePartsCost: log.sparePartsCost || '',
+            labourCost: log.labourCost || '',
+            totalCost: log.totalCost || '',
+            billUrl: log.billUrl || ''
+        });
+        setIsEditMode(true);
+        setEditId(log.id);
+        setIsModalOpen(true);
+    };
+
+    const handleDelete = async (id) => {
+        if (!window.confirm("Are you sure you want to delete this maintenance record?")) return;
+        try {
+            await api.delete(`/maintenance/${id}`);
+            fetchData();
+        } catch (err) {
+            console.error("Failed to delete", err);
+            alert("Failed to delete record.");
         }
     };
 
@@ -138,7 +178,7 @@ const Maintenance = () => {
                     <h1 className="text-2xl font-bold text-white tracking-tight">Maintenance & Compliance</h1>
                     <p className="text-sm text-gray-500 font-medium mt-1">Track vehicle health, servicing, and legal renewals</p>
                 </div>
-                <button onClick={() => setIsModalOpen(true)} className="flex items-center px-4 py-2 bg-[#D8621C] text-white rounded-xl text-sm font-bold shadow-lg shadow-orange-500/20 hover:bg-[#c25617] transition-all">
+                <button onClick={() => { resetForm(); setIsModalOpen(true); }} className="flex items-center px-4 py-2 bg-[#D8621C] text-white rounded-xl text-sm font-bold shadow-lg shadow-orange-500/20 hover:bg-[#c25617] transition-all">
                     <Plus className="w-4 h-4 mr-2" /> Log Service
                 </button>
             </div>
@@ -192,12 +232,13 @@ const Maintenance = () => {
                                 <th className="p-5 border-b border-[#2A2A2A]">Vendor</th>
                                 <th className="p-5 text-right border-b border-[#2A2A2A]">Total Cost</th>
                                 <th className="p-5 text-center border-b border-[#2A2A2A]">Bill</th>
+                                <th className="p-5 text-center border-b border-[#2A2A2A]">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[#2A2A2A] bg-[#121212]">
                             {filteredLogs.length === 0 ? (
                                 <tr>
-                                    <td colSpan="6" className="p-8 text-center text-gray-500 font-medium">
+                                    <td colSpan="7" className="p-8 text-center text-gray-500 font-medium">
                                         No maintenance records found.
                                     </td>
                                 </tr>
@@ -236,6 +277,24 @@ const Maintenance = () => {
                                             <span className="text-gray-600">-</span>
                                         )}
                                     </td>
+                                    <td className="p-5 text-center">
+                                        <div className="flex justify-center gap-2">
+                                            <button 
+                                                onClick={() => handleEdit(log)}
+                                                className="text-gray-400 hover:text-white p-1 rounded hover:bg-white/10 transition-colors"
+                                                title="Edit Record"
+                                            >
+                                                ✏️
+                                            </button>
+                                            <button 
+                                                onClick={() => handleDelete(log.id)}
+                                                className="text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-500/10 transition-colors"
+                                                title="Delete Record"
+                                            >
+                                                🗑️
+                                            </button>
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -248,7 +307,7 @@ const Maintenance = () => {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in p-4 overflow-y-auto">
                     <div className="stripe-card w-full max-w-lg overflow-hidden border border-[#2A2A2A] shadow-2xl my-8">
                         <div className="flex justify-between items-center p-6 border-b border-[#2A2A2A] bg-[#1A1A1A]">
-                            <h3 className="text-xl font-bold text-white tracking-tight">Log Maintenance Service</h3>
+                            <h3 className="text-xl font-bold text-white tracking-tight">{isEditMode ? 'Edit Maintenance Service' : 'Log Maintenance Service'}</h3>
                             <div className="flex items-center gap-3">
                                 <label className={`cursor-pointer px-3 py-1.5 rounded-lg text-sm font-bold flex items-center transition-all ${isScanningBill ? 'bg-indigo-500/50 text-white cursor-not-allowed' : 'bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/30'}`}>
                                     <Sparkles className="w-4 h-4 mr-1.5" />
@@ -402,7 +461,7 @@ const Maintenance = () => {
                                     Cancel
                                 </button>
                                 <button type="submit" className="flex-1 py-3 px-4 bg-[#D8621C] hover:bg-[#c25617] text-white font-bold rounded-xl transition-all shadow-md shadow-[#D8621C]/20">
-                                    Save Record
+                                    {isEditMode ? 'Update Record' : 'Save Record'}
                                 </button>
                             </div>
                         </form>
