@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // This will use your cloud URL when deployed, and localhost when on your computer
 const api = axios.create({
-    baseURL: import.meta.env.PROD ? 'https://pavithra-backend.onrender.com/api/v1' : 'http://localhost:8080/api/v1',
+    baseURL: import.meta.env.PROD ? 'https://pavithra-erp.onrender.com/api/v1' : 'http://localhost:8080/api/v1',
     headers: {
         'Content-Type': 'application/json'
     }
