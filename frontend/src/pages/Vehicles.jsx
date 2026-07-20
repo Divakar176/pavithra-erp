@@ -264,12 +264,12 @@ const Vehicles = () => {
                                     backgroundPosition: 'center',
                                 }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#151515] via-[#151515]/80 to-[#151515]/30 z-0"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/30 dark:from-[#151515] dark:via-[#151515]/80 dark:to-[#151515]/30 z-0"></div>
 
                             <div className="relative z-10">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="flex gap-2">
-                                        <span className="bg-white/5 border border-white/10 text-slate-600 dark:text-gray-300 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                                        <span className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-gray-300 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                                             {vehicle.type}
                                         </span>
                                         {vehicle.billingType === 'MONTHLY' && (

@@ -123,7 +123,7 @@ const DashboardOverview = () => {
 
                     {/* FIXED BUG 1: Safe Map Embed (Replaced buggy Leaflet) */}
                     <div className="stripe-card p-0 h-[400px] flex flex-col overflow-hidden relative border border-slate-200 dark:border-[#2A2A2A] z-0">
-                        <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-[#1C1C1C] to-transparent z-[1000] pointer-events-none flex justify-between items-start">
+                        <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-slate-50 dark:from-[#1C1C1C] to-transparent z-[1000] pointer-events-none flex justify-between items-start">
                             <h2 className="text-slate-900 dark:text-white font-bold drop-shadow-md flex items-center">
                                 <MapPin className="w-5 h-5 mr-2 text-orange-500" />
                                 Live Fleet Tracking

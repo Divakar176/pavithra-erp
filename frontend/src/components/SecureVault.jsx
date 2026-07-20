@@ -89,7 +89,7 @@ const SecureVault = ({ isOpen, onClose, vehicle }) => {
             <div className="bg-white dark:bg-[#1C1C1C] border border-emerald-500/20 rounded-2xl w-full max-w-3xl h-[80vh] flex flex-col overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.1)]">
                 
                 {/* Header */}
-                <div className="p-5 border-b border-emerald-500/10 flex justify-between items-center bg-gradient-to-r from-[#151515] to-[#1A2520]">
+                <div className="p-5 border-b border-emerald-500/10 flex justify-between items-center bg-gradient-to-r from-emerald-50 dark:from-[#151515] to-emerald-100/50 dark:to-[#1A2520]">
                     <div className="flex items-center gap-3">
                         <div className="bg-emerald-500/20 p-2 rounded-lg">
                             <Lock className="w-5 h-5 text-emerald-500" />
