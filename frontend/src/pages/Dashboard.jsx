@@ -118,7 +118,7 @@ const DashboardLayout = () => {
                 />
             )}
 
-            <aside className={`w-64 bg-[#1E1E1E] border-r border-slate-200 dark:border-[#2A2A2A] flex flex-col fixed inset-y-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 print:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            <aside className={`w-64 bg-white dark:bg-[#1E1E1E] border-r border-slate-200 dark:border-[#2A2A2A] flex flex-col fixed inset-y-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 print:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="h-[72px] flex items-center px-6 border-b border-slate-200 dark:border-[#2A2A2A]">
                     <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-lg shadow-orange-500/20 mr-3 shrink-0 overflow-hidden">
                         <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
@@ -151,10 +151,10 @@ const DashboardLayout = () => {
                                                 key={item.label}
                                                 to={item.path} 
                                                 onClick={() => setIsSidebarOpen(false)}
-                                                className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium group ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-slate-900 dark:text-white hover:text-[#D8621C] hover:bg-white/5'}`}
+                                                className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium group ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-slate-600 dark:text-gray-300 hover:text-[#D8621C] hover:bg-slate-100 dark:hover:bg-white/5'}`}
                                             >
                                                 <div className="flex items-center">
-                                                    <Icon className={`w-4 h-4 mr-3 transition-colors ${isActive ? 'text-[#D8621C]' : 'text-slate-900 dark:text-white group-hover:text-[#D8621C]'}`} />
+                                                    <Icon className={`w-4 h-4 mr-3 transition-colors ${isActive ? 'text-[#D8621C]' : 'text-slate-500 dark:text-gray-400 group-hover:text-[#D8621C]'}`} />
                                                     <span className="text-sm">{item.label}</span>
                                                 </div>
                                                 {item.badge && (
