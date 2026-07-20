@@ -1,9 +1,9 @@
 spring:
   datasource:
     # Do NOT change these three lines. Leave them exactly as ${...}
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/pavithra_erp_db}
-    username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/pavithra_erp_db?serverTimezone=UTC}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:root}
   jpa:
     hibernate:
       ddl-auto: update
