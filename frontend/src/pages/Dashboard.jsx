@@ -109,7 +109,6 @@ const DashboardLayout = () => {
     const userRole = user?.role || 'SUPER_ADMIN';
 
     return (
-    return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#1A1A1A] text-slate-900 dark:text-gray-200 flex font-sans selection:bg-orange-500/30 overflow-hidden relative transition-colors duration-300">
             
             {isSidebarOpen && (
