@@ -270,7 +270,7 @@ const Maintenance = () => {
                                     </td>
                                     <td className="p-5 text-center">
                                         {log.billUrl ? (
-                                            <a href={log.billUrl} target="_blank" rel="noreferrer" className="inline-flex p-2 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] text-blue-400 rounded-lg transition-colors">
+                                            <a href={log.billUrl} target="_blank" rel="noreferrer" className="inline-flex p-2 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] text-blue-400 rounded-lg transition-colors">
                                                 <FileText className="w-4 h-4" />
                                             </a>
                                         ) : (
@@ -314,7 +314,7 @@ const Maintenance = () => {
                                     {isScanningBill ? 'Scanning...' : 'Auto-fill with AI'}
                                     <input type="file" accept="image/*,.pdf" className="hidden" onChange={handleFileUpload} disabled={isScanningBill} />
                                 </label>
-                                <button onClick={() => setIsModalOpen(false)} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] p-1.5 rounded-lg transition-colors">
+                                <button onClick={() => setIsModalOpen(false)} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] p-1.5 rounded-lg transition-colors">
                                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                 </button>
                             </div>

@@ -169,14 +169,14 @@ const Inventory = () => {
                                                     <div className="flex items-center space-x-4">
                                                         <button 
                                                             onClick={() => adjustStock(item.id, -1)}
-                                                            className="w-8 h-8 rounded-full bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] flex items-center justify-center text-slate-900 dark:text-white transition-colors"
+                                                            className="w-8 h-8 rounded-full bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] flex items-center justify-center text-slate-900 dark:text-white transition-colors"
                                                         >-</button>
                                                         <span className={`text-xl font-bold w-12 text-center ${isLowStock ? 'text-red-500' : 'text-slate-900 dark:text-white'}`}>
                                                             {item.stockQuantity}
                                                         </span>
                                                         <button 
                                                             onClick={() => adjustStock(item.id, 1)}
-                                                            className="w-8 h-8 rounded-full bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] flex items-center justify-center text-slate-900 dark:text-white transition-colors"
+                                                            className="w-8 h-8 rounded-full bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] flex items-center justify-center text-slate-900 dark:text-white transition-colors"
                                                         >+</button>
                                                     </div>
                                                     {isLowStock && (
@@ -193,10 +193,10 @@ const Inventory = () => {
                                             </td>
                                             <td className="p-4">
                                                 <div className="flex justify-center space-x-2">
-                                                    <button onClick={() => openModal(item)} className="p-2 text-[#A0A0A0] hover:text-slate-900 dark:text-white transition-colors bg-slate-200 dark:bg-[#2A2A2A] rounded-lg hover:bg-[#333]">
+                                                    <button onClick={() => openModal(item)} className="p-2 text-[#A0A0A0] hover:text-slate-900 dark:text-white transition-colors bg-slate-200 dark:bg-[#2A2A2A] rounded-lg hover:bg-slate-300 dark:hover:bg-[#333]">
                                                         <Edit2 size={18} />
                                                     </button>
-                                                    <button onClick={() => handleDelete(item.id)} className="p-2 text-[#A0A0A0] hover:text-red-500 transition-colors bg-slate-200 dark:bg-[#2A2A2A] rounded-lg hover:bg-[#333]">
+                                                    <button onClick={() => handleDelete(item.id)} className="p-2 text-[#A0A0A0] hover:text-red-500 transition-colors bg-slate-200 dark:bg-[#2A2A2A] rounded-lg hover:bg-slate-300 dark:hover:bg-[#333]">
                                                         <Trash2 size={18} />
                                                     </button>
                                                 </div>
@@ -252,7 +252,7 @@ const Inventory = () => {
                                     <input type="number" step="0.01" min="0" name="unitPrice" required value={formData.unitPrice} onChange={handleInputChange} className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" />
                                 </div>
                                 <div className="flex space-x-3 pt-4 border-t border-slate-200 dark:border-[#2A2A2A]">
-                                    <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 px-4 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] text-slate-900 dark:text-white rounded-xl transition-colors font-medium">Cancel</button>
+                                    <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 px-4 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] text-slate-900 dark:text-white rounded-xl transition-colors font-medium">Cancel</button>
                                     <button type="submit" disabled={isSaving} className="flex-1 py-3 px-4 bg-[#FF6B00] hover:bg-[#FF8533] text-slate-900 dark:text-white rounded-xl transition-colors font-medium disabled:opacity-50">
                                         {isSaving ? 'Saving...' : 'Save Item'}
                                     </button>

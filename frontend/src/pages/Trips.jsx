@@ -585,7 +585,7 @@ const Trips = () => {
                 <div>
                     <button
                         onClick={() => setFilters({ date: '', vehicleId: '', customerId: '', driverId: '', site: '' })}
-                        className="px-4 py-2 text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] rounded-lg hover:bg-[#333] transition-colors"
+                        className="px-4 py-2 text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] rounded-lg hover:bg-slate-300 dark:hover:bg-[#333] transition-colors"
                     >
                         Clear
                     </button>

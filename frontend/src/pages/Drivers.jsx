@@ -326,7 +326,7 @@ const Drivers = () => {
                             </thead>
                             <tbody className="divide-y divide-[#2A2A2A] bg-white dark:bg-[#1C1C1C]">
                                 {drivers.map(driver => (
-                                    <tr key={driver.id} className="hover:bg-[#222] transition-colors">
+                                    <tr key={driver.id} className="hover:bg-slate-100 dark:hover:bg-[#222] transition-colors">
                                         <td className="p-5">
                                             <div className="font-bold text-slate-900 dark:text-white">{driver.username}</div>
                                             <div className="text-xs text-slate-500 dark:text-gray-500">{driver.mobile}</div>
@@ -415,7 +415,7 @@ const Drivers = () => {
                                 
                                 <button 
                                     onClick={() => generatePayslip(sal)}
-                                    className="px-4 py-3 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] text-slate-900 dark:text-white rounded-xl transition-colors flex items-center gap-2 border border-slate-200 dark:border-[#333]"
+                                    className="px-4 py-3 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] text-slate-900 dark:text-white rounded-xl transition-colors flex items-center gap-2 border border-slate-200 dark:border-[#333]"
                                     title="Download Payslip PDF"
                                 >
                                     <FileText className="w-4 h-4 text-blue-400" />

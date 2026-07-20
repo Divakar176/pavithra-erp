@@ -274,7 +274,7 @@ const Customers = () => {
                     <div className="stripe-card w-full max-w-md overflow-hidden border border-slate-200 dark:border-[#2A2A2A] shadow-2xl">
                         <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Add New Customer</h3>
-                            <button onClick={() => { setIsModalOpen(false); resetForm(); }} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] p-1.5 rounded-lg transition-colors">
+                            <button onClick={() => { setIsModalOpen(false); resetForm(); }} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] p-1.5 rounded-lg transition-colors">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
@@ -361,7 +361,7 @@ const Customers = () => {
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Receive Payment</h3>
                                 <p className="text-sm text-[#10B981] font-medium mt-1">from {selectedCustomer.name}</p>
                             </div>
-                            <button onClick={() => setIsPaymentModalOpen(false)} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] p-1.5 rounded-lg transition-colors">
+                            <button onClick={() => setIsPaymentModalOpen(false)} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] p-1.5 rounded-lg transition-colors">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
@@ -438,7 +438,7 @@ const Customers = () => {
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Add Manual Charge</h3>
                                 <p className="text-xs text-red-500 font-bold mt-1">Increases balance owed by customer</p>
                             </div>
-                            <button onClick={() => setIsChargeModalOpen(false)} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] p-1.5 rounded-lg transition-colors">
+                            <button onClick={() => setIsChargeModalOpen(false)} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] p-1.5 rounded-lg transition-colors">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
@@ -495,7 +495,7 @@ const Customers = () => {
                     <div className="stripe-card w-full max-w-md overflow-hidden border border-slate-200 dark:border-[#2A2A2A] shadow-2xl">
                         <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Edit Customer</h3>
-                            <button onClick={() => { setIsEditModalOpen(false); resetForm(); }} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] p-1.5 rounded-lg transition-colors">
+                            <button onClick={() => { setIsEditModalOpen(false); resetForm(); }} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] p-1.5 rounded-lg transition-colors">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
