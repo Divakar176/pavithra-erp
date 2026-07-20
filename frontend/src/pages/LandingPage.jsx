@@ -18,7 +18,7 @@ const LandingPage = () => {
             {/* --- MAGICAL BACKGROUND EFFECTS --- */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 {/* Noise overlay for premium texture */}
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                <div className="absolute inset-0 opacity-20 mix-blend-overlay"></div>
                 {/* Glowing Orbs */}
                 <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-indigo-600/20 blur-[120px] animate-[pulse_8s_ease-in-out_infinite]"></div>
                 <div className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/10 blur-[150px] animate-[pulse_10s_ease-in-out_infinite_reverse]"></div>
