@@ -409,14 +409,14 @@ const Vehicles = () => {
             {/* Add Vehicle Modal */}
             {isAddModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl h-max max-h-[90vh] flex flex-col">
                         <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515]">
                             <h2 className="text-white font-bold text-lg">Add New Vehicle</h2>
                             <button onClick={() => setIsAddModalOpen(false)} className="text-gray-400 hover:text-white">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
-                        <form onSubmit={handleAddSubmit} className="p-6 space-y-4">
+                        <form onSubmit={handleAddSubmit} className="p-6 space-y-4 overflow-y-auto">
                             <div>
                                 <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Vehicle Number</label>
                                 <input
