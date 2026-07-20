@@ -31,7 +31,7 @@ const AiAssistant = () => {
                 </div>
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900 tracking-tight">AI Intelligence Hub</h1>
-                    <p className="text-sm text-gray-500 font-medium mt-1">OCR Receipt Scanning & AI Business Insights</p>
+                    <p className="text-sm text-slate-500 dark:text-gray-500 font-medium mt-1">OCR Receipt Scanning & AI Business Insights</p>
                 </div>
             </div>
 
@@ -56,9 +56,9 @@ const AiAssistant = () => {
                         ) : (
                             <div className="h-full flex flex-col items-center justify-center text-center opacity-70">
                                 <div className="w-16 h-16 bg-white border border-gray-200 rounded-full flex items-center justify-center mb-4 shadow-sm">
-                                    <Bot className="w-8 h-8 text-gray-400" />
+                                    <Bot className="w-8 h-8 text-slate-500 dark:text-gray-400" />
                                 </div>
-                                <p className="text-sm font-semibold text-gray-500 max-w-xs">Ask me anything about your fleet, expenses, or profits.</p>
+                                <p className="text-sm font-semibold text-slate-500 dark:text-gray-500 max-w-xs">Ask me anything about your fleet, expenses, or profits.</p>
                                 <div className="mt-6 flex flex-wrap justify-center gap-2">
                                     <span className="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 cursor-pointer hover:border-indigo-300 hover:text-indigo-600 hover:shadow-sm transition-all" onClick={() => setQuery('Which route is most profitable?')}>"Which route is most profitable?"</span>
                                     <span className="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-600 cursor-pointer hover:border-indigo-300 hover:text-indigo-600 hover:shadow-sm transition-all" onClick={() => setQuery('Show highest maintenance cost')}>"Show highest maintenance cost"</span>
@@ -80,7 +80,7 @@ const AiAssistant = () => {
                             placeholder="Type your natural language query..." 
                             className="w-full pl-5 pr-14 py-4 bg-white border border-gray-200 rounded-2xl text-gray-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-300 transition-all shadow-sm font-medium placeholder-gray-400"
                         />
-                        <button type="submit" disabled={isThinking} className="absolute right-3 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl flex items-center justify-center disabled:opacity-50 transition-colors shadow-md shadow-indigo-600/20">
+                        <button type="submit" disabled={isThinking} className="absolute right-3 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-indigo-600 hover:bg-indigo-700 text-slate-900 dark:text-white rounded-xl flex items-center justify-center disabled:opacity-50 transition-colors shadow-md shadow-indigo-600/20">
                             <ArrowRight className="w-5 h-5" />
                         </button>
                     </form>
@@ -98,11 +98,11 @@ const AiAssistant = () => {
                             <FileText className="w-8 h-8" />
                         </div>
                         <p className="font-bold text-gray-900 text-base">Drag & Drop Invoice or Bill</p>
-                        <p className="text-sm text-gray-500 mt-1 font-medium">Supports JPG, PNG, PDF</p>
+                        <p className="text-sm text-slate-500 dark:text-gray-500 mt-1 font-medium">Supports JPG, PNG, PDF</p>
                     </div>
 
                     <div className="bg-[#F9FAFB] rounded-2xl p-6 border border-gray-100">
-                        <h4 className="text-xs font-bold text-gray-500 mb-4 flex items-center tracking-wider uppercase">
+                        <h4 className="text-xs font-bold text-slate-500 dark:text-gray-500 mb-4 flex items-center tracking-wider uppercase">
                             <AlertTriangle className="w-4 h-4 text-orange-500 mr-2" /> Recent AI Audit Log
                         </h4>
                         
@@ -110,7 +110,7 @@ const AiAssistant = () => {
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
                             <div className="flex justify-between items-start mb-3">
                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-red-50 text-red-600 rounded-md uppercase tracking-wider">High Risk (Score: 85)</span>
-                                <span className="text-xs text-gray-400 font-mono font-medium">INV-HTL-901</span>
+                                <span className="text-xs text-slate-500 dark:text-gray-400 font-mono font-medium">INV-HTL-901</span>
                             </div>
                             <p className="text-sm text-gray-700 font-medium mt-2 leading-relaxed">The expense amount (<span className="text-gray-900 font-bold">₹12,500</span>) exceeds the standard corporate allowance for Hotel stays. Vendor mismatch detected via OCR.</p>
                             <div className="mt-4 text-xs text-blue-600 font-bold cursor-pointer hover:text-blue-700 flex items-center">
@@ -122,7 +122,7 @@ const AiAssistant = () => {
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
                             <div className="flex justify-between items-start mb-3">
                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-md uppercase tracking-wider">Verified (Score: 12)</span>
-                                <span className="text-xs text-gray-400 font-mono font-medium">INV-IOCL-2023</span>
+                                <span className="text-xs text-slate-500 dark:text-gray-400 font-mono font-medium">INV-IOCL-2023</span>
                             </div>
                             <p className="text-sm text-gray-700 font-medium mt-2 flex items-center">
                                 <CheckCircle className="w-4 h-4 text-emerald-500 mr-2" /> Perfect match with Indian Oil OCR data.

@@ -40,7 +40,7 @@ const InstallAppBanner = () => {
     }
 
     return (
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-4 shadow-lg flex items-center justify-between mb-6 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 dark:text-white rounded-2xl p-4 shadow-lg flex items-center justify-between mb-6 relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10">
                 <Download className="w-24 h-24" />
             </div>
@@ -59,7 +59,7 @@ const InstallAppBanner = () => {
                 </button>
                 <button 
                     onClick={() => setIsDismissed(true)}
-                    className="text-xs text-blue-200 hover:text-white transition-colors"
+                    className="text-xs text-blue-200 hover:text-slate-900 dark:text-white transition-colors"
                 >
                     Not now
                 </button>

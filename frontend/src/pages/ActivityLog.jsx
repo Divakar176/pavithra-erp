@@ -42,11 +42,11 @@ const ActivityLog = () => {
         <div className="p-8 max-w-5xl mx-auto space-y-6">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-3">
                         <Activity className="w-8 h-8 text-purple-500" />
                         Activity Log
                     </h1>
-                    <p className="text-gray-400">Track all actions performed by owners across the system.</p>
+                    <p className="text-slate-500 dark:text-gray-400">Track all actions performed by owners across the system.</p>
                 </div>
             </div>
 
@@ -59,34 +59,34 @@ const ActivityLog = () => {
                     {error}
                 </div>
             ) : (
-                <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl overflow-hidden">
+                <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl overflow-hidden">
                     <div className="divide-y divide-[#2A2A2A]">
                         {logs.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">No activity recorded yet.</div>
+                            <div className="p-8 text-center text-slate-500 dark:text-gray-500">No activity recorded yet.</div>
                         ) : (
                             logs.map((log) => (
                                 <div key={log.id} className="p-5 flex items-start gap-4 hover:bg-[#222222] transition-colors">
-                                    <div className="bg-[#151515] p-3 rounded-xl border border-[#2A2A2A]">
+                                    <div className="bg-slate-100 dark:bg-[#151515] p-3 rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
                                         {getIconForAction(log.actionName)}
                                     </div>
                                     
                                     <div className="flex-1">
                                         <div className="flex justify-between items-start mb-1">
                                             <div className="flex items-center gap-2">
-                                                <User className="w-4 h-4 text-gray-400" />
+                                                <User className="w-4 h-4 text-slate-500 dark:text-gray-400" />
                                                 <span className="font-bold text-gray-200 capitalize">{log.username}</span>
                                             </div>
-                                            <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+                                            <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-gray-500 font-medium">
                                                 <Clock className="w-3.5 h-3.5" />
                                                 {formatDate(log.createdAt)}
                                             </div>
                                         </div>
                                         
-                                        <div className="text-white font-medium text-lg mb-1">
-                                            {log.actionName} <span className="text-gray-500 text-sm font-normal">({log.entityName})</span>
+                                        <div className="text-slate-900 dark:text-white font-medium text-lg mb-1">
+                                            {log.actionName} <span className="text-slate-500 dark:text-gray-500 text-sm font-normal">({log.entityName})</span>
                                         </div>
                                         
-                                        <p className="text-gray-400 text-sm">
+                                        <p className="text-slate-500 dark:text-gray-400 text-sm">
                                             {log.details}
                                         </p>
                                     </div>

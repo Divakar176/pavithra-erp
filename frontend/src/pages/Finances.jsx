@@ -140,27 +140,27 @@ const Finances = () => {
 
         return (
             <div className="space-y-6">
-                <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl p-6 shadow-xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-[#D8621C]/5 rounded-bl-full -mr-10 -mt-10 blur-2xl"></div>
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
                         <div>
-                            <h2 className="text-xl font-bold text-white mb-1 flex items-center">
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1 flex items-center">
                                 <TrendingUp className="w-5 h-5 mr-2 text-[#D8621C]" />
                                 Customer Outstanding Ledger
                             </h2>
-                            <p className="text-gray-400 text-sm">Track pending payments from all your customers</p>
+                            <p className="text-slate-500 dark:text-gray-400 text-sm">Track pending payments from all your customers</p>
                         </div>
-                        <div className="bg-[#151515] px-6 py-4 rounded-xl border border-[#2A2A2A]">
-                            <div className="text-gray-400 text-xs font-semibold tracking-wider uppercase mb-1">Total Market Pending</div>
+                        <div className="bg-slate-100 dark:bg-[#151515] px-6 py-4 rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
+                            <div className="text-slate-500 dark:text-gray-400 text-xs font-semibold tracking-wider uppercase mb-1">Total Market Pending</div>
                             <div className="text-2xl font-bold text-red-500">{formatCurrency(totalOutstanding)}</div>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl overflow-hidden">
+                <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
-                            <thead className="bg-[#151515] text-gray-400 border-b border-[#2A2A2A]">
+                            <thead className="bg-slate-100 dark:bg-[#151515] text-slate-500 dark:text-gray-400 border-b border-slate-200 dark:border-[#2A2A2A]">
                                 <tr>
                                     <th className="px-6 py-4 font-semibold">Customer Name</th>
                                     <th className="px-6 py-4 font-semibold">Contact Info</th>
@@ -171,10 +171,10 @@ const Finances = () => {
                             <tbody className="divide-y divide-[#2A2A2A]">
                                 {customers.length > 0 ? customers.map(c => (
                                     <tr key={c.id} className="hover:bg-[#1A1A1A] transition-colors">
-                                        <td className="px-6 py-4 font-medium text-white">{c.name}</td>
-                                        <td className="px-6 py-4 text-gray-400">
+                                        <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">{c.name}</td>
+                                        <td className="px-6 py-4 text-slate-500 dark:text-gray-400">
                                             <div>{c.mobile || '-'}</div>
-                                            {c.gstNumber && <div className="text-xs text-gray-500 mt-0.5">GST: {c.gstNumber}</div>}
+                                            {c.gstNumber && <div className="text-xs text-slate-500 dark:text-gray-500 mt-0.5">GST: {c.gstNumber}</div>}
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <span className={`font-bold ${c.outstandingBalance > 0 ? 'text-red-500' : 'text-green-500'}`}>
@@ -194,7 +194,7 @@ const Finances = () => {
                                                     });
                                                     setIsPaymentModalOpen(true);
                                                 }}
-                                                className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition-colors"
+                                                className="bg-green-600 hover:bg-green-700 text-slate-900 dark:text-white text-xs px-3 py-1.5 rounded-lg font-medium transition-colors"
                                             >
                                                 + Add Payment
                                             </button>
@@ -202,7 +202,7 @@ const Finances = () => {
                                     </tr>
                                 )) : (
                                     <tr>
-                                        <td colSpan="4" className="px-6 py-12 text-center text-gray-500">
+                                        <td colSpan="4" className="px-6 py-12 text-center text-slate-500 dark:text-gray-500">
                                             No customers found
                                         </td>
                                     </tr>
@@ -254,14 +254,14 @@ const Finances = () => {
             {/* Header / Date Selector */}
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-white font-bold text-lg">Financial Dashboard</h2>
-                    <div className="text-gray-500 text-sm mt-1">Today - {todayString}</div>
+                    <h2 className="text-slate-900 dark:text-white font-bold text-lg">Financial Dashboard</h2>
+                    <div className="text-slate-500 dark:text-gray-500 text-sm mt-1">Today - {todayString}</div>
                 </div>
                 <div className="flex items-center gap-3">
                     <select 
                         value={period}
                         onChange={(e) => setPeriod(e.target.value)}
-                        className="bg-[#1C1C1C] border border-[#2A2A2A] text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
+                        className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] text-slate-600 dark:text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
                     >
                         <option value="daily">Daily</option>
                         <option value="weekly">Weekly</option>
@@ -271,7 +271,7 @@ const Finances = () => {
                     </select>
                     <button 
                         onClick={handleExportExcel}
-                        className="flex items-center px-4 py-2 bg-[#D8621C] text-white rounded-xl text-sm font-medium shadow-lg shadow-orange-500/20 hover:bg-[#c25617]"
+                        className="flex items-center px-4 py-2 bg-[#D8621C] text-slate-900 dark:text-white rounded-xl text-sm font-medium shadow-lg shadow-orange-500/20 hover:bg-[#c25617]"
                     >
                         <Download className="w-4 h-4 mr-2" />
                         Export Excel Report
@@ -283,41 +283,41 @@ const Finances = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {/* Row 1 */}
                 <div className="stripe-card p-5 border-l-2 border-l-[#D8621C]">
-                    <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Today's Income</div>
-                    <div className="text-2xl font-bold text-white">{formatCurrency(kpis?.todayIncome)}</div>
+                    <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Today's Income</div>
+                    <div className="text-2xl font-bold text-slate-900 dark:text-white">{formatCurrency(kpis?.todayIncome)}</div>
                 </div>
                 <div className="stripe-card p-5 border-l-2 border-l-[#EF4444]">
-                    <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Today's Expense</div>
-                    <div className="text-2xl font-bold text-white">{formatCurrency(kpis?.todayExpense)}</div>
+                    <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Today's Expense</div>
+                    <div className="text-2xl font-bold text-slate-900 dark:text-white">{formatCurrency(kpis?.todayExpense)}</div>
                 </div>
                 <div className="stripe-card p-5 border-l-2 border-l-[#10B981]">
-                    <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Today's Profit</div>
+                    <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Today's Profit</div>
                     <div className="text-2xl font-bold text-[#10B981]">{formatCurrency(kpis?.todayProfit)}</div>
                 </div>
                 <div className="stripe-card p-5 border-l-2 border-l-blue-500">
-                    <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Vehicles Active</div>
-                    <div className="text-2xl font-bold text-white">{kpis?.activeTrips || 0}</div>
+                    <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Vehicles Active</div>
+                    <div className="text-2xl font-bold text-slate-900 dark:text-white">{kpis?.activeTrips || 0}</div>
                 </div>
 
                 {/* Row 2 */}
-                <div className="stripe-card p-5 bg-[#1C1C1C]">
-                    <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">{period === 'all_time' ? 'Overall' : period} Income</div>
-                    <div className="text-2xl font-bold text-white">{formatCurrency(periodSummary?.totalIncome)}</div>
+                <div className="stripe-card p-5 bg-white dark:bg-[#1C1C1C]">
+                    <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">{period === 'all_time' ? 'Overall' : period} Income</div>
+                    <div className="text-2xl font-bold text-slate-900 dark:text-white">{formatCurrency(periodSummary?.totalIncome)}</div>
                 </div>
-                <div className="stripe-card p-5 bg-[#1C1C1C]">
-                    <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">{period === 'all_time' ? 'Overall' : period} Expense</div>
-                    <div className="text-2xl font-bold text-white">{formatCurrency(periodSummary?.totalExpense)}</div>
+                <div className="stripe-card p-5 bg-white dark:bg-[#1C1C1C]">
+                    <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">{period === 'all_time' ? 'Overall' : period} Expense</div>
+                    <div className="text-2xl font-bold text-slate-900 dark:text-white">{formatCurrency(periodSummary?.totalExpense)}</div>
                 </div>
-                <div className="stripe-card p-5 bg-[#1C1C1C] border border-[#10B981]/30">
+                <div className="stripe-card p-5 bg-white dark:bg-[#1C1C1C] border border-[#10B981]/30">
                     <div className="text-[#10B981] text-[10px] font-bold uppercase tracking-wider mb-2">{period === 'all_time' ? 'Overall' : period} Net Profit</div>
                     <div className="text-2xl font-bold text-[#10B981]">{formatCurrency(periodSummary?.netProfit)}</div>
                 </div>
-                <div className="stripe-card p-5 bg-[#1C1C1C] border border-[#D8621C]/30">
+                <div className="stripe-card p-5 bg-white dark:bg-[#1C1C1C] border border-[#D8621C]/30">
                     <div className="text-[#D8621C] text-[10px] font-bold uppercase tracking-wider mb-2">{period === 'all_time' ? 'Overall' : period} Diesel Spend</div>
                     <div className="text-2xl font-bold text-[#D8621C]">{formatCurrency(periodSummary?.dieselSpend)}</div>
                 </div>
                 {period === 'all_time' && (
-                    <div className="stripe-card p-5 bg-[#1C1C1C] border border-[#8B5CF6]/30">
+                    <div className="stripe-card p-5 bg-white dark:bg-[#1C1C1C] border border-[#8B5CF6]/30">
                         <div className="text-[#8B5CF6] text-[10px] font-bold uppercase tracking-wider mb-2">Total Investment</div>
                         <div className="text-2xl font-bold text-[#8B5CF6]">{formatCurrency(periodSummary?.totalInvestment)}</div>
                     </div>
@@ -328,7 +328,7 @@ const Finances = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Bar/Line Chart */}
                 <div className="stripe-card p-6 lg:col-span-2">
-                    <h3 className="text-white font-semibold mb-6">Income vs Expense - 2025</h3>
+                    <h3 className="text-slate-900 dark:text-white font-semibold mb-6">Income vs Expense - 2025</h3>
                     <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={yearlyTrend} margin={{ top: 5, right: 20, left: -20, bottom: 5 }}>
@@ -350,7 +350,7 @@ const Finances = () => {
 
                 {/* Donut Chart */}
                 <div className="stripe-card p-6">
-                    <h3 className="text-white font-semibold mb-6">Expense Split</h3>
+                    <h3 className="text-slate-900 dark:text-white font-semibold mb-6">Expense Split</h3>
                     <div className="h-[300px] w-full relative flex items-center justify-center">
                         {expenseBreakdown.length > 0 ? (
                             <ResponsiveContainer width="100%" height="100%">
@@ -376,13 +376,13 @@ const Finances = () => {
                                 </PieChart>
                             </ResponsiveContainer>
                         ) : (
-                            <div className="text-gray-500 text-sm">No expenses recorded</div>
+                            <div className="text-slate-500 dark:text-gray-500 text-sm">No expenses recorded</div>
                         )}
                         {/* Center Text */}
                         {expenseBreakdown.length > 0 && (
                             <div className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                                <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1">Total</div>
-                                <div className="text-white font-bold text-xl">
+                                <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1">Total</div>
+                                <div className="text-slate-900 dark:text-white font-bold text-xl">
                                     {formatCurrency(expenseBreakdown.reduce((sum, item) => sum + item.value, 0))}
                                 </div>
                             </div>
@@ -396,12 +396,12 @@ const Finances = () => {
     const renderVehicleWise = () => (
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <h2 className="text-white font-bold text-lg">Detailed Vehicle Profit & Loss</h2>
+                <h2 className="text-slate-900 dark:text-white font-bold text-lg">Detailed Vehicle Profit & Loss</h2>
                 <div className="flex flex-col md:flex-row gap-3">
                     <select 
                         value={reportPeriod}
                         onChange={(e) => setReportPeriod(e.target.value)}
-                        className="bg-[#1C1C1C] border border-[#2A2A2A] text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
+                        className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] text-slate-600 dark:text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
                     >
                         <option value="weekly">Weekly</option>
                         <option value="monthly">Monthly</option>
@@ -411,7 +411,7 @@ const Finances = () => {
                     <select 
                         value={reportVehicleId}
                         onChange={(e) => setReportVehicleId(e.target.value)}
-                        className="bg-[#1C1C1C] border border-[#2A2A2A] text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
+                        className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] text-slate-600 dark:text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
                     >
                         <option value="">All Vehicles</option>
                         {vehicles.map(v => (
@@ -423,13 +423,13 @@ const Finances = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {customReportData.map((v, i) => (
-                    <div key={i} className="bg-[#151515] border border-[#2A2A2A] rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                    <div key={i} className="bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl p-6 shadow-xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#D8621C]/10 to-transparent rounded-bl-full pointer-events-none"></div>
                         
-                        <div className="flex justify-between items-center mb-6 border-b border-[#2A2A2A] pb-4">
+                        <div className="flex justify-between items-center mb-6 border-b border-slate-200 dark:border-[#2A2A2A] pb-4">
                             <div>
-                                <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1">Vehicle</div>
-                                <h3 className="text-white font-bold text-xl">{v.vehicleNumber}</h3>
+                                <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1">Vehicle</div>
+                                <h3 className="text-slate-900 dark:text-white font-bold text-xl">{v.vehicleNumber}</h3>
                             </div>
                             <div className={`px-4 py-1.5 rounded-full text-sm font-bold ${v.netProfit >= 0 ? 'bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20' : 'bg-red-500/10 text-red-500 border border-red-500/20'}`}>
                                 {v.netProfit >= 0 ? 'PROFIT' : 'LOSS'}
@@ -438,51 +438,51 @@ const Finances = () => {
 
                         <div className="space-y-4 mb-6">
                             {/* Revenue */}
-                            <div className="flex justify-between items-center bg-[#1A1A1A] p-3 rounded-lg border border-[#2A2A2A]">
+                            <div className="flex justify-between items-center bg-[#1A1A1A] p-3 rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                                    <span className="text-gray-300 text-sm font-medium">Trip Revenue</span>
+                                    <span className="text-slate-600 dark:text-gray-300 text-sm font-medium">Trip Revenue</span>
                                 </div>
-                                <span className="text-white font-bold">{formatCurrency(v.revenue)}</span>
+                                <span className="text-slate-900 dark:text-white font-bold">{formatCurrency(v.revenue)}</span>
                             </div>
 
                             {/* Expenses List */}
-                            <div className="pl-4 border-l-2 border-[#2A2A2A] space-y-3">
+                            <div className="pl-4 border-l-2 border-slate-200 dark:border-[#2A2A2A] space-y-3">
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-500 text-sm">Diesel Cost</span>
+                                    <span className="text-slate-500 dark:text-gray-500 text-sm">Diesel Cost</span>
                                     <span className="text-red-400 font-medium">-{formatCurrency(v.dieselCost)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-500 text-sm">Driver Salary</span>
+                                    <span className="text-slate-500 dark:text-gray-500 text-sm">Driver Salary</span>
                                     <span className="text-red-400 font-medium">-{formatCurrency(v.driverSalary)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-500 text-sm">Food & Bata</span>
+                                    <span className="text-slate-500 dark:text-gray-500 text-sm">Food & Bata</span>
                                     <span className="text-red-400 font-medium">-{formatCurrency(v.foodCost)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-500 text-sm">Maintenance</span>
+                                    <span className="text-slate-500 dark:text-gray-500 text-sm">Maintenance</span>
                                     <span className="text-red-400 font-medium">-{formatCurrency(v.maintenanceCost)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-500 text-sm">Other Exp / Materials</span>
+                                    <span className="text-slate-500 dark:text-gray-500 text-sm">Other Exp / Materials</span>
                                     <span className="text-red-400 font-medium">-{formatCurrency(v.otherExpenses)}</span>
                                 </div>
                             </div>
                             
                             {/* Total Expenses */}
-                            <div className="flex justify-between items-center bg-[#1A1A1A] p-3 rounded-lg border border-[#2A2A2A]">
+                            <div className="flex justify-between items-center bg-[#1A1A1A] p-3 rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                                    <span className="text-gray-300 text-sm font-medium">Total Expenses</span>
+                                    <span className="text-slate-600 dark:text-gray-300 text-sm font-medium">Total Expenses</span>
                                 </div>
                                 <span className="text-red-400 font-bold">-{formatCurrency(v.totalExpense)}</span>
                             </div>
                         </div>
 
                         {/* Net Profit */}
-                        <div className={`mt-auto pt-4 border-t border-[#2A2A2A] flex justify-between items-center`}>
-                            <span className="text-gray-400 text-sm font-medium">Net Profit</span>
+                        <div className={`mt-auto pt-4 border-t border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center`}>
+                            <span className="text-slate-500 dark:text-gray-400 text-sm font-medium">Net Profit</span>
                             <span className={`text-2xl font-black ${v.netProfit >= 0 ? 'text-[#10B981]' : 'text-red-500'}`}>
                                 {formatCurrency(v.netProfit)}
                             </span>
@@ -491,11 +491,11 @@ const Finances = () => {
                 ))}
             </div>
             {customReportData.length === 0 && (
-                <div className="text-center text-gray-500 py-10 bg-[#151515] rounded-2xl border border-[#2A2A2A]">
+                <div className="text-center text-slate-500 dark:text-gray-500 py-10 bg-slate-100 dark:bg-[#151515] rounded-2xl border border-slate-200 dark:border-[#2A2A2A]">
                     <div className="w-16 h-16 bg-[#1A1A1A] rounded-full flex items-center justify-center mx-auto mb-4">
                         <Search className="w-8 h-8 text-gray-600" />
                     </div>
-                    <div className="text-lg font-medium text-gray-400">No data found</div>
+                    <div className="text-lg font-medium text-slate-500 dark:text-gray-400">No data found</div>
                     <div className="text-sm mt-1">Try selecting a different timeframe or vehicle.</div>
                 </div>
             )}
@@ -504,11 +504,11 @@ const Finances = () => {
 
     const renderExpenseBreakdown = () => (
         <div className="space-y-6">
-            <h2 className="text-white font-bold text-lg">Detailed Expense Breakdown</h2>
+            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Detailed Expense Breakdown</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Donut Chart Duplicate */}
                 <div className="stripe-card p-6">
-                    <h3 className="text-white font-semibold mb-6">Expense Split</h3>
+                    <h3 className="text-slate-900 dark:text-white font-semibold mb-6">Expense Split</h3>
                     <div className="h-[300px] w-full relative flex items-center justify-center">
                         {expenseBreakdown.length > 0 ? (
                             <ResponsiveContainer width="100%" height="100%">
@@ -534,13 +534,13 @@ const Finances = () => {
                                 </PieChart>
                             </ResponsiveContainer>
                         ) : (
-                            <div className="text-gray-500 text-sm">No expenses recorded</div>
+                            <div className="text-slate-500 dark:text-gray-500 text-sm">No expenses recorded</div>
                         )}
                         {/* Center Text */}
                         {expenseBreakdown.length > 0 && (
                             <div className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                                <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1">Total</div>
-                                <div className="text-white font-bold text-xl">
+                                <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1">Total</div>
+                                <div className="text-slate-900 dark:text-white font-bold text-xl">
                                     {formatCurrency(expenseBreakdown.reduce((sum, item) => sum + item.value, 0))}
                                 </div>
                             </div>
@@ -550,18 +550,18 @@ const Finances = () => {
                 
                 {/* List View */}
                 <div className="stripe-card p-6">
-                    <h3 className="text-white font-semibold mb-6">Category Totals</h3>
+                    <h3 className="text-slate-900 dark:text-white font-semibold mb-6">Category Totals</h3>
                     <div className="space-y-4">
                         {expenseBreakdown.sort((a,b) => b.value - a.value).map((item, index) => (
-                            <div key={index} className="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-xl border border-[#2A2A2A]">
+                            <div key={index} className="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="flex items-center gap-3">
                                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
-                                    <span className="text-gray-300 font-medium">{item.name}</span>
+                                    <span className="text-slate-600 dark:text-gray-300 font-medium">{item.name}</span>
                                 </div>
-                                <span className="text-white font-bold">{formatCurrency(item.value)}</span>
+                                <span className="text-slate-900 dark:text-white font-bold">{formatCurrency(item.value)}</span>
                             </div>
                         ))}
-                        {expenseBreakdown.length === 0 && <div className="text-center text-gray-500 py-10">No expenses recorded.</div>}
+                        {expenseBreakdown.length === 0 && <div className="text-center text-slate-500 dark:text-gray-500 py-10">No expenses recorded.</div>}
                     </div>
                 </div>
             </div>
@@ -570,50 +570,50 @@ const Finances = () => {
 
     const renderDriverSalary = () => (
         <div className="space-y-6">
-            <h2 className="text-white font-bold text-lg">Driver Salaries & Payouts</h2>
+            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Driver Salaries & Payouts</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {driverSalaries.map((d, i) => (
                     <div key={i} className="stripe-card p-6">
                         <div className="flex justify-between items-start mb-4">
                             <div>
-                                <h3 className="text-white font-semibold text-lg">{d.driverName}</h3>
-                                <p className="text-gray-500 text-xs mt-1">{d.mobile}</p>
+                                <h3 className="text-slate-900 dark:text-white font-semibold text-lg">{d.driverName}</h3>
+                                <p className="text-slate-500 dark:text-gray-500 text-xs mt-1">{d.mobile}</p>
                             </div>
                             <div className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-500 text-xs font-bold">
                                 {d.totalTrips} Trips
                             </div>
                         </div>
                         <div className="space-y-3 mt-6">
-                            <div className="flex justify-between items-center p-3 bg-[#1A1A1A] rounded-lg border border-[#2A2A2A]">
-                                <span className="text-gray-400 text-sm">Total Salary Paid</span>
+                            <div className="flex justify-between items-center p-3 bg-[#1A1A1A] rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
+                                <span className="text-slate-500 dark:text-gray-400 text-sm">Total Salary Paid</span>
                                 <span className="text-[#10B981] font-bold text-lg">{formatCurrency(d.totalSalaryPaid)}</span>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-            {driverSalaries.length === 0 && <div className="text-center text-gray-500 py-10">No driver salary data available.</div>}
+            {driverSalaries.length === 0 && <div className="text-center text-slate-500 dark:text-gray-500 py-10">No driver salary data available.</div>}
         </div>
     );
 
     const renderDocuments = () => (
         <div className="space-y-6">
-            <h2 className="text-white font-bold text-lg">Uploaded Bills & Documents</h2>
+            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Uploaded Bills & Documents</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {documents.map((doc, i) => (
                     <div key={i} className="stripe-card p-0 overflow-hidden flex flex-col">
-                        <div className="p-4 bg-[#1A1A1A] border-b border-[#2A2A2A]">
+                        <div className="p-4 bg-[#1A1A1A] border-b border-slate-200 dark:border-[#2A2A2A]">
                             <div className="flex justify-between items-center mb-1">
-                                <span className="text-white font-medium">{doc.expenseType}</span>
+                                <span className="text-slate-900 dark:text-white font-medium">{doc.expenseType}</span>
                                 <span className="text-[#D8621C] font-bold">{formatCurrency(doc.amount)}</span>
                             </div>
-                            <div className="text-gray-500 text-xs">
+                            <div className="text-slate-500 dark:text-gray-500 text-xs">
                                 {new Date(doc.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                             </div>
                         </div>
-                        <div className="p-6 bg-[#121212] flex-1 flex items-center justify-center min-h-[200px]">
+                        <div className="p-6 bg-slate-50 dark:bg-[#121212] flex-1 flex items-center justify-center min-h-[200px]">
                             {doc.billUrl?.match(/\.(jpeg|jpg|gif|png)$/) != null ? (
-                                <img src={doc.billUrl} alt="Bill Document" className="max-h-full max-w-full rounded shadow-md border border-[#2A2A2A]" />
+                                <img src={doc.billUrl} alt="Bill Document" className="max-h-full max-w-full rounded shadow-md border border-slate-200 dark:border-[#2A2A2A]" />
                             ) : (
                                 <a href={doc.billUrl} target="_blank" rel="noreferrer" className="flex flex-col items-center justify-center text-blue-500 hover:text-blue-400 transition-colors">
                                     <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mb-3">
@@ -626,15 +626,15 @@ const Finances = () => {
                     </div>
                 ))}
             </div>
-            {documents.length === 0 && <div className="text-center text-gray-500 py-10">No bills or documents uploaded yet.</div>}
+            {documents.length === 0 && <div className="text-center text-slate-500 dark:text-gray-500 py-10">No bills or documents uploaded yet.</div>}
         </div>
     );
 
     return (
-        <div className="flex flex-col h-full bg-[#121212]">
+        <div className="flex flex-col h-full bg-slate-50 dark:bg-[#121212]">
             
             {/* Top Sub-Navbar */}
-            <div className="flex items-center px-8 border-b border-[#2A2A2A] bg-[#1A1A1A]">
+            <div className="flex items-center px-8 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A]">
                 {tabs.map(tab => (
                     <button 
                         key={tab}
@@ -642,7 +642,7 @@ const Finances = () => {
                         className={`py-4 px-6 text-sm font-medium border-b-2 transition-all ${
                             activeTab === tab 
                             ? 'border-[#D8621C] text-[#D8621C]' 
-                            : 'border-transparent text-white hover:text-[#D8621C]'
+                            : 'border-transparent text-slate-900 dark:text-white hover:text-[#D8621C]'
                         }`}
                     >
                         {tab}
@@ -662,32 +662,32 @@ const Finances = () => {
             {/* Payment Modal */}
             {isPaymentModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-md shadow-2xl">
-                        <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515] rounded-t-2xl">
-                            <h2 className="text-white font-bold text-lg">Record Payment</h2>
-                            <button onClick={() => setIsPaymentModalOpen(false)} className="text-gray-400 hover:text-white">✕</button>
+                    <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl w-full max-w-md shadow-2xl">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-100 dark:bg-[#151515] rounded-t-2xl">
+                            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Record Payment</h2>
+                            <button onClick={() => setIsPaymentModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">✕</button>
                         </div>
                         <form onSubmit={handlePaymentSubmit} className="p-6 space-y-4">
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Customer</label>
-                                <div className="bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white font-medium">
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Customer</label>
+                                <div className="bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white font-medium">
                                     {selectedCustomerForPayment?.name}
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Date</label>
-                                    <input type="date" required className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500" value={paymentForm.paymentDate} onChange={e => setPaymentForm({...paymentForm, paymentDate: e.target.value})} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Date</label>
+                                    <input type="date" required className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.paymentDate} onChange={e => setPaymentForm({...paymentForm, paymentDate: e.target.value})} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Amount (Rs)</label>
-                                    <input type="number" required placeholder="0" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500" value={paymentForm.amount} onChange={e => setPaymentForm({...paymentForm, amount: e.target.value})} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Amount (Rs)</label>
+                                    <input type="number" required placeholder="0" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.amount} onChange={e => setPaymentForm({...paymentForm, amount: e.target.value})} />
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Mode</label>
-                                    <select className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500" value={paymentForm.paymentMode} onChange={e => setPaymentForm({...paymentForm, paymentMode: e.target.value})}>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Mode</label>
+                                    <select className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.paymentMode} onChange={e => setPaymentForm({...paymentForm, paymentMode: e.target.value})}>
                                         <option value="CASH">CASH</option>
                                         <option value="BANK_TRANSFER">BANK TRANSFER</option>
                                         <option value="UPI">UPI</option>
@@ -695,15 +695,15 @@ const Finances = () => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Ref No (Optional)</label>
-                                    <input type="text" placeholder="e.g. UTR or Cheque No" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500" value={paymentForm.referenceNumber} onChange={e => setPaymentForm({...paymentForm, referenceNumber: e.target.value})} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Ref No (Optional)</label>
+                                    <input type="text" placeholder="e.g. UTR or Cheque No" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.referenceNumber} onChange={e => setPaymentForm({...paymentForm, referenceNumber: e.target.value})} />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Remarks</label>
-                                <textarea rows="2" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500" value={paymentForm.remarks} onChange={e => setPaymentForm({...paymentForm, remarks: e.target.value})}></textarea>
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Remarks</label>
+                                <textarea rows="2" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.remarks} onChange={e => setPaymentForm({...paymentForm, remarks: e.target.value})}></textarea>
                             </div>
-                            <button type="submit" disabled={isSubmittingPayment} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-xl transition-colors mt-2">
+                            <button type="submit" disabled={isSubmittingPayment} className="w-full bg-green-600 hover:bg-green-700 text-slate-900 dark:text-white font-bold py-3 px-4 rounded-xl transition-colors mt-2">
                                 {isSubmittingPayment ? 'Saving...' : 'Save Payment'}
                             </button>
                         </form>

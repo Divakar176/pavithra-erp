@@ -84,7 +84,7 @@ const Billing = () => {
                     </button>
                     <button 
                         onClick={handlePrint}
-                        className="flex items-center bg-indigo-600 text-white px-6 py-2.5 rounded-xl shadow-lg hover:bg-indigo-700 font-bold transition-all"
+                        className="flex items-center bg-indigo-600 text-slate-900 dark:text-white px-6 py-2.5 rounded-xl shadow-lg hover:bg-indigo-700 font-bold transition-all"
                     >
                         <Printer className="w-4 h-4 mr-2" /> Print / Save PDF
                     </button>
@@ -97,18 +97,18 @@ const Billing = () => {
                     <div className="flex justify-between items-start border-b-2 border-gray-100 pb-8 mb-8">
                         <div>
                             <h1 className="text-4xl font-black tracking-tighter text-indigo-900 uppercase">Pavithra<br/><span className="text-orange-500">Enterprises</span></h1>
-                            <p className="text-sm text-gray-500 font-semibold mt-2">Transport & Logistics Management</p>
-                            <p className="text-xs text-gray-500 mt-1">123 Logistics Park, Highway Road<br/>Coimbatore, Tamil Nadu 641001</p>
+                            <p className="text-sm text-slate-500 dark:text-gray-500 font-semibold mt-2">Transport & Logistics Management</p>
+                            <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">123 Logistics Park, Highway Road<br/>Coimbatore, Tamil Nadu 641001</p>
                             <p className="text-xs font-bold text-gray-700 mt-1">GSTIN: <span className="font-mono">33ABCDE1234F1Z5</span></p>
                         </div>
                         <div className="text-right">
                             <h2 className="text-3xl font-black text-gray-200 uppercase tracking-widest">INVOICE</h2>
                             <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-                                <span className="text-gray-500 font-semibold text-right">Invoice No:</span>
+                                <span className="text-slate-500 dark:text-gray-500 font-semibold text-right">Invoice No:</span>
                                 <span className="font-bold text-gray-900 text-left">#{invoiceNo}</span>
-                                <span className="text-gray-500 font-semibold text-right">Date:</span>
+                                <span className="text-slate-500 dark:text-gray-500 font-semibold text-right">Date:</span>
                                 <span className="font-bold text-gray-900 text-left">{new Date(invoiceDate).toLocaleDateString('en-IN', {day: '2-digit', month: 'short', year: 'numeric'})}</span>
-                                <span className="text-gray-500 font-semibold text-right">Due Date:</span>
+                                <span className="text-slate-500 dark:text-gray-500 font-semibold text-right">Due Date:</span>
                                 <span className="font-bold text-gray-900 text-left">Immediate</span>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ const Billing = () => {
 
                     {/* Bill To */}
                     <div className="mb-10">
-                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Billed To</h3>
+                        <h3 className="text-xs font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest mb-2">Billed To</h3>
                         <h4 className="text-xl font-bold text-gray-900">{selectedCustomerDetails?.name}</h4>
                         {selectedCustomerDetails?.address && (
                             <p className="text-sm text-gray-600 mt-1 whitespace-pre-wrap max-w-xs">{selectedCustomerDetails.address}</p>
@@ -145,7 +145,7 @@ const Billing = () => {
                                     <td className="py-4 px-2 font-bold text-gray-900">{trip.vehicle?.vehicleNumber}</td>
                                     <td className="py-4 px-2">
                                         <div className="font-semibold text-gray-900">{trip.source} {trip.destination ? `→ ${trip.destination}` : ''}</div>
-                                        {trip.material && <div className="text-xs text-gray-500 mt-0.5">{trip.material}</div>}
+                                        {trip.material && <div className="text-xs text-slate-500 dark:text-gray-500 mt-0.5">{trip.material}</div>}
                                     </td>
                                     <td className="py-4 px-2 text-right">{trip.loadWeight ? `${trip.loadWeight} Tons` : (trip.totalHours ? `${trip.totalHours} Hrs` : '-')}</td>
                                     <td className="py-4 px-2 text-right font-semibold">{(trip.tripCharges || 0).toLocaleString('en-IN')}</td>
@@ -192,7 +192,7 @@ const Billing = () => {
     }
 
     if (loading) {
-        return <div className="p-8 text-center text-gray-500">Loading Billing Data...</div>;
+        return <div className="p-8 text-center text-slate-500 dark:text-gray-500">Loading Billing Data...</div>;
     }
 
     return (
@@ -200,13 +200,13 @@ const Billing = () => {
             <div className="flex justify-between items-center mb-8 shrink-0">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-200 tracking-tight">Billing & Invoices</h1>
-                    <p className="text-sm text-gray-500 font-medium mt-1">Select trips and generate professional PDF invoices</p>
+                    <p className="text-sm text-slate-500 dark:text-gray-500 font-medium mt-1">Select trips and generate professional PDF invoices</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <button 
                         disabled={selectedTrips.size === 0}
                         onClick={() => setInvoiceMode(true)}
-                        className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm flex items-center"
+                        className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-900 dark:text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm flex items-center"
                     >
                         <FileText className="w-4 h-4 mr-2" /> Generate Invoice ({selectedTrips.size})
                     </button>
@@ -217,30 +217,30 @@ const Billing = () => {
                 
                 {/* Left Panel: Customer Selection */}
                 <div className="lg:col-span-1 flex flex-col gap-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl p-5 shadow-sm">
-                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Select Customer</label>
+                    <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl p-5 shadow-sm">
+                        <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-3">Select Customer</label>
                         <div className="relative">
                             <select 
                                 value={selectedCustomerId}
                                 onChange={handleCustomerChange}
-                                className="w-full bg-[#121212] border border-[#2A2A2A] rounded-xl px-4 py-3 text-gray-200 font-medium focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors appearance-none"
+                                className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-gray-200 font-medium focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors appearance-none"
                             >
                                 <option value="">-- Choose Customer --</option>
                                 {customers.map(c => (
                                     <option key={c.id} value={c.id}>{c.name}</option>
                                 ))}
                             </select>
-                            <Building2 className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                            <Building2 className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-gray-500 pointer-events-none" />
                         </div>
                     </div>
                     
                     {selectedCustomerId && selectedCustomerDetails && (
-                        <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl p-5 shadow-sm">
-                            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Customer Details</h3>
-                            <h4 className="font-bold text-white mb-1">{selectedCustomerDetails.name}</h4>
-                            <p className="text-xs text-gray-400 mb-3">{selectedCustomerDetails.phone}</p>
-                            <div className="bg-[#121212] p-3 rounded-xl border border-[#2A2A2A]">
-                                <span className="text-[10px] text-gray-500 uppercase font-bold block mb-1">Total Trips Found</span>
+                        <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl p-5 shadow-sm">
+                            <h3 className="text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-4">Customer Details</h3>
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-1">{selectedCustomerDetails.name}</h4>
+                            <p className="text-xs text-slate-500 dark:text-gray-400 mb-3">{selectedCustomerDetails.phone}</p>
+                            <div className="bg-slate-50 dark:bg-[#121212] p-3 rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
+                                <span className="text-[10px] text-slate-500 dark:text-gray-500 uppercase font-bold block mb-1">Total Trips Found</span>
                                 <span className="text-xl font-black text-indigo-400">{customerTrips.length}</span>
                             </div>
                         </div>
@@ -248,27 +248,27 @@ const Billing = () => {
                 </div>
 
                 {/* Right Panel: Trip Selection */}
-                <div className="lg:col-span-3 flex flex-col bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl shadow-sm overflow-hidden relative">
+                <div className="lg:col-span-3 flex flex-col bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl shadow-sm overflow-hidden relative">
                     {!selectedCustomerId ? (
                         <div className="flex-1 flex flex-col items-center justify-center p-12 text-center">
-                            <div className="w-16 h-16 bg-[#2A2A2A] rounded-full flex items-center justify-center mb-4">
-                                <FileText className="w-8 h-8 text-gray-500" />
+                            <div className="w-16 h-16 bg-slate-200 dark:bg-[#2A2A2A] rounded-full flex items-center justify-center mb-4">
+                                <FileText className="w-8 h-8 text-slate-500 dark:text-gray-500" />
                             </div>
-                            <h3 className="text-lg font-bold text-white">No Customer Selected</h3>
-                            <p className="text-sm text-gray-500 mt-2">Please choose a customer from the left to view their billable trips.</p>
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">No Customer Selected</h3>
+                            <p className="text-sm text-slate-500 dark:text-gray-500 mt-2">Please choose a customer from the left to view their billable trips.</p>
                         </div>
                     ) : customerTrips.length === 0 ? (
                         <div className="flex-1 flex flex-col items-center justify-center p-12 text-center">
-                            <h3 className="text-lg font-bold text-white">No Trips Found</h3>
-                            <p className="text-sm text-gray-500 mt-2">This customer has no recorded trips yet.</p>
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">No Trips Found</h3>
+                            <p className="text-sm text-slate-500 dark:text-gray-500 mt-2">This customer has no recorded trips yet.</p>
                         </div>
                     ) : (
                         <>
-                            <div className="p-4 border-b border-[#2A2A2A] bg-[#1A1A1A] flex justify-between items-center sticky top-0 z-10">
+                            <div className="p-4 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A] flex justify-between items-center sticky top-0 z-10">
                                 <div className="flex items-center gap-3">
                                     <button 
                                         onClick={() => handleSelectAll(customerTrips)}
-                                        className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-semibold transition-colors"
+                                        className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white flex items-center gap-2 text-sm font-semibold transition-colors"
                                     >
                                         {selectedTrips.size === customerTrips.length ? (
                                             <CheckSquare className="w-5 h-5 text-indigo-500" />
@@ -278,8 +278,8 @@ const Billing = () => {
                                         Select All
                                     </button>
                                 </div>
-                                <div className="text-sm text-gray-400 font-medium">
-                                    <span className="text-white font-bold">{selectedTrips.size}</span> selected
+                                <div className="text-sm text-slate-500 dark:text-gray-400 font-medium">
+                                    <span className="text-slate-900 dark:text-white font-bold">{selectedTrips.size}</span> selected
                                 </div>
                             </div>
                             
@@ -291,30 +291,30 @@ const Billing = () => {
                                             <div 
                                                 key={trip.id}
                                                 onClick={() => toggleTripSelection(trip.id)}
-                                                className={`flex items-center p-4 rounded-xl border transition-all cursor-pointer ${isSelected ? 'bg-indigo-500/10 border-indigo-500/50' : 'bg-[#121212] border-[#2A2A2A] hover:border-gray-600'}`}
+                                                className={`flex items-center p-4 rounded-xl border transition-all cursor-pointer ${isSelected ? 'bg-indigo-500/10 border-indigo-500/50' : 'bg-slate-50 dark:bg-[#121212] border-slate-200 dark:border-[#2A2A2A] hover:border-gray-600'}`}
                                             >
                                                 <div className="mr-4">
                                                     {isSelected ? (
                                                         <CheckSquare className="w-5 h-5 text-indigo-500" />
                                                     ) : (
-                                                        <Square className="w-5 h-5 text-gray-500" />
+                                                        <Square className="w-5 h-5 text-slate-500 dark:text-gray-500" />
                                                     )}
                                                 </div>
                                                 <div className="flex-1 grid grid-cols-4 gap-4 items-center">
                                                     <div>
-                                                        <p className="text-xs text-gray-500 font-bold uppercase mb-0.5">Date</p>
+                                                        <p className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase mb-0.5">Date</p>
                                                         <p className="text-sm font-medium text-gray-200">{new Date(trip.startDate || trip.createdAt).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-xs text-gray-500 font-bold uppercase mb-0.5">Vehicle</p>
+                                                        <p className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase mb-0.5">Vehicle</p>
                                                         <p className="text-sm font-bold text-orange-400">{trip.vehicle?.vehicleNumber}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-xs text-gray-500 font-bold uppercase mb-0.5">Route/Material</p>
+                                                        <p className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase mb-0.5">Route/Material</p>
                                                         <p className="text-sm font-medium text-gray-200 truncate">{trip.source} {trip.destination ? `→ ${trip.destination}` : ''}</p>
                                                     </div>
                                                     <div className="text-right">
-                                                        <p className="text-xs text-gray-500 font-bold uppercase mb-0.5">Charges</p>
+                                                        <p className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase mb-0.5">Charges</p>
                                                         <p className="text-sm font-black text-indigo-400">₹{(trip.tripCharges || 0).toLocaleString('en-IN')}</p>
                                                     </div>
                                                 </div>

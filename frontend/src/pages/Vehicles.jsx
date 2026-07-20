@@ -220,8 +220,8 @@ const Vehicles = () => {
 
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-white tracking-tight">Vehicles Fleet</h1>
-                    <p className="text-sm text-gray-500 font-medium mt-1">Manage your trucks, earthmovers, and compliance documents</p>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Vehicles Fleet</h1>
+                    <p className="text-sm text-slate-500 dark:text-gray-500 font-medium mt-1">Manage your trucks, earthmovers, and compliance documents</p>
                 </div>
                 
                 <div className="flex flex-wrap lg:flex-nowrap gap-2 py-2 w-full lg:w-auto overflow-x-auto custom-scrollbar pb-2">
@@ -230,8 +230,8 @@ const Vehicles = () => {
                             key={type}
                             onClick={() => setFilter(type)}
                             className={`px-5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${filter === type
-                                    ? 'bg-[#D8621C] text-white shadow-lg shadow-orange-500/20'
-                                    : 'bg-[#1C1C1C] text-gray-400 border border-[#2A2A2A] hover:bg-[#2A2A2A] hover:text-white'
+                                    ? 'bg-[#D8621C] text-slate-900 dark:text-white shadow-lg shadow-orange-500/20'
+                                    : 'bg-white dark:bg-[#1C1C1C] text-slate-500 dark:text-gray-400 border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] hover:text-slate-900 dark:text-white'
                                 }`}
                         >
                             {type}
@@ -241,7 +241,7 @@ const Vehicles = () => {
 
                 <button
                     onClick={() => setIsAddModalOpen(true)}
-                    className="flex items-center justify-center w-full lg:w-auto px-4 py-3 lg:py-2 bg-[#10B981] text-white rounded-xl text-sm font-medium hover:bg-[#059669] transition-colors shadow-lg shadow-green-500/20 shrink-0"
+                    className="flex items-center justify-center w-full lg:w-auto px-4 py-3 lg:py-2 bg-[#10B981] text-slate-900 dark:text-white rounded-xl text-sm font-medium hover:bg-[#059669] transition-colors shadow-lg shadow-green-500/20 shrink-0"
                 >
                     <Plus className="w-4 h-4 mr-2" />
                     Add Vehicle
@@ -269,7 +269,7 @@ const Vehicles = () => {
                             <div className="relative z-10">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="flex gap-2">
-                                        <span className="bg-white/5 border border-white/10 text-gray-300 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                                        <span className="bg-white/5 border border-white/10 text-slate-600 dark:text-gray-300 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                                             {vehicle.type}
                                         </span>
                                         {vehicle.billingType === 'MONTHLY' && (
@@ -286,14 +286,14 @@ const Vehicles = () => {
                                     <div className="flex items-center gap-3">
                                         <button
                                             onClick={() => openEditModal(vehicle)}
-                                            className="text-gray-500 hover:text-[#D8621C] transition-colors opacity-0 group-hover:opacity-100"
+                                            className="text-slate-500 dark:text-gray-500 hover:text-[#D8621C] transition-colors opacity-0 group-hover:opacity-100"
                                             title="Edit Vehicle"
                                         >
                                             <Pencil className="w-4 h-4" />
                                         </button>
                                         <button
                                             onClick={() => handleDelete(vehicle.id)}
-                                            className="text-gray-500 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                                            className="text-slate-500 dark:text-gray-500 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                                             title="Delete Vehicle"
                                         >
                                             <Trash2 className="w-4 h-4" />
@@ -308,41 +308,41 @@ const Vehicles = () => {
                                     <div className="w-10 h-10 rounded-lg bg-black/30 border border-white/5 flex items-center justify-center shadow-inner">
                                         {getVehicleIcon(vehicle.type)}
                                     </div>
-                                    <h3 className="text-xl font-bold text-white">{vehicle.vehicleNumber}</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">{vehicle.vehicleNumber}</h3>
                                 </div>
 
                                 <div className="space-y-3">
                                     {vehicle.containerSize && (
-                                        <div className="flex justify-between text-sm border-b border-[#2A2A2A] pb-2">
-                                            <span className="text-gray-500">Container Size</span>
-                                            <span className="text-white font-medium">{vehicle.containerSize}</span>
+                                        <div className="flex justify-between text-sm border-b border-slate-200 dark:border-[#2A2A2A] pb-2">
+                                            <span className="text-slate-500 dark:text-gray-500">Container Size</span>
+                                            <span className="text-slate-900 dark:text-white font-medium">{vehicle.containerSize}</span>
                                         </div>
                                     )}
                                     {vehicle.maxLoadTons && (
-                                        <div className="flex justify-between text-sm border-b border-[#2A2A2A] pb-2">
-                                            <span className="text-gray-500">Max Load</span>
-                                            <span className="text-white font-medium">{vehicle.maxLoadTons} Tons</span>
+                                        <div className="flex justify-between text-sm border-b border-slate-200 dark:border-[#2A2A2A] pb-2">
+                                            <span className="text-slate-500 dark:text-gray-500">Max Load</span>
+                                            <span className="text-slate-900 dark:text-white font-medium">{vehicle.maxLoadTons} Tons</span>
                                         </div>
                                     )}
-                                    <div className="flex justify-between text-sm border-b border-[#2A2A2A] pb-2">
-                                        <span className="text-gray-500">Trips this month</span>
-                                        <span className="text-white font-medium">0</span>
+                                    <div className="flex justify-between text-sm border-b border-slate-200 dark:border-[#2A2A2A] pb-2">
+                                        <span className="text-slate-500 dark:text-gray-500">Trips this month</span>
+                                        <span className="text-slate-900 dark:text-white font-medium">0</span>
                                     </div>
                                     <div className="flex justify-between text-sm pt-1">
-                                        <span className="text-gray-500">Driver (Current)</span>
-                                        <span className="text-white font-medium">
+                                        <span className="text-slate-500 dark:text-gray-500">Driver (Current)</span>
+                                        <span className="text-slate-900 dark:text-white font-medium">
                                             {activeTrip ? `${activeTrip.driver?.username}` : 'Unassigned'}
                                         </span>
                                     </div>
 
                                     {/* Compliance Info */}
-                                    <div className="pt-3 border-t border-[#2A2A2A] mt-3">
-                                        <div className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Compliance Status</div>
+                                    <div className="pt-3 border-t border-slate-200 dark:border-[#2A2A2A] mt-3">
+                                        <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">Compliance Status</div>
                                         <div className="flex flex-wrap gap-1.5">
                                             {['insuranceExpiry', 'fcExpiry', 'taxExpiry', 'permitExpiry', 'statePermitExpiry', 'pollutionExpiry'].map(doc => {
                                                 if (!vehicle[doc]) return null;
                                                 const daysLeft = Math.ceil((new Date(vehicle[doc]) - new Date()) / (1000 * 60 * 60 * 24));
-                                                let badgeColor = 'bg-gray-500/10 text-gray-400 border-gray-500/20';
+                                                let badgeColor = 'bg-gray-500/10 text-slate-500 dark:text-gray-400 border-gray-500/20';
                                                 if (daysLeft < 0) badgeColor = 'bg-red-500/10 text-red-500 border-red-500/20';
                                                 else if (daysLeft <= 30) badgeColor = 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20';
                                                 else badgeColor = 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
@@ -358,7 +358,7 @@ const Vehicles = () => {
                                     </div>
 
                                     {/* Loan Info */}
-                                    <div className="pt-3 border-t border-[#2A2A2A] mt-3">
+                                    <div className="pt-3 border-t border-slate-200 dark:border-[#2A2A2A] mt-3">
                                         {vehicleLoans.length > 0 ? (
                                             vehicleLoans.map(loan => (
                                                 <div key={loan.id} className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-3 text-sm mb-2">
@@ -366,7 +366,7 @@ const Vehicles = () => {
                                                         <span className="text-orange-400 font-bold">{loan.bankName} Loan</span>
                                                         <span className="text-orange-400 text-xs">EMI: {loan.emiDate}th</span>
                                                     </div>
-                                                    <div className="flex justify-between text-gray-300 text-xs">
+                                                    <div className="flex justify-between text-slate-600 dark:text-gray-300 text-xs">
                                                         <span>₹{loan.emiAmount}/mo</span>
                                                         <span>{loan.tenureMonths} Months</span>
                                                     </div>
@@ -376,7 +376,7 @@ const Vehicles = () => {
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={() => navigate('/dashboard/trips', { state: { openAddTrip: true, vehicleId: vehicle.id } })}
-                                                className="flex-1 py-2 bg-[#D8621C]/10 text-[#D8621C] hover:bg-[#D8621C] hover:text-white rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2"
+                                                className="flex-1 py-2 bg-[#D8621C]/10 text-[#D8621C] hover:bg-[#D8621C] hover:text-slate-900 dark:text-white rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2"
                                             >
                                                 <Navigation className="w-3.5 h-3.5" /> Start Trip
                                             </button>
@@ -388,7 +388,7 @@ const Vehicles = () => {
                                             </button>
                                             <button
                                                 onClick={() => { setSelectedVehicleForLoan(vehicle); setIsLoanModalOpen(true); }}
-                                                className="flex-1 py-2 border border-dashed border-[#2A2A2A] text-gray-400 hover:text-white hover:border-white/20 rounded-lg text-xs font-medium transition-colors"
+                                                className="flex-1 py-2 border border-dashed border-slate-200 dark:border-[#2A2A2A] text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white hover:border-white/20 rounded-lg text-xs font-medium transition-colors"
                                             >
                                                 + Bank Loan
                                             </button>
@@ -400,7 +400,7 @@ const Vehicles = () => {
                     );
                 })}
                 {filteredVehicles.length === 0 && (
-                    <div className="col-span-full py-12 text-center text-gray-500">
+                    <div className="col-span-full py-12 text-center text-slate-500 dark:text-gray-500">
                         No vehicles found in this category.
                     </div>
                 )}
@@ -409,30 +409,30 @@ const Vehicles = () => {
             {/* Add Vehicle Modal */}
             {isAddModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl h-max max-h-[90vh] flex flex-col">
-                        <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515]">
-                            <h2 className="text-white font-bold text-lg">Add New Vehicle</h2>
-                            <button onClick={() => setIsAddModalOpen(false)} className="text-gray-400 hover:text-white">
+                    <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl h-max max-h-[90vh] flex flex-col">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-100 dark:bg-[#151515]">
+                            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Add New Vehicle</h2>
+                            <button onClick={() => setIsAddModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
                         <form onSubmit={handleAddSubmit} className="p-6 space-y-4 overflow-y-auto">
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Vehicle Number</label>
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Vehicle Number</label>
                                 <input
                                     type="text"
                                     required
                                     placeholder="e.g. TN 38 AB 1234"
-                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                     value={newVehicle.vehicleNumber}
                                     onChange={(e) => setNewVehicle({ ...newVehicle, vehicleNumber: e.target.value })}
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Vehicle Type</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Vehicle Type</label>
                                     <select
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newVehicle.type}
                                         onChange={(e) => setNewVehicle({ ...newVehicle, type: e.target.value })}
                                     >
@@ -448,11 +448,11 @@ const Vehicles = () => {
                                 </div>
                                 {newVehicle.type !== 'Open Type Lorry' && (
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                                             {newVehicle.type === 'Bike' ? 'Bike Purpose' : 'Billing Type'}
                                         </label>
                                         <select 
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newVehicle.billingType}
                                             onChange={(e) => setNewVehicle({...newVehicle, billingType: e.target.value})}
                                         >
@@ -475,19 +475,19 @@ const Vehicles = () => {
                             {newVehicle.type === 'Container Lorry' && (
                                 <>
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Container Size (e.g. 20ft)</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Container Size (e.g. 20ft)</label>
                                         <input
                                             type="text"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newVehicle.containerSize}
                                             onChange={(e) => setNewVehicle({ ...newVehicle, containerSize: e.target.value })}
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Max Load (Tons)</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Max Load (Tons)</label>
                                         <input
                                             type="number"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newVehicle.maxLoadTons}
                                             onChange={(e) => setNewVehicle({ ...newVehicle, maxLoadTons: e.target.value })}
                                         />
@@ -495,11 +495,11 @@ const Vehicles = () => {
                                 </>
                             )}
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Purchase Price / Investment (₹) <span className="text-gray-600 lowercase tracking-normal">(Optional)</span></label>
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Purchase Price / Investment (₹) <span className="text-gray-600 lowercase tracking-normal">(Optional)</span></label>
                                 <input
                                     type="number"
                                     placeholder="e.g. 1500000"
-                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                     value={newVehicle.purchasePrice}
                                     onChange={(e) => setNewVehicle({ ...newVehicle, purchasePrice: e.target.value })}
                                 />
@@ -507,11 +507,11 @@ const Vehicles = () => {
 
                             {newVehicle.billingType === 'MONTHLY' && (
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Monthly Contract Amount (₹)</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Monthly Contract Amount (₹)</label>
                                     <input
                                         type="number"
                                         placeholder="e.g. 88000"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newVehicle.monthlyContractAmount || ''}
                                         onChange={(e) => setNewVehicle({ ...newVehicle, monthlyContractAmount: e.target.value })}
                                     />
@@ -519,9 +519,9 @@ const Vehicles = () => {
                             )}
 
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Assign Driver (Optional)</label>
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Assign Driver (Optional)</label>
                                 <select
-                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                     value={newVehicle.assignedDriver?.id || ''}
                                     onChange={(e) => setNewVehicle({ ...newVehicle, assignedDriver: e.target.value ? { id: e.target.value } : null })}
                                 >
@@ -532,35 +532,35 @@ const Vehicles = () => {
                                 </select>
                             </div>
 
-                            <div className="pt-4 pb-2 border-b border-[#2A2A2A]">
-                                <h3 className="text-white font-bold text-sm">Compliance Documents Expiry</h3>
-                                <p className="text-xs text-gray-500">Set expiry dates to receive dashboard alerts</p>
+                            <div className="pt-4 pb-2 border-b border-slate-200 dark:border-[#2A2A2A]">
+                                <h3 className="text-slate-900 dark:text-white font-bold text-sm">Compliance Documents Expiry</h3>
+                                <p className="text-xs text-slate-500 dark:text-gray-500">Set expiry dates to receive dashboard alerts</p>
 
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Insurance</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.insuranceExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, insuranceExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Insurance</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.insuranceExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, insuranceExpiry: e.target.value })} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Fitness Cert (FC)</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.fcExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, fcExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Fitness Cert (FC)</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.fcExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, fcExpiry: e.target.value })} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Road Tax</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.taxExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, taxExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Road Tax</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.taxExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, taxExpiry: e.target.value })} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">National Permit</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.permitExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, permitExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">National Permit</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.permitExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, permitExpiry: e.target.value })} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">State Permit</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.statePermitExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, statePermitExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">State Permit</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.statePermitExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, statePermitExpiry: e.target.value })} />
                                 </div>
                                 <div className="col-span-2">
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Pollution</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.pollutionExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, pollutionExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Pollution</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.pollutionExpiry} onChange={(e) => setNewVehicle({ ...newVehicle, pollutionExpiry: e.target.value })} />
                                 </div>
                             </div>
 
@@ -568,14 +568,14 @@ const Vehicles = () => {
                                 <button
                                     type="button"
                                     onClick={() => setIsAddModalOpen(false)}
-                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-5 py-2.5 bg-[#D8621C] text-white rounded-xl text-sm font-medium hover:bg-[#c25617] transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50"
+                                    className="px-5 py-2.5 bg-[#D8621C] text-slate-900 dark:text-white rounded-xl text-sm font-medium hover:bg-[#c25617] transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50"
                                 >
                                     {isSubmitting ? 'Saving...' : 'Save Vehicle'}
                                 </button>
@@ -588,63 +588,63 @@ const Vehicles = () => {
             {/* Add Loan Modal */}
             {isLoanModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
-                        <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515]">
-                            <h2 className="text-white font-bold text-lg">Add Loan for {selectedVehicleForLoan?.vehicleNumber}</h2>
-                            <button onClick={() => setIsLoanModalOpen(false)} className="text-gray-400 hover:text-white">
+                    <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-100 dark:bg-[#151515]">
+                            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Add Loan for {selectedVehicleForLoan?.vehicleNumber}</h2>
+                            <button onClick={() => setIsLoanModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
                         <form onSubmit={handleAddLoan} className="p-6 space-y-4">
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Bank / Financer Name</label>
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Bank / Financer Name</label>
                                 <input
                                     type="text" required placeholder="e.g. HDFC Bank"
-                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                     value={newLoan.bankName} onChange={(e) => setNewLoan({ ...newLoan, bankName: e.target.value })}
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Loan Amount</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total Loan Amount</label>
                                     <input
                                         type="number" required placeholder="₹"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newLoan.loanAmount} onChange={(e) => setNewLoan({ ...newLoan, loanAmount: e.target.value })}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Tenure (Months)</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Tenure (Months)</label>
                                     <input
                                         type="number" required placeholder="e.g. 48"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newLoan.tenureMonths} onChange={(e) => setNewLoan({ ...newLoan, tenureMonths: e.target.value })}
                                     />
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Monthly EMI (₹)</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Monthly EMI (₹)</label>
                                     <input
                                         type="number" required placeholder="₹"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newLoan.emiAmount} onChange={(e) => setNewLoan({ ...newLoan, emiAmount: e.target.value })}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">EMI Due Date (1-31)</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">EMI Due Date (1-31)</label>
                                     <input
                                         type="number" required min="1" max="31" placeholder="e.g. 5"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newLoan.emiDate} onChange={(e) => setNewLoan({ ...newLoan, emiDate: e.target.value })}
                                     />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Loan Start Date</label>
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Loan Start Date</label>
                                 <input
                                     type="date" required
-                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                     value={newLoan.startDate} onChange={(e) => setNewLoan({ ...newLoan, startDate: e.target.value })}
                                 />
                             </div>
@@ -653,14 +653,14 @@ const Vehicles = () => {
                                 <button
                                     type="button"
                                     onClick={() => setIsLoanModalOpen(false)}
-                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-5 py-2.5 bg-[#10B981] text-white rounded-xl text-sm font-medium hover:bg-[#059669] transition-colors shadow-lg shadow-green-500/20 disabled:opacity-50"
+                                    className="px-5 py-2.5 bg-[#10B981] text-slate-900 dark:text-white rounded-xl text-sm font-medium hover:bg-[#059669] transition-colors shadow-lg shadow-green-500/20 disabled:opacity-50"
                                 >
                                     {isSubmitting ? 'Saving...' : 'Save Loan'}
                                 </button>
@@ -673,30 +673,30 @@ const Vehicles = () => {
             {/* Edit Vehicle Modal */}
             {isEditVehicleModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl h-max max-h-[90vh] flex flex-col">
-                        <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515]">
-                            <h2 className="text-white font-bold text-lg">Edit Vehicle</h2>
-                            <button onClick={() => { setIsEditVehicleModalOpen(false); resetNewVehicle(); }} className="text-gray-400 hover:text-white">
+                    <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl h-max max-h-[90vh] flex flex-col">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-100 dark:bg-[#151515]">
+                            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Edit Vehicle</h2>
+                            <button onClick={() => { setIsEditVehicleModalOpen(false); resetNewVehicle(); }} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
                         <form onSubmit={handleEditVehicleSubmit} className="p-6 space-y-4 overflow-y-auto">
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Vehicle Number</label>
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Vehicle Number</label>
                                 <input
                                     type="text"
                                     required
                                     placeholder="e.g. TN 38 AB 1234"
-                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                     value={newVehicle.vehicleNumber}
                                     onChange={(e) => setNewVehicle({ ...newVehicle, vehicleNumber: e.target.value })}
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Vehicle Type</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Vehicle Type</label>
                                     <select
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newVehicle.type}
                                         onChange={(e) => setNewVehicle({ ...newVehicle, type: e.target.value })}
                                     >
@@ -712,11 +712,11 @@ const Vehicles = () => {
                                 </div>
                                 {newVehicle.type !== 'Open Type Lorry' && (
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                                             {newVehicle.type === 'Bike' ? 'Bike Purpose' : 'Billing Type'}
                                         </label>
                                         <select 
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newVehicle.billingType}
                                             onChange={(e) => setNewVehicle({...newVehicle, billingType: e.target.value})}
                                         >
@@ -739,19 +739,19 @@ const Vehicles = () => {
                             {newVehicle.type === 'Container Lorry' && (
                                 <>
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Container Size (e.g. 20ft)</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Container Size (e.g. 20ft)</label>
                                         <input
                                             type="text"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newVehicle.containerSize}
                                             onChange={(e) => setNewVehicle({ ...newVehicle, containerSize: e.target.value })}
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Max Load (Tons)</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Max Load (Tons)</label>
                                         <input
                                             type="number"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newVehicle.maxLoadTons}
                                             onChange={(e) => setNewVehicle({ ...newVehicle, maxLoadTons: e.target.value })}
                                         />
@@ -759,11 +759,11 @@ const Vehicles = () => {
                                 </>
                             )}
                             <div>
-                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Purchase Price / Investment (₹)</label>
+                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Purchase Price / Investment (₹)</label>
                                 <input
                                     type="number"
                                     placeholder="e.g. 1500000"
-                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                     value={newVehicle.purchasePrice}
                                     onChange={(e) => setNewVehicle({ ...newVehicle, purchasePrice: e.target.value })}
                                 />
@@ -771,58 +771,58 @@ const Vehicles = () => {
 
                             {newVehicle.billingType === 'MONTHLY' && (
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Monthly Contract Amount (₹)</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Monthly Contract Amount (₹)</label>
                                     <input
                                         type="number"
                                         placeholder="e.g. 88000"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newVehicle.monthlyContractAmount || ''}
                                         onChange={(e) => setNewVehicle({ ...newVehicle, monthlyContractAmount: e.target.value })}
                                     />
                                 </div>
                             )}
 
-                            <div className="pt-4 pb-2 border-b border-[#2A2A2A]">
-                                <h3 className="text-white font-bold text-sm">Compliance Documents Expiry</h3>
+                            <div className="pt-4 pb-2 border-b border-slate-200 dark:border-[#2A2A2A]">
+                                <h3 className="text-slate-900 dark:text-white font-bold text-sm">Compliance Documents Expiry</h3>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Insurance</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.insuranceExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, insuranceExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Insurance</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.insuranceExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, insuranceExpiry: e.target.value })} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Fitness Cert (FC)</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.fcExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, fcExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Fitness Cert (FC)</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.fcExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, fcExpiry: e.target.value })} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Road Tax</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.taxExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, taxExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Road Tax</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.taxExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, taxExpiry: e.target.value })} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">National Permit</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.permitExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, permitExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">National Permit</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.permitExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, permitExpiry: e.target.value })} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">State Permit</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.statePermitExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, statePermitExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">State Permit</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.statePermitExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, statePermitExpiry: e.target.value })} />
                                 </div>
                                 <div className="col-span-2">
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Pollution</label>
-                                    <input type="date" className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.pollutionExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, pollutionExpiry: e.target.value })} />
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Pollution</label>
+                                    <input type="date" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" value={newVehicle.pollutionExpiry || ''} onChange={(e) => setNewVehicle({ ...newVehicle, pollutionExpiry: e.target.value })} />
                                 </div>
                             </div>
-                            <div className="pt-4 flex justify-end gap-3 sticky bottom-0 bg-[#1C1C1C] pb-2">
+                            <div className="pt-4 flex justify-end gap-3 sticky bottom-0 bg-white dark:bg-[#1C1C1C] pb-2">
                                 <button
                                     type="button"
                                     onClick={() => { setIsEditVehicleModalOpen(false); resetNewVehicle(); }}
-                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-5 py-2.5 bg-[#D8621C] text-white rounded-xl text-sm font-medium hover:bg-[#c25617] transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50"
+                                    className="px-5 py-2.5 bg-[#D8621C] text-slate-900 dark:text-white rounded-xl text-sm font-medium hover:bg-[#c25617] transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50"
                                 >
                                     {isSubmitting ? 'Saving...' : 'Update Vehicle'}
                                 </button>

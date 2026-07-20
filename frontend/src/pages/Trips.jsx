@@ -484,7 +484,7 @@ const Trips = () => {
 
     if (isLoading) {
         return (
-            <div className="flex h-full items-center justify-center bg-[#121212]">
+            <div className="flex h-full items-center justify-center bg-slate-50 dark:bg-[#121212]">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#D8621C]"></div>
             </div>
         );
@@ -508,19 +508,19 @@ const Trips = () => {
             {/* Header & Controls */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-xl p-3">
+                    <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3">
                         <Navigation className="w-6 h-6 text-[#D8621C]" />
                     </div>
                     <div>
-                        <h2 className="text-xl font-bold text-white">Trips Management</h2>
-                        <p className="text-sm text-gray-400">{todayTrips} Active | {completedTrips} Completed</p>
+                        <h2 className="text-xl font-bold text-slate-900 dark:text-white">Trips Management</h2>
+                        <p className="text-sm text-slate-500 dark:text-gray-400">{todayTrips} Active | {completedTrips} Completed</p>
                     </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
                     <button
                         onClick={() => setIsAddModalOpen(true)}
-                        className="flex items-center px-4 py-2 bg-[#D8621C] text-white rounded-xl text-sm font-medium hover:bg-[#c25617] transition-colors shadow-lg shadow-orange-500/20"
+                        className="flex items-center px-4 py-2 bg-[#D8621C] text-slate-900 dark:text-white rounded-xl text-sm font-medium hover:bg-[#c25617] transition-colors shadow-lg shadow-orange-500/20"
                     >
                         <Plus className="w-4 h-4 mr-2" />
                         New Trip
@@ -529,20 +529,20 @@ const Trips = () => {
             </div>
 
             {/* Filters Section */}
-            <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-xl p-4 flex flex-wrap gap-4 items-end">
+            <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-4 flex flex-wrap gap-4 items-end">
                 <div className="flex-1 min-w-[140px]">
-                    <label className="block text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">Date</label>
+                    <label className="block text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-1.5">Date</label>
                     <input
                         type="date"
-                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#D8621C]"
+                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                         value={filters.date}
                         onChange={(e) => setFilters({ ...filters, date: e.target.value })}
                     />
                 </div>
                 <div className="flex-1 min-w-[140px]">
-                    <label className="block text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">Vehicle</label>
+                    <label className="block text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-1.5">Vehicle</label>
                     <select
-                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#D8621C]"
+                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                         value={filters.vehicleId}
                         onChange={(e) => setFilters({ ...filters, vehicleId: e.target.value })}
                     >
@@ -551,9 +551,9 @@ const Trips = () => {
                     </select>
                 </div>
                 <div className="flex-1 min-w-[140px]">
-                    <label className="block text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">Customer</label>
+                    <label className="block text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-1.5">Customer</label>
                     <select
-                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#D8621C]"
+                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                         value={filters.customerId}
                         onChange={(e) => setFilters({ ...filters, customerId: e.target.value })}
                     >
@@ -562,9 +562,9 @@ const Trips = () => {
                     </select>
                 </div>
                 <div className="flex-1 min-w-[140px]">
-                    <label className="block text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">Driver</label>
+                    <label className="block text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-1.5">Driver</label>
                     <select
-                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#D8621C]"
+                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                         value={filters.driverId}
                         onChange={(e) => setFilters({ ...filters, driverId: e.target.value })}
                     >
@@ -573,11 +573,11 @@ const Trips = () => {
                     </select>
                 </div>
                 <div className="flex-1 min-w-[140px]">
-                    <label className="block text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">Site / Source</label>
+                    <label className="block text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-1.5">Site / Source</label>
                     <input
                         type="text"
                         placeholder="Search..."
-                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#D8621C]"
+                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                         value={filters.site}
                         onChange={(e) => setFilters({ ...filters, site: e.target.value })}
                     />
@@ -585,7 +585,7 @@ const Trips = () => {
                 <div>
                     <button
                         onClick={() => setFilters({ date: '', vehicleId: '', customerId: '', driverId: '', site: '' })}
-                        className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white bg-[#2A2A2A] rounded-lg hover:bg-[#333] transition-colors"
+                        className="px-4 py-2 text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] rounded-lg hover:bg-[#333] transition-colors"
                     >
                         Clear
                     </button>
@@ -593,10 +593,10 @@ const Trips = () => {
             </div>
 
             {/* Main Table Card */}
-            <div className="stripe-card overflow-hidden border border-[#2A2A2A] bg-[#1C1C1C]">
-                <div className="p-4 border-b border-[#2A2A2A] bg-[#151515]">
-                    <h3 className="text-white font-semibold flex items-center">
-                        <MapPin className="w-4 h-4 mr-2 text-gray-400" />
+            <div className="stripe-card overflow-hidden border border-slate-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1C1C1C]">
+                <div className="p-4 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-100 dark:bg-[#151515]">
+                    <h3 className="text-slate-900 dark:text-white font-semibold flex items-center">
+                        <MapPin className="w-4 h-4 mr-2 text-slate-500 dark:text-gray-400" />
                         Today's Trip Status <span className="ml-2 text-xs bg-red-500/10 text-red-500 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse">Live</span>
                     </h3>
                 </div>
@@ -608,7 +608,7 @@ const Trips = () => {
                             <button onClick={() => setSelectedTrips([])} className="bg-transparent border border-[#D8621C] text-[#D8621C] hover:bg-[#D8621C]/10 px-3 py-1.5 rounded-lg text-sm font-medium flex items-center transition-colors">
                                 <X className="w-4 h-4 mr-1" /> Clear Selection
                             </button>
-                            <button onClick={handleGenerateInvoice} className="bg-[#D8621C] hover:bg-orange-700 text-white px-3 py-1.5 rounded-lg text-sm font-medium flex items-center transition-colors shadow-lg">
+                            <button onClick={handleGenerateInvoice} className="bg-[#D8621C] hover:bg-orange-700 text-slate-900 dark:text-white px-3 py-1.5 rounded-lg text-sm font-medium flex items-center transition-colors shadow-lg">
                                 <FileText className="w-4 h-4 mr-2" /> Generate Invoice
                             </button>
                         </div>
@@ -647,7 +647,7 @@ const Trips = () => {
                                             {selectedTrips.includes(trip.id) ? (
                                                 <CheckSquare className="w-5 h-5 text-[#D8621C]" />
                                             ) : (
-                                                <Square className="w-5 h-5 text-gray-400" />
+                                                <Square className="w-5 h-5 text-slate-500 dark:text-gray-400" />
                                             )}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap border border-gray-300">
@@ -676,7 +676,7 @@ const Trips = () => {
                                                 ) : (
                                                     <div className="flex items-center">
                                                         <span className="truncate max-w-[80px]" title={trip.source}>{trip.source}</span>
-                                                        <ArrowUpRight className="w-3 h-3 mx-2 text-gray-400 shrink-0" />
+                                                        <ArrowUpRight className="w-3 h-3 mx-2 text-slate-500 dark:text-gray-400 shrink-0" />
                                                         <span className="truncate max-w-[80px]" title={trip.destination}>{trip.destination}</span>
                                                     </div>
                                                 )}
@@ -691,7 +691,7 @@ const Trips = () => {
                                             {isMonthly ? (
                                                 <span className="text-blue-700 text-xs font-bold uppercase tracking-wider bg-blue-100 px-2 py-1 rounded-md border border-blue-200">MONTHLY</span>
                                             ) : isPersonalVehicle ? (
-                                                <span className="text-gray-500 text-xs">-</span>
+                                                <span className="text-slate-500 dark:text-gray-500 text-xs">-</span>
                                             ) : (
                                                 <div className="text-black font-semibold">{formatCurrency(trip.tripCharges)}</div>
                                             )}
@@ -699,12 +699,12 @@ const Trips = () => {
                                         <td className="px-6 py-4 border border-gray-300">
                                             <div className="text-red-600">
                                                 {formatCurrency(dieselCost)}
-                                                {trip.dieselCost == null && <span className="text-[10px] text-gray-500 ml-1">(est)</span>}
+                                                {trip.dieselCost == null && <span className="text-[10px] text-slate-500 dark:text-gray-500 ml-1">(est)</span>}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 border border-gray-300">
                                             {isMonthly || isPersonalVehicle ? (
-                                                <span className="text-gray-500 text-xs">-</span>
+                                                <span className="text-slate-500 dark:text-gray-500 text-xs">-</span>
                                             ) : (
                                                 <div className="text-[#059669] font-semibold">{formatCurrency(estProfit)}</div>
                                             )}
@@ -754,7 +754,7 @@ const Trips = () => {
                                 );
                             }) : (
                                 <tr>
-                                    <td colSpan="12" className="px-6 py-12 text-center text-gray-500">
+                                    <td colSpan="12" className="px-6 py-12 text-center text-slate-500 dark:text-gray-500">
                                         <Navigation className="w-8 h-8 mx-auto mb-3 text-gray-600 opacity-50" />
                                         <p>No trips found</p>
                                     </td>
@@ -768,20 +768,20 @@ const Trips = () => {
             {/* Add Trip Modal */}
             {isAddModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-lg shadow-2xl h-max max-h-[90vh] flex flex-col">
-                        <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515] sticky top-0 rounded-t-2xl z-10">
-                            <h2 className="text-white font-bold text-lg">Add New Trip</h2>
-                            <button onClick={() => setIsAddModalOpen(false)} className="text-gray-400 hover:text-white">
+                    <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl w-full max-w-lg shadow-2xl h-max max-h-[90vh] flex flex-col">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-100 dark:bg-[#151515] sticky top-0 rounded-t-2xl z-10">
+                            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Add New Trip</h2>
+                            <button onClick={() => setIsAddModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
 
-                        <div className="p-4 border-b border-[#2A2A2A] bg-orange-500/5 flex justify-between items-center shrink-0">
+                        <div className="p-4 border-b border-slate-200 dark:border-[#2A2A2A] bg-orange-500/5 flex justify-between items-center shrink-0">
                             <div>
                                 <h3 className="text-sm font-bold text-orange-400 flex items-center gap-2">
                                     <Sparkles className="w-4 h-4" /> Smart Auto-Fill
                                 </h3>
-                                <p className="text-xs text-gray-400 mt-1">Upload a Weighment Slip to auto-fill</p>
+                                <p className="text-xs text-slate-500 dark:text-gray-400 mt-1">Upload a Weighment Slip to auto-fill</p>
                             </div>
                             <label className={`cursor-pointer px-4 py-2 bg-orange-500/20 text-orange-400 rounded-lg text-sm font-medium hover:bg-orange-500/30 transition-colors border border-orange-500/30 flex items-center gap-2 ${isScanningBill ? 'opacity-50 pointer-events-none' : ''}`}>
                                 {isScanningBill ? (
@@ -797,20 +797,20 @@ const Trips = () => {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Date</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Date</label>
                                     <input
                                         type="date"
                                         required
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newTrip.startDate}
                                         onChange={(e) => setNewTrip({ ...newTrip, startDate: e.target.value })}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Vehicle</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Vehicle</label>
                                     <select
                                         required
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newTrip.vehicleId}
                                         onChange={(e) => setNewTrip({ ...newTrip, vehicleId: e.target.value })}
                                     >
@@ -822,7 +822,7 @@ const Trips = () => {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                                         {selectedVehicle?.type === 'Bikes' || selectedVehicle?.type === 'Cars' ? 'Rider / Driver' : 'Driver'}
                                     </label>
                                     <input
@@ -830,31 +830,31 @@ const Trips = () => {
                                         required
                                         list="driver-list"
                                         placeholder="Type new driver or select from list..."
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newTrip.driverName}
                                         onChange={(e) => setNewTrip({ ...newTrip, driverName: e.target.value })}
                                     />
                                     <datalist id="driver-list">
                                         {drivers.map(d => <option key={d.id} value={d.username} />)}
                                     </datalist>
-                                    <p className="text-[10px] text-gray-500 mt-1 ml-2">Type a new name to automatically create a driver.</p>
+                                    <p className="text-[10px] text-slate-500 dark:text-gray-500 mt-1 ml-2">Type a new name to automatically create a driver.</p>
                                 </div>
                                 {!isBikeOrCar && (
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Customer</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Customer</label>
                                         <input
                                             type="text"
                                             required
                                             list="customer-list"
                                             placeholder="Type new customer or select from list..."
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newTrip.customerName}
                                             onChange={(e) => setNewTrip({ ...newTrip, customerName: e.target.value })}
                                         />
                                         <datalist id="customer-list">
                                             {customers.map(c => <option key={c.id} value={c.name} />)}
                                         </datalist>
-                                        <p className="text-[10px] text-gray-500 mt-1 ml-2">Type a new name to automatically create a customer.</p>
+                                        <p className="text-[10px] text-slate-500 dark:text-gray-500 mt-1 ml-2">Type a new name to automatically create a customer.</p>
                                     </div>
                                 )}
                             </div>
@@ -862,28 +862,28 @@ const Trips = () => {
                             {/* Dynamic Fields based on Vehicle Type */}
                             {isMachinery ? (
                                     <div className="grid grid-cols-4 gap-4 mb-4">
-                                        <div className="col-span-4 flex items-center gap-4 bg-[#1C1C1C] p-4 rounded-xl border border-[#2A2A2A]">
-                                            <span className="text-xs text-gray-400 uppercase tracking-wider font-bold">Billing Mode:</span>
+                                        <div className="col-span-4 flex items-center gap-4 bg-white dark:bg-[#1C1C1C] p-4 rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
+                                            <span className="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider font-bold">Billing Mode:</span>
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="radio" name="machineryBillingMode" value="HOURLY"
                                                     checked={newTrip.machineryBillingMode === 'HOURLY'}
                                                     onChange={() => setNewTrip({ ...newTrip, machineryBillingMode: 'HOURLY' })}
                                                     className="accent-[#D8621C]" />
-                                                <span className={`text-sm ${newTrip.machineryBillingMode === 'HOURLY' ? 'text-white font-bold' : 'text-gray-400'}`}>Hour Wise</span>
+                                                <span className={`text-sm ${newTrip.machineryBillingMode === 'HOURLY' ? 'text-slate-900 dark:text-white font-bold' : 'text-slate-500 dark:text-gray-400'}`}>Hour Wise</span>
                                             </label>
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="radio" name="machineryBillingMode" value="DAILY"
                                                     checked={newTrip.machineryBillingMode === 'DAILY'}
                                                     onChange={() => setNewTrip({ ...newTrip, machineryBillingMode: 'DAILY' })}
                                                     className="accent-[#D8621C]" />
-                                                <span className={`text-sm ${newTrip.machineryBillingMode === 'DAILY' ? 'text-white font-bold' : 'text-gray-400'}`}>Per Day Wise</span>
+                                                <span className={`text-sm ${newTrip.machineryBillingMode === 'DAILY' ? 'text-slate-900 dark:text-white font-bold' : 'text-slate-500 dark:text-gray-400'}`}>Per Day Wise</span>
                                             </label>
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="radio" name="machineryBillingMode" value="TRIP"
                                                     checked={newTrip.machineryBillingMode === 'TRIP'}
                                                     onChange={() => setNewTrip({ ...newTrip, machineryBillingMode: 'TRIP' })}
                                                     className="accent-[#D8621C]" />
-                                                <span className={`text-sm ${newTrip.machineryBillingMode === 'TRIP' ? 'text-white font-bold' : 'text-gray-400'}`}>Trip Wise</span>
+                                                <span className={`text-sm ${newTrip.machineryBillingMode === 'TRIP' ? 'text-slate-900 dark:text-white font-bold' : 'text-slate-500 dark:text-gray-400'}`}>Trip Wise</span>
                                             </label>
                                         </div>
                                     </div>
@@ -894,10 +894,10 @@ const Trips = () => {
                                 <>
                                     <div className="grid grid-cols-1 gap-4 mb-4">
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Site Location</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Site Location</label>
                                             <input
                                                 type="text" required placeholder="e.g. Kodur Site"
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.source} onChange={(e) => setNewTrip({ ...newTrip, source: e.target.value })}
                                             />
                                         </div>
@@ -905,52 +905,52 @@ const Trips = () => {
                                     {newTrip.machineryBillingMode === 'HOURLY' && (
                                         <div className="grid grid-cols-4 gap-4">
                                             <div className="col-span-4 flex items-center gap-4 mb-2">
-                                                <span className="text-xs text-gray-400 uppercase tracking-wider">Calculate By:</span>
+                                                <span className="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider">Calculate By:</span>
                                                 <label className="flex items-center gap-2 cursor-pointer">
                                                     <input type="radio" name="calcType" value="TIME"
                                                         checked={newTrip.calculationType === 'TIME' || !newTrip.calculationType}
                                                         onChange={() => setNewTrip({ ...newTrip, calculationType: 'TIME' })}
                                                         className="accent-[#D8621C]" />
-                                                    <span className="text-sm text-white">Time (HH:MM)</span>
+                                                    <span className="text-sm text-slate-900 dark:text-white">Time (HH:MM)</span>
                                                 </label>
                                                 <label className="flex items-center gap-2 cursor-pointer">
                                                     <input type="radio" name="calcType" value="METER"
                                                         checked={newTrip.calculationType === 'METER'}
                                                         onChange={() => setNewTrip({ ...newTrip, calculationType: 'METER' })}
                                                         className="accent-[#D8621C]" />
-                                                    <span className="text-sm text-white">Meter Reading</span>
+                                                    <span className="text-sm text-slate-900 dark:text-white">Meter Reading</span>
                                                 </label>
                                                 <label className="flex items-center gap-2 cursor-pointer">
                                                     <input type="radio" name="calcType" value="MANUAL"
                                                         checked={newTrip.calculationType === 'MANUAL'}
                                                         onChange={() => setNewTrip({ ...newTrip, calculationType: 'MANUAL' })}
                                                         className="accent-[#D8621C]" />
-                                                    <span className="text-sm text-white">Manual Entry</span>
+                                                    <span className="text-sm text-slate-900 dark:text-white">Manual Entry</span>
                                                 </label>
                                             </div>
                                             {(newTrip.calculationType === 'TIME' || !newTrip.calculationType) ? (
                                                 <>
                                                     <div>
-                                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Start Time</label>
+                                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Start Time</label>
                                                         <input
                                                             type="time" required={newTrip.calculationType !== 'METER'}
-                                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-2 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] text-sm"
                                                             value={newTrip.startTime || ''} onChange={(e) => setNewTrip({ ...newTrip, startTime: e.target.value })}
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">End Time</label>
+                                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">End Time</label>
                                                         <input
                                                             type="time" required={newTrip.calculationType !== 'METER'}
-                                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-2 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] text-sm"
                                                             value={newTrip.endTime || ''} onChange={(e) => setNewTrip({ ...newTrip, endTime: e.target.value })}
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2" title="Lunch / Break (Hrs)">Break (Hr)</label>
+                                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2" title="Lunch / Break (Hrs)">Break (Hr)</label>
                                                         <input
                                                             type="number" step="0.5" min="0"
-                                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-3 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-3 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                             value={newTrip.breakHours || ''} onChange={(e) => setNewTrip({ ...newTrip, breakHours: e.target.value })}
                                                         />
                                                     </div>
@@ -958,18 +958,18 @@ const Trips = () => {
                                             ) : newTrip.calculationType === 'METER' ? (
                                                 <>
                                                     <div>
-                                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Start Meter</label>
+                                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Start Meter</label>
                                                         <input
                                                             type="number" step="0.1" min="0" required={newTrip.calculationType === 'METER'}
-                                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-2 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] text-sm"
                                                             value={newTrip.startMeter || ''} onChange={(e) => setNewTrip({ ...newTrip, startMeter: e.target.value })}
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">End Meter</label>
+                                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">End Meter</label>
                                                         <input
                                                             type="number" step="0.1" min="0" required={newTrip.calculationType === 'METER'}
-                                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-2 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] text-sm"
                                                             value={newTrip.endMeter || ''} onChange={(e) => setNewTrip({ ...newTrip, endMeter: e.target.value })}
                                                         />
                                                     </div>
@@ -978,10 +978,10 @@ const Trips = () => {
                                             ) : (
                                                 <>
                                                     <div>
-                                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Hours</label>
+                                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total Hours</label>
                                                         <input
                                                             type="number" step="0.5" min="0" required={newTrip.calculationType === 'MANUAL'}
-                                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-2 py-3 text-white focus:outline-none focus:border-[#D8621C] text-sm"
+                                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-2 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] text-sm"
                                                             value={newTrip.manualTotalHours || ''} onChange={(e) => setNewTrip({ ...newTrip, manualTotalHours: e.target.value })}
                                                         />
                                                     </div>
@@ -989,8 +989,8 @@ const Trips = () => {
                                                 </>
                                             )}
                                             <div>
-                                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Hours</label>
-                                                <div className="w-full h-[46px] bg-[#1C1C1C] border border-[#2A2A2A] rounded-xl px-2 py-3 text-orange-400 font-bold flex items-center justify-center">
+                                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total Hours</label>
+                                                <div className="w-full h-[46px] bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-2 py-3 text-orange-400 font-bold flex items-center justify-center">
                                                     {calculatedTotalHours} h
                                                 </div>
                                             </div>
@@ -1000,10 +1000,10 @@ const Trips = () => {
                                     {newTrip.machineryBillingMode === 'DAILY' && (
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Number of Days</label>
+                                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Number of Days</label>
                                                 <input
                                                     type="number" step="0.5" min="0" required
-                                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                     value={newTrip.numberOfDays || '1'} onChange={(e) => setNewTrip({ ...newTrip, numberOfDays: e.target.value })}
                                                 />
                                             </div>
@@ -1014,17 +1014,17 @@ const Trips = () => {
                                 <>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Purpose</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Purpose</label>
                                             <input
                                                 type="text" required placeholder="e.g. Personal Issue, Parts purchase"
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.source} onChange={(e) => setNewTrip({ ...newTrip, source: e.target.value })}
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Fuel Type</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Fuel Type</label>
                                             <select
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.material === 'Blue Metal' ? 'Petrol' : newTrip.material}
                                                 onChange={(e) => setNewTrip({ ...newTrip, material: e.target.value })}
                                             >
@@ -1038,18 +1038,18 @@ const Trips = () => {
                                 <>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Source / From</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Source / From</label>
                                             <input
                                                 type="text" required placeholder="e.g. Chennai"
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.source} onChange={(e) => setNewTrip({ ...newTrip, source: e.target.value })}
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Destination / To</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Destination / To</label>
                                             <input
                                                 type="text" required placeholder="e.g. Bangalore"
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.destination} onChange={(e) => setNewTrip({ ...newTrip, destination: e.target.value })}
                                             />
                                         </div>
@@ -1058,19 +1058,19 @@ const Trips = () => {
                                     <div className={`grid ${isTipper ? 'grid-cols-2' : 'grid-cols-1'} gap-4`}>
                                         {isTipper && (
                                             <div>
-                                                <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Material</label>
+                                                <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Material</label>
                                                 <input
                                                     type="text" required placeholder="Blue Metal"
-                                                    className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                    className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                     value={newTrip.material} onChange={(e) => setNewTrip({ ...newTrip, material: e.target.value })}
                                                 />
                                             </div>
                                         )}
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Load (Tons)</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Load (Tons)</label>
                                             <input
                                                 type="number" step="0.1" required placeholder="20.5"
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.loadWeight} onChange={(e) => setNewTrip({ ...newTrip, loadWeight: e.target.value })}
                                             />
                                         </div>
@@ -1080,9 +1080,9 @@ const Trips = () => {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Status</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Status</label>
                                     <select
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={newTrip.status}
                                         onChange={(e) => setNewTrip({ ...newTrip, status: e.target.value })}
                                     >
@@ -1093,10 +1093,10 @@ const Trips = () => {
                                 </div>
                                 {!isMonthly && (
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">{isBikeOrCar ? 'Fuel Cost (₹)' : 'Diesel Cost (₹)'}</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">{isBikeOrCar ? 'Fuel Cost (₹)' : 'Diesel Cost (₹)'}</label>
                                         <input
                                             type="number" placeholder="Actual cost e.g. 5000"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newTrip.dieselCost} onChange={(e) => setNewTrip({ ...newTrip, dieselCost: e.target.value })}
                                         />
                                     </div>
@@ -1107,28 +1107,28 @@ const Trips = () => {
                                 <>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Driver Salary (₹)</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Driver Salary (₹)</label>
                                             <input
                                                 type="number" placeholder="e.g. 1500"
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.driverSalary} onChange={(e) => setNewTrip({ ...newTrip, driverSalary: e.target.value })}
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Driver Food (₹)</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Driver Food (₹)</label>
                                             <input
                                                 type="number" placeholder="e.g. 300"
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.foodAmount} onChange={(e) => setNewTrip({ ...newTrip, foodAmount: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     {isTipper && (
                                         <div className="mt-4">
-                                            <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Material Purchase Cost (₹)</label>
+                                            <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Material Purchase Cost (₹)</label>
                                             <input
                                                 type="number" placeholder="e.g. Own money spent on M-Sand"
-                                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                                 value={newTrip.materialPurchaseCost} onChange={(e) => setNewTrip({ ...newTrip, materialPurchaseCost: e.target.value })}
                                             />
                                         </div>
@@ -1139,18 +1139,18 @@ const Trips = () => {
                             {isMachinery && newTrip.machineryBillingMode === 'HOURLY' && (
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Hourly Rate (₹)</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Hourly Rate (₹)</label>
                                         <input
                                             type="number" required placeholder="1000"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newTrip.hourlyRate} onChange={(e) => setNewTrip({ ...newTrip, hourlyRate: e.target.value })}
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Charge (₹)</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total Charge (₹)</label>
                                         <input
                                             type="number" required placeholder="Calculated automatically or enter manually"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-[#10B981] font-bold focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-[#10B981] font-bold focus:outline-none focus:border-[#D8621C]"
                                             value={newTrip.tripCharges} onChange={(e) => setNewTrip({ ...newTrip, tripCharges: e.target.value })}
                                         />
                                     </div>
@@ -1160,18 +1160,18 @@ const Trips = () => {
                             {isMachinery && newTrip.machineryBillingMode === 'DAILY' && (
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Daily Rate (₹)</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Daily Rate (₹)</label>
                                         <input
                                             type="number" required placeholder="e.g. 8000"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newTrip.dailyRate || ''} onChange={(e) => setNewTrip({ ...newTrip, dailyRate: e.target.value })}
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Total Charge (₹)</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Total Charge (₹)</label>
                                         <input
                                             type="number" required placeholder="e.g. 8000"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-[#10B981] font-bold focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-[#10B981] font-bold focus:outline-none focus:border-[#D8621C]"
                                             value={newTrip.tripCharges} onChange={(e) => setNewTrip({ ...newTrip, tripCharges: e.target.value })}
                                         />
                                     </div>
@@ -1181,30 +1181,30 @@ const Trips = () => {
                             {(!isMachinery && !isBikeOrCar) || (isMachinery && newTrip.machineryBillingMode === 'TRIP') ? (
                                 <div className="grid grid-cols-1 gap-4 mt-4">
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                                             {isMonthly ? 'Extra Trip Charge (Optional)' : 'Expected Trip Charge (₹)'}
                                         </label>
                                         <input
                                             type="number" required={!isMonthly} placeholder="e.g. 5000"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={newTrip.tripCharges} onChange={(e) => setNewTrip({ ...newTrip, tripCharges: e.target.value })}
                                         />
                                     </div>
                                 </div>
                             ) : null}
 
-                            <div className="pt-4 flex justify-end gap-3 border-t border-[#2A2A2A] mt-4">
+                            <div className="pt-4 flex justify-end gap-3 border-t border-slate-200 dark:border-[#2A2A2A] mt-4">
                                 <button
                                     type="button"
                                     onClick={() => setIsAddModalOpen(false)}
-                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting || !newTrip.vehicleId || (!isBikeOrCar && !newTrip.customerName) || !newTrip.driverName}
-                                    className="px-5 py-2.5 bg-[#D8621C] text-white rounded-xl text-sm font-medium hover:bg-[#c25617] transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50"
+                                    className="px-5 py-2.5 bg-[#D8621C] text-slate-900 dark:text-white rounded-xl text-sm font-medium hover:bg-[#c25617] transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50"
                                 >
                                     {isSubmitting ? 'Saving...' : 'Save Trip'}
                                 </button>
@@ -1216,30 +1216,30 @@ const Trips = () => {
             {/* Edit Trip Modal */}
             {isEditModalOpen && editingTrip && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-lg shadow-2xl h-max max-h-[90vh] flex flex-col">
-                        <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515] sticky top-0 rounded-t-2xl z-10">
-                            <h2 className="text-white font-bold text-lg">Edit Trip</h2>
-                            <button onClick={() => setIsEditModalOpen(false)} className="text-gray-400 hover:text-white">
+                    <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl w-full max-w-lg shadow-2xl h-max max-h-[90vh] flex flex-col">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-100 dark:bg-[#151515] sticky top-0 rounded-t-2xl z-10">
+                            <h2 className="text-slate-900 dark:text-white font-bold text-lg">Edit Trip</h2>
+                            <button onClick={() => setIsEditModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
                         <form onSubmit={handleEditSubmit} className="p-6 space-y-4 overflow-y-auto">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Trip Charges / Profit</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Trip Charges / Profit</label>
                                     <input
                                         type="number"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={editingTrip.tripCharges || ''}
                                         onChange={(e) => setEditingTrip({ ...editingTrip, tripCharges: parseFloat(e.target.value) || 0 })}
                                     />
                                 </div>
                                 {editingTrip?.vehicle?.billingType !== 'MONTHLY' && (
                                     <div>
-                                        <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Diesel Cost</label>
+                                        <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Diesel Cost</label>
                                         <input
                                             type="number"
-                                            className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                            className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             value={editingTrip.dieselCost || ''}
                                             onChange={(e) => setEditingTrip({ ...editingTrip, dieselCost: parseFloat(e.target.value) || 0 })}
                                         />
@@ -1248,36 +1248,36 @@ const Trips = () => {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Driver Salary</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Driver Salary</label>
                                     <input
                                         type="number"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={editingTrip.driverSalary || ''}
                                         onChange={(e) => setEditingTrip({ ...editingTrip, driverSalary: parseFloat(e.target.value) || 0 })}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Food / Bata</label>
+                                    <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Food / Bata</label>
                                     <input
                                         type="number"
-                                        className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#D8621C]"
+                                        className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                         value={editingTrip.foodAmount || ''}
                                         onChange={(e) => setEditingTrip({ ...editingTrip, foodAmount: parseFloat(e.target.value) || 0 })}
                                     />
                                 </div>
                             </div>
-                            <div className="pt-4 flex justify-end gap-3 border-t border-[#2A2A2A] mt-4">
+                            <div className="pt-4 flex justify-end gap-3 border-t border-slate-200 dark:border-[#2A2A2A] mt-4">
                                 <button
                                     type="button"
                                     onClick={() => setIsEditModalOpen(false)}
-                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20 disabled:opacity-50"
+                                    className="px-5 py-2.5 bg-blue-600 text-slate-900 dark:text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20 disabled:opacity-50"
                                 >
                                     {isSubmitting ? 'Saving...' : 'Save Changes'}
                                 </button>

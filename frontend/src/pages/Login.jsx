@@ -58,11 +58,11 @@ const Login = () => {
                 <div className="flex flex-col items-center mb-10">
                     <div className="w-16 h-16 mb-6 flex items-center justify-center bg-[#4F46E5] rounded-2xl shadow-[0_0_40px_rgba(79,70,229,0.5)]">
                         {/* Box/Cube Icon to match the mockup */}
-                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-8 h-8 text-slate-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                         </svg>
                     </div>
-                    <h1 className="text-2xl font-bold text-white tracking-widest uppercase text-center mb-1">
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-widest uppercase text-center mb-1">
                         PAVITHRA
                     </h1>
                     <div className="flex items-center gap-2">
@@ -86,12 +86,12 @@ const Login = () => {
                     
                     {/* Email Input */}
                     <div className="relative group">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-500 group-focus-within:text-blue-400 transition-colors">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500 dark:text-gray-500 group-focus-within:text-blue-400 transition-colors">
                             <Mail className="w-4 h-4" />
                         </div>
                         <input
                             type="text"
-                            className="block w-full pl-11 pr-4 py-3.5 bg-white/10 border border-white/20 rounded-xl text-white font-semibold placeholder-gray-300 focus:bg-white/20 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all duration-300 text-sm [&:-webkit-autofill]:bg-transparent [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[transition:background-color_5000s_ease-in-out_0s]"
+                            className="block w-full pl-11 pr-4 py-3.5 bg-white/10 border border-white/20 rounded-xl text-slate-900 dark:text-white font-semibold placeholder-gray-300 focus:bg-white/20 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all duration-300 text-sm [&:-webkit-autofill]:bg-transparent [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[transition:background-color_5000s_ease-in-out_0s]"
                             placeholder="Email or Username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -101,12 +101,12 @@ const Login = () => {
 
                     {/* Password Input */}
                     <div className="relative group">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-500 group-focus-within:text-blue-400 transition-colors">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500 dark:text-gray-500 group-focus-within:text-blue-400 transition-colors">
                             <Lock className="w-4 h-4" />
                         </div>
                         <input
                             type={showPassword ? "text" : "password"}
-                            className="block w-full pl-11 pr-12 py-3.5 bg-white/10 border border-white/20 rounded-xl text-white font-semibold placeholder-gray-300 focus:bg-white/20 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all duration-300 text-sm [&:-webkit-autofill]:bg-transparent [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[transition:background-color_5000s_ease-in-out_0s]"
+                            className="block w-full pl-11 pr-12 py-3.5 bg-white/10 border border-white/20 rounded-xl text-slate-900 dark:text-white font-semibold placeholder-gray-300 focus:bg-white/20 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all duration-300 text-sm [&:-webkit-autofill]:bg-transparent [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[transition:background-color_5000s_ease-in-out_0s]"
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -115,7 +115,7 @@ const Login = () => {
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-white focus:outline-none transition-colors"
+                            className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white focus:outline-none transition-colors"
                         >
                             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                         </button>
@@ -126,7 +126,7 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full flex justify-center items-center py-4 px-4 rounded-xl text-sm font-semibold text-white bg-[#4F46E5] hover:bg-[#4338ca] focus:outline-none transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] gap-2"
+                            className="w-full flex justify-center items-center py-4 px-4 rounded-xl text-sm font-semibold text-slate-900 dark:text-white bg-[#4F46E5] hover:bg-[#4338ca] focus:outline-none transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] gap-2"
                         >
                             {isLoading ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -142,7 +142,7 @@ const Login = () => {
 
                 {/* Forgot Password Link */}
                 <div className="mt-8 text-center">
-                    <a href="#" className="text-xs text-gray-400 hover:text-white transition-colors">
+                    <a href="#" className="text-xs text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
                         Forgot Password?
                     </a>
                 </div>

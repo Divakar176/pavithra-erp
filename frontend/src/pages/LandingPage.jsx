@@ -14,7 +14,7 @@ const LandingPage = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#030712] text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden">
+        <div className="min-h-screen bg-[#030712] text-slate-900 dark:text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden">
             {/* --- MAGICAL BACKGROUND EFFECTS --- */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 {/* Noise overlay for premium texture */}
@@ -30,7 +30,7 @@ const LandingPage = () => {
                 <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
                     <div className="flex items-center gap-3 group cursor-pointer">
                         <div className="w-10 h-10 relative flex items-center justify-center bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-xl shadow-[0_0_20px_rgba(79,70,229,0.4)] group-hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] transition-all">
-                            <Globe2 className="w-5 h-5 text-white z-10" />
+                            <Globe2 className="w-5 h-5 text-slate-900 dark:text-white z-10" />
                         </div>
                         <div>
                             <h1 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400 tracking-widest uppercase">
@@ -38,13 +38,13 @@ const LandingPage = () => {
                             </h1>
                         </div>
                     </div>
-                    <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
-                        <a href="#features" className="hover:text-white transition-colors">Features</a>
-                        <a href="#fleet" className="hover:text-white transition-colors">Our Fleet</a>
-                        <a href="#about" className="hover:text-white transition-colors">About Us</a>
+                    <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-gray-300">
+                        <a href="#features" className="hover:text-slate-900 dark:text-white transition-colors">Features</a>
+                        <a href="#fleet" className="hover:text-slate-900 dark:text-white transition-colors">Our Fleet</a>
+                        <a href="#about" className="hover:text-slate-900 dark:text-white transition-colors">About Us</a>
                     </div>
                     <div className="flex items-center gap-4">
-                        <Link to="/login" className="hidden md:block text-sm font-semibold text-gray-300 hover:text-white transition-colors">
+                        <Link to="/login" className="hidden md:block text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:text-white transition-colors">
                             Client Login
                         </Link>
                         <Link 
@@ -76,7 +76,7 @@ const LandingPage = () => {
                                     Transport Fleet
                                 </span>
                             </h2>
-                            <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                            <p className="text-lg md:text-xl text-slate-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
                                 Experience magical UI and unparalleled control over your Lorries, JCBs, and enterprise logistics. Real-time tracking, AI-driven insights, and automated operations.
                             </p>
                             
@@ -120,7 +120,7 @@ const LandingPage = () => {
                 <div className="container mx-auto px-6 md:px-12">
                     <div className="text-center mb-16">
                         <h3 className="text-3xl md:text-4xl font-black mb-4">Enterprise Grade Tools</h3>
-                        <p className="text-gray-400 max-w-2xl mx-auto">Everything you need to manage hundreds of vehicles, track expenses, and automate your operations globally.</p>
+                        <p className="text-slate-500 dark:text-gray-400 max-w-2xl mx-auto">Everything you need to manage hundreds of vehicles, track expenses, and automate your operations globally.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -130,7 +130,7 @@ const LandingPage = () => {
                                 <Truck className="w-7 h-7 text-blue-400" />
                             </div>
                             <h4 className="text-xl font-bold mb-3">Fleet Tracking</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">Real-time GPS tracking for all your Lorries and JCBs. Monitor fuel levels, speed, and driver behavior instantly.</p>
+                            <p className="text-slate-500 dark:text-gray-400 text-sm leading-relaxed">Real-time GPS tracking for all your Lorries and JCBs. Monitor fuel levels, speed, and driver behavior instantly.</p>
                         </div>
                         {/* Feature 2 */}
                         <div className="bg-gradient-to-b from-white/5 to-transparent border border-white/10 rounded-3xl p-8 hover:border-indigo-500/50 transition-colors group">
@@ -138,7 +138,7 @@ const LandingPage = () => {
                                 <BarChart3 className="w-7 h-7 text-indigo-400" />
                             </div>
                             <h4 className="text-xl font-bold mb-3">Automated Billing</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">Generate GST compliant invoices, track ledgers, and manage payments with our seamless financial suite.</p>
+                            <p className="text-slate-500 dark:text-gray-400 text-sm leading-relaxed">Generate GST compliant invoices, track ledgers, and manage payments with our seamless financial suite.</p>
                         </div>
                         {/* Feature 3 */}
                         <div className="bg-gradient-to-b from-white/5 to-transparent border border-white/10 rounded-3xl p-8 hover:border-purple-500/50 transition-colors group">
@@ -146,7 +146,7 @@ const LandingPage = () => {
                                 <Shield className="w-7 h-7 text-purple-400" />
                             </div>
                             <h4 className="text-xl font-bold mb-3">Bank-Grade Security</h4>
-                            <p className="text-gray-400 text-sm leading-relaxed">Role-based access control, JWT authentication, and encrypted data vaults keep your enterprise safe.</p>
+                            <p className="text-slate-500 dark:text-gray-400 text-sm leading-relaxed">Role-based access control, JWT authentication, and encrypted data vaults keep your enterprise safe.</p>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@ const LandingPage = () => {
                     <p className="text-blue-200 mb-10 max-w-2xl mx-auto">Join thousands of fleet operators managing their Lorries and JCBs with Pavithra ERP.</p>
                     <Link 
                         to="/login" 
-                        className="inline-flex items-center justify-center px-10 py-5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg shadow-[0_0_40px_rgba(79,70,229,0.4)] hover:shadow-[0_0_60px_rgba(79,70,229,0.6)] hover:scale-105 transition-all duration-300 gap-3"
+                        className="inline-flex items-center justify-center px-10 py-5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 dark:text-white font-bold text-lg shadow-[0_0_40px_rgba(79,70,229,0.4)] hover:shadow-[0_0_60px_rgba(79,70,229,0.6)] hover:scale-105 transition-all duration-300 gap-3"
                     >
                         Access Secure Portal <ArrowRight className="w-6 h-6" />
                     </Link>
@@ -168,7 +168,7 @@ const LandingPage = () => {
             </section>
             
             {/* Footer */}
-            <footer className="relative z-10 border-t border-white/10 bg-[#030712] py-8 text-center text-gray-500 text-sm">
+            <footer className="relative z-10 border-t border-white/10 bg-[#030712] py-8 text-center text-slate-500 dark:text-gray-500 text-sm">
                 <p>&copy; 2026 Pavithra Enterprises Logistics. All rights reserved.</p>
             </footer>
         </div>

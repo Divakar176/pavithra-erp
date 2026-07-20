@@ -39,7 +39,7 @@ const DriverHome = () => {
         <div className="p-4 space-y-6">
             <div className="pt-2">
                 <h1 className="text-2xl font-bold">Hello, {user.username}! 👋</h1>
-                <p className="text-gray-400 text-sm mt-1">Drive safe. Here's your overview.</p>
+                <p className="text-slate-500 dark:text-gray-400 text-sm mt-1">Drive safe. Here's your overview.</p>
             </div>
 
             <InstallAppBanner />
@@ -51,7 +51,7 @@ const DriverHome = () => {
                 </div>
                 <div className="relative z-10">
                     <p className="text-orange-100 text-sm font-medium uppercase tracking-wider mb-1">Total Payable Balance</p>
-                    <h2 className="text-4xl font-black text-white mb-2">₹{balance.toLocaleString()}</h2>
+                    <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-2">₹{balance.toLocaleString()}</h2>
                     <p className="text-xs text-orange-200">Pending salary & advances</p>
                 </div>
             </div>
@@ -60,9 +60,9 @@ const DriverHome = () => {
             <div className="bg-[#1A1A1A] rounded-2xl p-5 border border-[#333]">
                 <div className="flex items-center gap-3 mb-3">
                     <AlertCircle className="w-5 h-5 text-blue-400" />
-                    <h3 className="font-bold text-white">Daily Reminder</h3>
+                    <h3 className="font-bold text-slate-900 dark:text-white">Daily Reminder</h3>
                 </div>
-                <ul className="text-sm text-gray-400 space-y-2 list-disc pl-4">
+                <ul className="text-sm text-slate-500 dark:text-gray-400 space-y-2 list-disc pl-4">
                     <li>Always check vehicle oil and tires before starting.</li>
                     <li>Update your trip status in the "My Trips" tab.</li>
                     <li>Collect fuel receipts for all refuels.</li>

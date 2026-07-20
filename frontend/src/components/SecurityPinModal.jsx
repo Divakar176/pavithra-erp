@@ -95,19 +95,19 @@ const SecurityPinModal = ({ isOpen, onClose, onSuccess, actionName }) => {
 
     return (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-md animate-fade-in">
-            <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl shadow-red-500/10">
-                <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515]">
+            <div className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl shadow-red-500/10">
+                <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-100 dark:bg-[#151515]">
                     <div className="flex items-center gap-2">
                         <ShieldAlert className="w-5 h-5 text-red-500" />
-                        <h2 className="text-white font-bold text-lg">Security Check</h2>
+                        <h2 className="text-slate-900 dark:text-white font-bold text-lg">Security Check</h2>
                     </div>
-                    <button onClick={handleCancel} className="text-gray-400 hover:text-white transition-colors">
+                    <button onClick={handleCancel} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
                         <X className="w-5 h-5" />
                     </button>
                 </div>
                 <div className="p-6 space-y-4">
-                    <div className="text-sm text-gray-400 text-center mb-4">
-                        Authenticate to proceed with <span className="text-white font-bold">{actionName}</span>.
+                    <div className="text-sm text-slate-500 dark:text-gray-400 text-center mb-4">
+                        Authenticate to proceed with <span className="text-slate-900 dark:text-white font-bold">{actionName}</span>.
                     </div>
                     
                     {error && (
@@ -125,19 +125,19 @@ const SecurityPinModal = ({ isOpen, onClose, onSuccess, actionName }) => {
                     </button>
                     
                     <div className="flex items-center gap-3 my-4">
-                        <div className="h-px bg-[#2A2A2A] flex-1"></div>
-                        <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">OR PIN</span>
-                        <div className="h-px bg-[#2A2A2A] flex-1"></div>
+                        <div className="h-px bg-slate-200 dark:bg-[#2A2A2A] flex-1"></div>
+                        <span className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase tracking-widest">OR PIN</span>
+                        <div className="h-px bg-slate-200 dark:bg-[#2A2A2A] flex-1"></div>
                     </div>
                     
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="relative">
-                            <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                            <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 dark:text-gray-500" />
                             <input 
                                 type="password" 
                                 placeholder="Enter 4-digit PIN"
                                 maxLength={4}
-                                className="w-full bg-[#151515] border border-[#2A2A2A] rounded-xl pl-12 pr-4 py-4 text-center text-white text-xl tracking-[0.5em] focus:outline-none focus:border-red-500 transition-colors"
+                                className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl pl-12 pr-4 py-4 text-center text-slate-900 dark:text-white text-xl tracking-[0.5em] focus:outline-none focus:border-red-500 transition-colors"
                                 value={pin}
                                 onChange={(e) => setPin(e.target.value)}
                             />
@@ -147,14 +147,14 @@ const SecurityPinModal = ({ isOpen, onClose, onSuccess, actionName }) => {
                             <button 
                                 type="button" 
                                 onClick={handleCancel}
-                                className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-[#2A2A2A] hover:bg-[#2A2A2A] text-gray-300 font-bold rounded-xl transition-colors"
+                                className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors"
                             >
                                 Cancel
                             </button>
                             <button 
                                 type="submit" 
                                 disabled={!pin || isVerifying}
-                                className="flex-1 py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-red-500/20 disabled:opacity-50 flex items-center justify-center"
+                                className="flex-1 py-3 px-4 bg-red-600 hover:bg-red-700 text-slate-900 dark:text-white font-bold rounded-xl transition-all shadow-lg shadow-red-500/20 disabled:opacity-50 flex items-center justify-center"
                             >
                                 {isVerifying ? 'Verifying...' : 'Verify'}
                             </button>

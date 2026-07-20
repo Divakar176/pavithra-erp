@@ -11,7 +11,7 @@
 
 @layer base {
   body {
-    @apply bg-[#151515] text-gray-200 antialiased;
+    @apply bg-slate-50 text-slate-900 dark:bg-[#151515] dark:text-gray-200 antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }

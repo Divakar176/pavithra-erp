@@ -103,7 +103,7 @@ const ExpenseLedger = () => {
             case 'Fuel': return <Fuel className="w-5 h-5 text-orange-500" />;
             case 'Maintenance': 
             case 'Repair': return <Wrench className="w-5 h-5 text-blue-500" />;
-            default: return <FileText className="w-5 h-5 text-gray-500" />;
+            default: return <FileText className="w-5 h-5 text-slate-500 dark:text-gray-500" />;
         }
     };
 
@@ -112,17 +112,17 @@ const ExpenseLedger = () => {
             <div className="flex justify-between items-center mb-8">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Expense Ledger</h1>
-                    <p className="text-sm text-gray-500 font-medium mt-1">Detailed history of all company expenses</p>
+                    <p className="text-sm text-slate-500 dark:text-gray-500 font-medium mt-1">Detailed history of all company expenses</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <button 
                         onClick={() => setIsAddModalOpen(true)}
-                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center shadow-sm"
+                        className="bg-indigo-600 hover:bg-indigo-700 text-slate-900 dark:text-white px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center shadow-sm"
                     >
                         + Add Expense
                     </button>
                     <button className="bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center shadow-sm">
-                        <Download className="w-4 h-4 mr-2 text-gray-500" /> Export CSV
+                        <Download className="w-4 h-4 mr-2 text-slate-500 dark:text-gray-500" /> Export CSV
                     </button>
                 </div>
             </div>
@@ -130,7 +130,7 @@ const ExpenseLedger = () => {
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-8">
                 <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/50 flex-wrap gap-4">
                     <div className="relative flex-1 min-w-[250px] max-w-md group">
-                        <Search className="w-4 h-4 absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors" />
+                        <Search className="w-4 h-4 absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-gray-400 group-focus-within:text-indigo-600 transition-colors" />
                         <input 
                             type="text" 
                             placeholder="Search by Vendor, Trip ID..." 
@@ -140,7 +140,7 @@ const ExpenseLedger = () => {
                         />
                     </div>
                     <div className="flex items-center gap-3">
-                        <Filter className="w-4 h-4 text-gray-400" />
+                        <Filter className="w-4 h-4 text-slate-500 dark:text-gray-400" />
                         <select 
                             value={filterType}
                             onChange={(e) => setFilterType(e.target.value)}
@@ -160,20 +160,20 @@ const ExpenseLedger = () => {
                 </div>
 
                 {loading ? (
-                    <div className="p-12 text-center text-gray-500 font-medium">Loading ledger...</div>
+                    <div className="p-12 text-center text-slate-500 dark:text-gray-500 font-medium">Loading ledger...</div>
                 ) : Object.keys(groupedExpenses).length === 0 ? (
-                    <div className="p-12 text-center text-gray-500 font-medium">No expenses found matching your criteria.</div>
+                    <div className="p-12 text-center text-slate-500 dark:text-gray-500 font-medium">No expenses found matching your criteria.</div>
                 ) : (
                     Object.entries(groupedExpenses).map(([monthYear, data], idx) => (
                         <div key={monthYear} className={idx !== 0 ? 'border-t-4 border-gray-100' : ''}>
                             <div className="bg-gray-50/80 px-6 py-3 border-b border-gray-100 flex justify-between items-center">
                                 <h3 className="font-black text-gray-800 text-sm tracking-wide uppercase">{monthYear}</h3>
-                                <span className="font-bold text-gray-500 text-sm">{data.expenses.length} entries</span>
+                                <span className="font-bold text-slate-500 dark:text-gray-500 text-sm">{data.expenses.length} entries</span>
                             </div>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left border-collapse">
                                     <thead>
-                                        <tr className="border-b border-gray-100 text-gray-400 text-[10px] uppercase tracking-wider font-bold">
+                                        <tr className="border-b border-gray-100 text-slate-500 dark:text-gray-400 text-[10px] uppercase tracking-wider font-bold">
                                             <th className="p-4 pl-6 w-1/6">Date</th>
                                             <th className="p-4 w-1/4">Category & Vendor</th>
                                             <th className="p-4 w-1/4">Links</th>
@@ -186,7 +186,7 @@ const ExpenseLedger = () => {
                                             <tr key={expense.id} className="hover:bg-gray-50 transition-colors group">
                                                 <td className="p-4 pl-6">
                                                     <div className="flex items-center text-gray-700 font-bold text-sm">
-                                                        <Calendar className="w-4 h-4 mr-2 text-gray-400" />
+                                                        <Calendar className="w-4 h-4 mr-2 text-slate-500 dark:text-gray-400" />
                                                         {new Date(expense.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
                                                     </div>
                                                 </td>
@@ -197,7 +197,7 @@ const ExpenseLedger = () => {
                                                         </div>
                                                         <div>
                                                             <div className="font-bold text-gray-900 text-sm">{expense.expenseType}</div>
-                                                            {expense.paidTo && <div className="text-[11px] font-bold text-gray-500 mt-0.5">{expense.paidTo}</div>}
+                                                            {expense.paidTo && <div className="text-[11px] font-bold text-slate-500 dark:text-gray-500 mt-0.5">{expense.paidTo}</div>}
                                                         </div>
                                                     </div>
                                                 </td>
@@ -213,11 +213,11 @@ const ExpenseLedger = () => {
                                                                 <Truck className="w-3 h-3 mr-1"/> {expense.vehicle.vehicleNumber}
                                                             </span>
                                                         )}
-                                                        {!expense.trip && !expense.vehicle && <span className="text-xs text-gray-400 font-medium">None</span>}
+                                                        {!expense.trip && !expense.vehicle && <span className="text-xs text-slate-500 dark:text-gray-400 font-medium">None</span>}
                                                     </div>
                                                 </td>
                                                 <td className="p-4">
-                                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">{expense.paymentMode || 'Cash'}</span>
+                                                    <span className="text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider">{expense.paymentMode || 'Cash'}</span>
                                                 </td>
                                                 <td className="p-4 pr-6 text-right">
                                                     <div className="flex items-center justify-end text-rose-600 font-black">
@@ -249,14 +249,14 @@ const ExpenseLedger = () => {
                     <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
                         <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                             <h2 className="text-gray-900 font-bold text-lg">Add New Expense</h2>
-                            <button onClick={() => setIsAddModalOpen(false)} className="text-gray-400 hover:text-gray-600 text-2xl font-light leading-none">
+                            <button onClick={() => setIsAddModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-gray-600 text-2xl font-light leading-none">
                                 &times;
                             </button>
                         </div>
                         <form onSubmit={handleAddSubmit} className="p-6 space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Date</label>
+                                    <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">Date</label>
                                     <input 
                                         type="date" required
                                         className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -264,7 +264,7 @@ const ExpenseLedger = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Amount (₹)</label>
+                                    <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">Amount (₹)</label>
                                     <input 
                                         type="number" required placeholder="e.g. 5000"
                                         className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -274,7 +274,7 @@ const ExpenseLedger = () => {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Category</label>
+                                    <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">Category</label>
                                     <select 
                                         required
                                         className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -292,7 +292,7 @@ const ExpenseLedger = () => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Vehicle (Optional)</label>
+                                    <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">Vehicle (Optional)</label>
                                     <select 
                                         className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
                                         value={newExpense.vehicleId} onChange={(e) => setNewExpense({...newExpense, vehicleId: e.target.value})}
@@ -304,7 +304,7 @@ const ExpenseLedger = () => {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Paid To (Vendor)</label>
+                                    <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">Paid To (Vendor)</label>
                                     <input 
                                         type="text" required placeholder="e.g. Ashok Leyland Service"
                                         className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -312,7 +312,7 @@ const ExpenseLedger = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Payment Mode</label>
+                                    <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">Payment Mode</label>
                                     <select 
                                         required
                                         className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -326,7 +326,7 @@ const ExpenseLedger = () => {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Description</label>
+                                <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase tracking-wider mb-2">Description</label>
                                 <textarea 
                                     rows="2" placeholder="e.g. Changed 2 front tyres"
                                     className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -338,14 +338,14 @@ const ExpenseLedger = () => {
                                 <button 
                                     type="button" 
                                     onClick={() => setIsAddModalOpen(false)}
-                                    className="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-100 transition-colors"
+                                    className="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-500 dark:text-gray-500 hover:bg-gray-100 transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button 
                                     type="submit" 
                                     disabled={isSubmitting}
-                                    className="px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition-colors shadow-sm disabled:opacity-50"
+                                    className="px-5 py-2.5 bg-indigo-600 text-slate-900 dark:text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition-colors shadow-sm disabled:opacity-50"
                                 >
                                     {isSubmitting ? 'Saving...' : 'Save Expense'}
                                 </button>

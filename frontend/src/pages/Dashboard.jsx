@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import api from '../api/axios';
 import { useNavigate, Outlet, Link, useLocation } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Truck, Users, Activity, Navigation, IndianRupee, Sparkles, Bell, Search, BookOpen, FileText, PieChart, Wrench, Receipt, Package, Settings as SettingsIcon, Archive as ArchiveIcon, Menu, X } from 'lucide-react';
+import { LogOut, LayoutDashboard, Truck, Users, Activity, Navigation, IndianRupee, Sparkles, Bell, Search, BookOpen, FileText, PieChart, Wrench, Receipt, Package, Settings as SettingsIcon, Archive as ArchiveIcon, Menu, X, Sun, Moon } from 'lucide-react';
 
 const DashboardLayout = () => {
     const { user, logout } = useContext(AuthContext);
@@ -12,6 +12,19 @@ const DashboardLayout = () => {
     const [notifications, setNotifications] = useState([]);
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        return localStorage.getItem('theme') !== 'light';
+    });
+
+    useEffect(() => {
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [isDarkMode]);
 
     useEffect(() => {
         const fetchNotifications = async () => {
@@ -96,7 +109,8 @@ const DashboardLayout = () => {
     const userRole = user?.role || 'SUPER_ADMIN';
 
     return (
-        <div className="min-h-screen bg-[#1A1A1A] text-gray-200 flex font-sans selection:bg-orange-500/30 print:bg-white print:text-black overflow-hidden relative">
+    return (
+        <div className="min-h-screen bg-slate-50 dark:bg-[#1A1A1A] text-slate-900 dark:text-gray-200 flex font-sans selection:bg-orange-500/30 overflow-hidden relative transition-colors duration-300">
             
             {isSidebarOpen && (
                 <div 
@@ -105,14 +119,14 @@ const DashboardLayout = () => {
                 />
             )}
 
-            <aside className={`w-64 bg-[#1E1E1E] border-r border-[#2A2A2A] flex flex-col fixed inset-y-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 print:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-                <div className="h-[72px] flex items-center px-6 border-b border-[#2A2A2A]">
+            <aside className={`w-64 bg-[#1E1E1E] border-r border-slate-200 dark:border-[#2A2A2A] flex flex-col fixed inset-y-0 left-0 z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 print:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className="h-[72px] flex items-center px-6 border-b border-slate-200 dark:border-[#2A2A2A]">
                     <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-lg shadow-orange-500/20 mr-3 shrink-0 overflow-hidden">
                         <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col">
-                        <span className="font-bold text-sm tracking-tight text-white leading-tight">Pavithra Enterprises</span>
-                        <span className="text-[10px] text-gray-400 font-medium">Transport Management</span>
+                        <span className="font-bold text-sm tracking-tight text-slate-900 dark:text-white leading-tight">Pavithra Enterprises</span>
+                        <span className="text-[10px] text-slate-500 dark:text-gray-400 font-medium">Transport Management</span>
                     </div>
                 </div>
 
@@ -126,7 +140,7 @@ const DashboardLayout = () => {
 
                         return (
                             <div key={idx}>
-                                <div className="px-3 text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2.5">
+                                <div className="px-3 text-[10px] font-bold text-slate-600 dark:text-gray-300 uppercase tracking-widest mb-2.5">
                                     {section.title}
                                 </div>
                                 <div className="space-y-1">
@@ -138,14 +152,14 @@ const DashboardLayout = () => {
                                                 key={item.label}
                                                 to={item.path} 
                                                 onClick={() => setIsSidebarOpen(false)}
-                                                className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium group ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-white hover:text-[#D8621C] hover:bg-white/5'}`}
+                                                className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 font-medium group ${isActive ? 'bg-[#FFF0E5] text-[#D8621C]' : 'text-slate-900 dark:text-white hover:text-[#D8621C] hover:bg-white/5'}`}
                                             >
                                                 <div className="flex items-center">
-                                                    <Icon className={`w-4 h-4 mr-3 transition-colors ${isActive ? 'text-[#D8621C]' : 'text-white group-hover:text-[#D8621C]'}`} />
+                                                    <Icon className={`w-4 h-4 mr-3 transition-colors ${isActive ? 'text-[#D8621C]' : 'text-slate-900 dark:text-white group-hover:text-[#D8621C]'}`} />
                                                     <span className="text-sm">{item.label}</span>
                                                 </div>
                                                 {item.badge && (
-                                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.badge === '✨' ? 'bg-indigo-500 text-white' : 'bg-red-500 text-white'}`}>
+                                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.badge === '✨' ? 'bg-indigo-500 text-slate-900 dark:text-white' : 'bg-red-500 text-slate-900 dark:text-white'}`}>
                                                         {item.badge}
                                                     </span>
                                                 )}
@@ -158,7 +172,7 @@ const DashboardLayout = () => {
                     })}
                 </nav>
                 
-                <div className="p-4 border-t border-[#2A2A2A] mt-auto">
+                <div className="p-4 border-t border-slate-200 dark:border-[#2A2A2A] mt-auto">
                     <div className="flex items-center justify-between px-2">
                         <div className="flex items-center gap-3">
                             <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#1A1A1A] font-bold text-sm">
@@ -166,21 +180,21 @@ const DashboardLayout = () => {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-xs font-bold text-gray-200 capitalize">{user?.username || 'K. Pavithra'}</span>
-                                <span className="text-[10px] text-gray-500">{user?.role?.replace('_', ' ') || 'Admin (Owner)'}</span>
+                                <span className="text-[10px] text-slate-500 dark:text-gray-500">{user?.role?.replace('_', ' ') || 'Admin (Owner)'}</span>
                             </div>
                         </div>
-                        <button onClick={handleLogout} className="text-gray-500 hover:text-white transition-colors">
+                        <button onClick={handleLogout} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white transition-colors">
                             <LogOut className="w-4 h-4" />
                         </button>
                     </div>
                 </div>
             </aside>
 
-            <div className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden relative bg-[#121212] print:h-auto print:overflow-visible print:bg-white">
-                <header className="h-[72px] border-b border-[#2A2A2A] flex items-center justify-between px-4 lg:px-8 shrink-0 sticky top-0 z-10 bg-[#121212] print:hidden">
+            <div className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden relative bg-slate-50 dark:bg-[#121212] print:h-auto print:overflow-visible print:bg-white">
+                <header className="h-[72px] border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between px-4 lg:px-8 shrink-0 sticky top-0 z-10 bg-slate-50 dark:bg-[#121212] print:hidden">
                     <div className="flex items-center">
                         <button 
-                            className="lg:hidden p-2 mr-3 text-gray-400 hover:text-white"
+                            className="lg:hidden p-2 mr-3 text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white"
                             onClick={() => setIsSidebarOpen(true)}
                         >
                             <Menu className="w-6 h-6" />
@@ -194,8 +208,16 @@ const DashboardLayout = () => {
                     
                     <div className="flex items-center gap-2 lg:gap-4 relative">
                         <button 
+                            onClick={() => setIsDarkMode(!isDarkMode)}
+                            className="p-2.5 text-slate-500 dark:text-gray-400 border border-slate-200 dark:border-[#2A2A2A] rounded-xl hover:text-slate-900 dark:hover:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
+                            title="Toggle Theme"
+                        >
+                            {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                        </button>
+                        
+                        <button 
                             onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-                            className="relative p-2.5 text-gray-400 border border-[#2A2A2A] rounded-xl hover:text-gray-200 hover:bg-white/5 transition-all"
+                            className="relative p-2.5 text-slate-500 dark:text-gray-400 border border-slate-200 dark:border-[#2A2A2A] rounded-xl hover:text-slate-900 dark:hover:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
                         >
                             <Bell className="w-4 h-4" />
                             {notifications.length > 0 && (
@@ -204,9 +226,9 @@ const DashboardLayout = () => {
                         </button>
 
                         {isNotificationOpen && (
-                            <div className="absolute top-12 right-0 w-80 bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl shadow-2xl z-50 overflow-hidden">
-                                <div className="p-4 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515]">
-                                    <h3 className="font-bold text-white text-sm">Notifications</h3>
+                            <div className="absolute top-12 right-0 w-80 bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl shadow-2xl z-50 overflow-hidden">
+                                <div className="p-4 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-100 dark:bg-[#151515]">
+                                    <h3 className="font-bold text-slate-900 dark:text-white text-sm">Notifications</h3>
                                     {notifications.length > 0 && (
                                         <button onClick={handleMarkAllAsRead} className="text-xs text-orange-500 hover:text-orange-400 font-medium">
                                             Mark all read
@@ -223,15 +245,15 @@ const DashboardLayout = () => {
                                                             <Bell className="w-4 h-4 text-orange-500" />
                                                         </div>
                                                         <div>
-                                                            <p className="text-xs text-gray-300 font-medium leading-relaxed">{notification.message}</p>
-                                                            <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-wider">{new Date(notification.createdAt).toLocaleDateString()}</p>
+                                                            <p className="text-xs text-slate-600 dark:text-gray-300 font-medium leading-relaxed">{notification.message}</p>
+                                                            <p className="text-[10px] text-slate-500 dark:text-gray-500 mt-1 uppercase tracking-wider">{new Date(notification.createdAt).toLocaleDateString()}</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             ))}
                                         </div>
                                     ) : (
-                                        <div className="p-8 text-center text-gray-500 text-sm">
+                                        <div className="p-8 text-center text-slate-500 dark:text-gray-500 text-sm">
                                             No new notifications
                                         </div>
                                     )}
