@@ -264,7 +264,7 @@ const Billing = () => {
                         </div>
                     ) : (
                         <>
-                            <div className="p-4 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A] flex justify-between items-center sticky top-0 z-10">
+                            <div className="p-4 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A] flex justify-between items-center sticky top-0 z-10">
                                 <div className="flex items-center gap-3">
                                     <button 
                                         onClick={() => handleSelectAll(customerTrips)}

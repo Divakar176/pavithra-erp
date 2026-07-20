@@ -94,7 +94,7 @@ const PaymentReceipt = () => {
 
                 {/* Left Panel: Edit Form (Hidden on Print) */}
                 <div className="flex flex-col bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl shadow-sm overflow-hidden relative print:hidden">
-                    <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A]">
+                    <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                         <h3 className="text-sm font-bold text-slate-600 dark:text-gray-300 uppercase tracking-wider flex items-center">
                             <FileText className="w-4 h-4 mr-2 text-indigo-400" /> Receipt Details
                         </h3>

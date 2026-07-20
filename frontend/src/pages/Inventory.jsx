@@ -123,7 +123,7 @@ const Inventory = () => {
                 </button>
             </div>
 
-            <div className="bg-[#1A1A1A] rounded-2xl border border-slate-200 dark:border-[#2A2A2A] overflow-hidden">
+            <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl border border-slate-200 dark:border-[#2A2A2A] overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
@@ -221,16 +221,16 @@ const Inventory = () => {
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium text-[#A0A0A0] mb-1">Item Name *</label>
-                                    <input type="text" name="itemName" required value={formData.itemName} onChange={handleInputChange} className="w-full bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" placeholder="e.g., MRF Zapper Tire" />
+                                    <input type="text" name="itemName" required value={formData.itemName} onChange={handleInputChange} className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" placeholder="e.g., MRF Zapper Tire" />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium text-[#A0A0A0] mb-1">SKU / Part Number</label>
-                                        <input type="text" name="sku" value={formData.sku} onChange={handleInputChange} className="w-full bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" placeholder="Optional" />
+                                        <input type="text" name="sku" value={formData.sku} onChange={handleInputChange} className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" placeholder="Optional" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-[#A0A0A0] mb-1">Category *</label>
-                                        <select name="category" required value={formData.category} onChange={handleInputChange} className="w-full bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors">
+                                        <select name="category" required value={formData.category} onChange={handleInputChange} className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors">
                                             {categories.map(cat => (
                                                 <option key={cat} value={cat}>{cat}</option>
                                             ))}
@@ -240,16 +240,16 @@ const Inventory = () => {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium text-[#A0A0A0] mb-1">Current Stock *</label>
-                                        <input type="number" min="0" name="stockQuantity" required value={formData.stockQuantity} onChange={handleInputChange} className="w-full bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" />
+                                        <input type="number" min="0" name="stockQuantity" required value={formData.stockQuantity} onChange={handleInputChange} className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-[#A0A0A0] mb-1">Alert Level (Min) *</label>
-                                        <input type="number" min="0" name="reorderLevel" required value={formData.reorderLevel} onChange={handleInputChange} className="w-full bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" />
+                                        <input type="number" min="0" name="reorderLevel" required value={formData.reorderLevel} onChange={handleInputChange} className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" />
                                     </div>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-[#A0A0A0] mb-1">Unit Price (₹) *</label>
-                                    <input type="number" step="0.01" min="0" name="unitPrice" required value={formData.unitPrice} onChange={handleInputChange} className="w-full bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" />
+                                    <input type="number" step="0.01" min="0" name="unitPrice" required value={formData.unitPrice} onChange={handleInputChange} className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#FF6B00] transition-colors" />
                                 </div>
                                 <div className="flex space-x-3 pt-4 border-t border-slate-200 dark:border-[#2A2A2A]">
                                     <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 px-4 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] text-slate-900 dark:text-white rounded-xl transition-colors font-medium">Cancel</button>

@@ -170,7 +170,7 @@ const Finances = () => {
                             </thead>
                             <tbody className="divide-y divide-[#2A2A2A]">
                                 {customers.length > 0 ? customers.map(c => (
-                                    <tr key={c.id} className="hover:bg-[#1A1A1A] transition-colors">
+                                    <tr key={c.id} className="hover:bg-slate-50 dark:bg-[#1A1A1A] transition-colors">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">{c.name}</td>
                                         <td className="px-6 py-4 text-slate-500 dark:text-gray-400">
                                             <div>{c.mobile || '-'}</div>
@@ -438,7 +438,7 @@ const Finances = () => {
 
                         <div className="space-y-4 mb-6">
                             {/* Revenue */}
-                            <div className="flex justify-between items-center bg-[#1A1A1A] p-3 rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
+                            <div className="flex justify-between items-center bg-slate-50 dark:bg-[#1A1A1A] p-3 rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                                     <span className="text-slate-600 dark:text-gray-300 text-sm font-medium">Trip Revenue</span>
@@ -471,7 +471,7 @@ const Finances = () => {
                             </div>
                             
                             {/* Total Expenses */}
-                            <div className="flex justify-between items-center bg-[#1A1A1A] p-3 rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
+                            <div className="flex justify-between items-center bg-slate-50 dark:bg-[#1A1A1A] p-3 rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-red-500"></div>
                                     <span className="text-slate-600 dark:text-gray-300 text-sm font-medium">Total Expenses</span>
@@ -492,7 +492,7 @@ const Finances = () => {
             </div>
             {customReportData.length === 0 && (
                 <div className="text-center text-slate-500 dark:text-gray-500 py-10 bg-slate-100 dark:bg-[#151515] rounded-2xl border border-slate-200 dark:border-[#2A2A2A]">
-                    <div className="w-16 h-16 bg-[#1A1A1A] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-slate-50 dark:bg-[#1A1A1A] rounded-full flex items-center justify-center mx-auto mb-4">
                         <Search className="w-8 h-8 text-gray-600" />
                     </div>
                     <div className="text-lg font-medium text-slate-500 dark:text-gray-400">No data found</div>
@@ -553,7 +553,7 @@ const Finances = () => {
                     <h3 className="text-slate-900 dark:text-white font-semibold mb-6">Category Totals</h3>
                     <div className="space-y-4">
                         {expenseBreakdown.sort((a,b) => b.value - a.value).map((item, index) => (
-                            <div key={index} className="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
+                            <div key={index} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#1A1A1A] rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="flex items-center gap-3">
                                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
                                     <span className="text-slate-600 dark:text-gray-300 font-medium">{item.name}</span>
@@ -584,7 +584,7 @@ const Finances = () => {
                             </div>
                         </div>
                         <div className="space-y-3 mt-6">
-                            <div className="flex justify-between items-center p-3 bg-[#1A1A1A] rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
+                            <div className="flex justify-between items-center p-3 bg-slate-50 dark:bg-[#1A1A1A] rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
                                 <span className="text-slate-500 dark:text-gray-400 text-sm">Total Salary Paid</span>
                                 <span className="text-[#10B981] font-bold text-lg">{formatCurrency(d.totalSalaryPaid)}</span>
                             </div>
@@ -602,7 +602,7 @@ const Finances = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {documents.map((doc, i) => (
                     <div key={i} className="stripe-card p-0 overflow-hidden flex flex-col">
-                        <div className="p-4 bg-[#1A1A1A] border-b border-slate-200 dark:border-[#2A2A2A]">
+                        <div className="p-4 bg-slate-50 dark:bg-[#1A1A1A] border-b border-slate-200 dark:border-[#2A2A2A]">
                             <div className="flex justify-between items-center mb-1">
                                 <span className="text-slate-900 dark:text-white font-medium">{doc.expenseType}</span>
                                 <span className="text-[#D8621C] font-bold">{formatCurrency(doc.amount)}</span>
@@ -634,7 +634,7 @@ const Finances = () => {
         <div className="flex flex-col h-full bg-slate-50 dark:bg-[#121212]">
             
             {/* Top Sub-Navbar */}
-            <div className="flex items-center px-8 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A]">
+            <div className="flex items-center px-8 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                 {tabs.map(tab => (
                     <button 
                         key={tab}

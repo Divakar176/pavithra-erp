@@ -180,7 +180,7 @@ const Customers = () => {
             </div>
 
             <div className="stripe-card p-0 overflow-hidden">
-                <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A] flex items-center">
+                <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A] flex items-center">
                     <div className="relative flex-1 max-w-md group">
                         <Search className="w-4 h-4 absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-gray-400 group-focus-within:text-[#D8621C] transition-colors" />
                         <input type="text" placeholder="Search customers..." className="w-full pl-11 pr-4 py-2.5 bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-sm text-slate-600 dark:text-gray-300 focus:outline-none focus:border-[#D8621C] transition-all placeholder-gray-500" />
@@ -189,7 +189,7 @@ const Customers = () => {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-[#1A1A1A] text-slate-500 dark:text-gray-500 text-[11px] uppercase tracking-wider font-bold">
+                            <tr className="bg-slate-50 dark:bg-[#1A1A1A] text-slate-500 dark:text-gray-500 text-[11px] uppercase tracking-wider font-bold">
                                 <th className="p-5 border-b border-slate-200 dark:border-[#2A2A2A]">Customer Name</th>
                                 <th className="p-5 border-b border-slate-200 dark:border-[#2A2A2A]">Contact</th>
                                 <th className="p-5 border-b border-slate-200 dark:border-[#2A2A2A]">GST Number</th>
@@ -210,7 +210,7 @@ const Customers = () => {
                                 const displayGst = (c.gstNumber && !c.gstNumber.startsWith('TEMP-')) ? c.gstNumber : 'N/A';
                                 
                                 return (
-                                <tr key={c.id} className="hover:bg-[#1A1A1A] transition-colors group align-middle">
+                                <tr key={c.id} className="hover:bg-slate-50 dark:bg-[#1A1A1A] transition-colors group align-middle">
                                     <td className="p-5 align-middle">
                                         <div className="flex items-center">
                                             <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-[#2A2A2A] text-[#D8621C] flex items-center justify-center mr-4 border border-[#D8621C]/20 group-hover:scale-105 transition-transform font-black">
@@ -272,7 +272,7 @@ const Customers = () => {
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in">
                     <div className="stripe-card w-full max-w-md overflow-hidden border border-slate-200 dark:border-[#2A2A2A] shadow-2xl">
-                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A]">
+                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Add New Customer</h3>
                             <button onClick={() => { setIsModalOpen(false); resetForm(); }} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] p-1.5 rounded-lg transition-colors">
                                 <X className="w-5 h-5" />
@@ -340,7 +340,7 @@ const Customers = () => {
                                 />
                             </div>
                             <div className="pt-4 flex gap-3">
-                                <button type="button" onClick={() => { setIsModalOpen(false); resetForm(); }} className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
+                                <button type="button" onClick={() => { setIsModalOpen(false); resetForm(); }} className="flex-1 py-3 px-4 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
                                     Cancel
                                 </button>
                                 <button type="submit" className="flex-1 py-3 px-4 bg-[#D8621C] hover:bg-[#c25617] text-slate-900 dark:text-white font-bold rounded-xl transition-all shadow-md shadow-[#D8621C]/20">
@@ -356,7 +356,7 @@ const Customers = () => {
             {isPaymentModalOpen && selectedCustomer && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in">
                     <div className="stripe-card w-full max-w-md overflow-hidden border border-slate-200 dark:border-[#2A2A2A] shadow-2xl">
-                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A]">
+                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                             <div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Receive Payment</h3>
                                 <p className="text-sm text-[#10B981] font-medium mt-1">from {selectedCustomer.name}</p>
@@ -373,7 +373,7 @@ const Customers = () => {
                                 </div>
                             )}
                             
-                            <div className="bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] p-4 rounded-xl mb-6">
+                            <div className="bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] p-4 rounded-xl mb-6">
                                 <div className="text-sm text-slate-500 dark:text-gray-400 font-medium">Current Outstanding Balance</div>
                                 <div className={`text-2xl font-black mt-1 ${selectedCustomer.outstandingBalance > 100000 ? 'text-red-500' : 'text-[#10B981]'}`}>
                                     ₹{(selectedCustomer.outstandingBalance || 0).toLocaleString('en-IN')}
@@ -418,7 +418,7 @@ const Customers = () => {
                             </div>
 
                             <div className="pt-4 flex gap-3">
-                                <button type="button" onClick={() => setIsPaymentModalOpen(false)} className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
+                                <button type="button" onClick={() => setIsPaymentModalOpen(false)} className="flex-1 py-3 px-4 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
                                     Cancel
                                 </button>
                                 <button type="submit" disabled={!paymentAmount} className="flex-1 py-3 px-4 bg-[#10B981] hover:bg-[#059669] text-slate-900 dark:text-white font-bold rounded-xl transition-all shadow-md shadow-[#10B981]/20 disabled:opacity-50">
@@ -433,7 +433,7 @@ const Customers = () => {
             {isChargeModalOpen && selectedCustomer && (
                 <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="bg-slate-50 dark:bg-[#121212] rounded-2xl w-full max-w-md border border-slate-200 dark:border-[#2A2A2A] shadow-2xl overflow-hidden">
-                        <div className="p-6 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-[#1A1A1A]">
+                        <div className="p-6 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-50 dark:bg-[#1A1A1A]">
                             <div>
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Add Manual Charge</h3>
                                 <p className="text-xs text-red-500 font-bold mt-1">Increases balance owed by customer</p>
@@ -445,7 +445,7 @@ const Customers = () => {
                         <form onSubmit={handleAddCharge} className="p-6 space-y-5 bg-slate-50 dark:bg-[#121212]">
                             {error && <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 text-xs rounded-xl">{error}</div>}
                             
-                            <div className="p-4 bg-[#1A1A1A] rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
+                            <div className="p-4 bg-slate-50 dark:bg-[#1A1A1A] rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="text-xs text-slate-500 dark:text-gray-500 font-bold mb-1">CUSTOMER</div>
                                 <div className="text-sm text-slate-900 dark:text-white font-bold">{selectedCustomer.name}</div>
                             </div>
@@ -458,7 +458,7 @@ const Customers = () => {
                                         type="number"
                                         required
                                         min="1"
-                                        className="w-full bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl pl-10 pr-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
+                                        className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl pl-10 pr-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
                                         placeholder="e.g. 88000"
                                         value={chargeAmount}
                                         onChange={(e) => setChargeAmount(e.target.value)}
@@ -469,7 +469,7 @@ const Customers = () => {
                             <div>
                                 <label className="block text-sm font-bold text-slate-500 dark:text-gray-400 mb-2">Description / Notes</label>
                                 <textarea
-                                    className="w-full bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors min-h-[100px]"
+                                    className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors min-h-[100px]"
                                     placeholder="e.g. Monthly Contract Bill for July"
                                     value={referenceNotes}
                                     onChange={(e) => setReferenceNotes(e.target.value)}
@@ -477,7 +477,7 @@ const Customers = () => {
                             </div>
 
                             <div className="flex gap-3 pt-4">
-                                <button type="button" onClick={() => setIsChargeModalOpen(false)} className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
+                                <button type="button" onClick={() => setIsChargeModalOpen(false)} className="flex-1 py-3 px-4 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
                                     Cancel
                                 </button>
                                 <button type="submit" disabled={!chargeAmount} className="flex-1 py-3 px-4 bg-red-500 hover:bg-red-600 text-slate-900 dark:text-white font-bold rounded-xl transition-all shadow-md shadow-red-500/20 disabled:opacity-50">
@@ -493,7 +493,7 @@ const Customers = () => {
             {isEditModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in">
                     <div className="stripe-card w-full max-w-md overflow-hidden border border-slate-200 dark:border-[#2A2A2A] shadow-2xl">
-                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A]">
+                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Edit Customer</h3>
                             <button onClick={() => { setIsEditModalOpen(false); resetForm(); }} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] p-1.5 rounded-lg transition-colors">
                                 <X className="w-5 h-5" />
@@ -561,7 +561,7 @@ const Customers = () => {
                                 />
                             </div>
                             <div className="pt-4 flex gap-3">
-                                <button type="button" onClick={() => { setIsEditModalOpen(false); resetForm(); }} className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
+                                <button type="button" onClick={() => { setIsEditModalOpen(false); resetForm(); }} className="flex-1 py-3 px-4 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
                                     Cancel
                                 </button>
                                 <button type="submit" className="flex-1 py-3 px-4 bg-[#D8621C] hover:bg-[#c25617] text-slate-900 dark:text-white font-bold rounded-xl transition-all shadow-md shadow-[#D8621C]/20">

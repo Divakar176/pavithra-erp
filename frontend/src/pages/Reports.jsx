@@ -50,7 +50,7 @@ const Reports = () => {
                 </button>
             </div>
 
-            <div className="bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A] mb-8">
+            <div className="bg-slate-50 dark:bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A] mb-8">
                 <div className="flex items-center space-x-4 mb-6">
                     <CalendarIcon className="text-[#D8621C]" />
                     <select 
@@ -108,7 +108,7 @@ const Reports = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* PDF Previews or Other Reports */}
-                <div className="bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A]">
+                <div className="bg-slate-50 dark:bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A]">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center">
                         <FileText className="mr-2 text-[#D8621C]" size={20} /> Available Reports
                     </h3>
@@ -134,7 +134,7 @@ const Reports = () => {
                     </div>
                 </div>
 
-                <div className="bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A]">
+                <div className="bg-slate-50 dark:bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A]">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center">
                         <Truck className="mr-2 text-blue-500" size={20} /> Vehicle Health Summary
                     </h3>

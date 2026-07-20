@@ -106,7 +106,7 @@ const Settings = () => {
                 </div>
             </div>
 
-            <div className="bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A] mb-8">
+            <div className="bg-slate-50 dark:bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A] mb-8">
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 border-b border-[#333] pb-4 flex items-center">
                     <Building className="mr-2 text-slate-500 dark:text-gray-400" size={20} /> Company Information
                 </h2>
@@ -222,7 +222,7 @@ const Settings = () => {
             </div>
 
             {/* Security Section */}
-            <div className="bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A] mb-8">
+            <div className="bg-slate-50 dark:bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A] mb-8">
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 border-b border-[#333] pb-4 flex items-center">
                     <ShieldCheck className="mr-2 text-teal-400" size={20} /> Security Settings
                 </h2>

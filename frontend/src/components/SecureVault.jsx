@@ -124,7 +124,7 @@ const SecureVault = ({ isOpen, onClose, vehicle }) => {
                                     type="text" 
                                     required
                                     placeholder="e.g. RC Book"
-                                    className="w-full bg-[#1A1A1A] border border-[#333] rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                                    className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-[#333] rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-emerald-500 transition-colors"
                                     value={docName}
                                     onChange={(e) => setDocName(e.target.value)}
                                 />
@@ -133,7 +133,7 @@ const SecureVault = ({ isOpen, onClose, vehicle }) => {
                             <div>
                                 <label className="block text-xs text-slate-500 dark:text-gray-400 mb-2">Document Type</label>
                                 <select 
-                                    className="w-full bg-[#1A1A1A] border border-[#333] rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-emerald-500 transition-colors appearance-none"
+                                    className="w-full bg-slate-50 dark:bg-[#1A1A1A] border border-[#333] rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-emerald-500 transition-colors appearance-none"
                                     value={docType}
                                     onChange={(e) => setDocType(e.target.value)}
                                 >

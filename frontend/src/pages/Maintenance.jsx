@@ -206,7 +206,7 @@ const Maintenance = () => {
             </div>
 
             <div className="stripe-card p-0 overflow-hidden">
-                <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A] flex items-center justify-between">
+                <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A] flex items-center justify-between">
                     <div className="relative w-64 group">
                         <Filter className="w-4 h-4 absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 dark:text-gray-400" />
                         <select 
@@ -225,7 +225,7 @@ const Maintenance = () => {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-[#1A1A1A] text-slate-500 dark:text-gray-500 text-[11px] uppercase tracking-wider font-bold">
+                            <tr className="bg-slate-50 dark:bg-[#1A1A1A] text-slate-500 dark:text-gray-500 text-[11px] uppercase tracking-wider font-bold">
                                 <th className="p-5 border-b border-slate-200 dark:border-[#2A2A2A]">Date</th>
                                 <th className="p-5 border-b border-slate-200 dark:border-[#2A2A2A]">Vehicle</th>
                                 <th className="p-5 border-b border-slate-200 dark:border-[#2A2A2A]">Service Type</th>
@@ -243,7 +243,7 @@ const Maintenance = () => {
                                     </td>
                                 </tr>
                             ) : filteredLogs.map(log => (
-                                <tr key={log.id} className="hover:bg-[#1A1A1A] transition-colors">
+                                <tr key={log.id} className="hover:bg-slate-50 dark:bg-[#1A1A1A] transition-colors">
                                     <td className="p-5 text-sm text-slate-600 dark:text-gray-300">
                                         {new Date(log.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                                     </td>
@@ -306,7 +306,7 @@ const Maintenance = () => {
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in p-4 overflow-y-auto">
                     <div className="stripe-card w-full max-w-lg overflow-hidden border border-slate-200 dark:border-[#2A2A2A] shadow-2xl my-8">
-                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A]">
+                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">{isEditMode ? 'Edit Maintenance Service' : 'Log Maintenance Service'}</h3>
                             <div className="flex items-center gap-3">
                                 <label className={`cursor-pointer px-3 py-1.5 rounded-lg text-sm font-bold flex items-center transition-all ${isScanningBill ? 'bg-indigo-500/50 text-slate-900 dark:text-white cursor-not-allowed' : 'bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/30'}`}>
@@ -388,7 +388,7 @@ const Maintenance = () => {
                                 </div>
                             </div>
 
-                            <div className="bg-[#1A1A1A] p-4 rounded-xl border border-slate-200 dark:border-[#2A2A2A] space-y-4">
+                            <div className="bg-slate-50 dark:bg-[#1A1A1A] p-4 rounded-xl border border-slate-200 dark:border-[#2A2A2A] space-y-4">
                                 {!['Insurance', 'FC Renewal', 'Tax Renewal', 'Permit Renewal', 'Pollution Cert'].includes(formData.serviceType) && (
                                     <>
                                         <h4 className="text-slate-600 dark:text-gray-300 font-bold text-sm">Cost Breakdown</h4>
@@ -457,7 +457,7 @@ const Maintenance = () => {
                             </div>
 
                             <div className="pt-4 flex gap-3">
-                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
+                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 px-4 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors">
                                     Cancel
                                 </button>
                                 <button type="submit" className="flex-1 py-3 px-4 bg-[#D8621C] hover:bg-[#c25617] text-slate-900 dark:text-white font-bold rounded-xl transition-all shadow-md shadow-[#D8621C]/20">

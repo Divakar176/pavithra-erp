@@ -147,7 +147,7 @@ const SecurityPinModal = ({ isOpen, onClose, onSuccess, actionName }) => {
                             <button 
                                 type="button" 
                                 onClick={handleCancel}
-                                className="flex-1 py-3 px-4 bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors"
+                                className="flex-1 py-3 px-4 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:bg-slate-200 dark:bg-[#2A2A2A] text-slate-600 dark:text-gray-300 font-bold rounded-xl transition-colors"
                             >
                                 Cancel
                             </button>

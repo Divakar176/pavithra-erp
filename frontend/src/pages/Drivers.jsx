@@ -295,7 +295,7 @@ const Drivers = () => {
             {/* ATTENDANCE TAB */}
             {activeTab === 'Attendance' && (
                 <div className="stripe-card p-0 overflow-hidden">
-                    <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-[#1A1A1A] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div className="flex items-center gap-3">
                             <label className="text-sm font-bold text-slate-500 dark:text-gray-400 uppercase tracking-wider">Date:</label>
                             <input 
@@ -407,7 +407,7 @@ const Drivers = () => {
                                 
                                 <button 
                                     onClick={() => setSelectedDriverForPayment(sal)}
-                                    className="px-6 py-3 bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:border-[#D8621C] text-[#D8621C] rounded-xl font-bold transition-all text-sm flex items-center gap-2"
+                                    className="px-6 py-3 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:border-[#D8621C] text-[#D8621C] rounded-xl font-bold transition-all text-sm flex items-center gap-2"
                                 >
                                     <Plus className="w-4 h-4" />
                                     Add Payment
@@ -435,7 +435,7 @@ const Drivers = () => {
             {selectedDriverForPayment && (
                 <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
                     <div className="bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl w-full max-w-md overflow-hidden">
-                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-[#1A1A1A]">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] flex justify-between items-center bg-slate-50 dark:bg-[#1A1A1A]">
                             <h3 className="font-bold text-slate-900 dark:text-white">Add Payment: {selectedDriverForPayment.driverName}</h3>
                             <button onClick={() => setSelectedDriverForPayment(null)} className="text-slate-500 dark:text-gray-500 hover:text-slate-900 dark:text-white">
                                 <X className="w-5 h-5" />
@@ -498,7 +498,7 @@ const Drivers = () => {
             {/* Edit Driver Modal */}
             {isEditModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
+                    <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
                         <div className="flex justify-between items-center p-6 border-b border-[#333]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Edit Staff Profile</h3>
                             <button onClick={() => setIsEditModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
@@ -559,7 +559,7 @@ const Drivers = () => {
             {/* Add Driver Modal */}
             {isAddModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
+                    <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
                         <div className="flex justify-between items-center p-6 border-b border-[#333]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Add New Staff</h3>
                             <button onClick={() => setIsAddModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
