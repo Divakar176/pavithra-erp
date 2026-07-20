@@ -201,8 +201,8 @@ return (
 
                     <div className="text-center mb-4">
                         {/* Barcode Mock */}
-                        <div className="flex justify-center w-full">
-                            <p className="text-5xl my-2 tracking-widest" style={{ fontFamily: "'Libre Barcode 39 Text', cursive", transform: "scaleX(1.2)" }}>{formData.tokenNo}</p>
+                        <div className="flex justify-center w-full overflow-hidden">
+                            <p className="text-4xl my-2" style={{ fontFamily: "'Libre Barcode 39 Text', cursive" }}>{formData.tokenNo}</p>
                         </div>
 
                         <h3 className="text-xl font-black tracking-[0.25em] uppercase mt-4">【 {formData.material.split('').join(' ')} 】</h3>
