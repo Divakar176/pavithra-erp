@@ -107,7 +107,7 @@ const Settings = () => {
             </div>
 
             <div className="bg-slate-50 dark:bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A] mb-8">
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 border-b border-[#333] pb-4 flex items-center">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 border-b border-slate-200 dark:border-[#333] pb-4 flex items-center">
                     <Building className="mr-2 text-slate-500 dark:text-gray-400" size={20} /> Company Information
                 </h2>
                 <p className="text-slate-500 dark:text-gray-400 text-sm mb-6">These details will automatically appear on all generated Tax Invoices, Payslips, and Reports.</p>
@@ -126,7 +126,7 @@ const Settings = () => {
                                     value={companyDetails.name} 
                                     onChange={handleChange} 
                                     required
-                                    className="pl-10 w-full bg-[#222222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
+                                    className="pl-10 w-full bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
                                     placeholder="e.g. Pavithra Enterprises"
                                 />
                             </div>
@@ -143,7 +143,7 @@ const Settings = () => {
                                     name="gstin" 
                                     value={companyDetails.gstin} 
                                     onChange={handleChange} 
-                                    className="pl-10 w-full bg-[#222222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
+                                    className="pl-10 w-full bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
                                     placeholder="e.g. 33AABCP1234D1Z5"
                                 />
                             </div>
@@ -161,7 +161,7 @@ const Settings = () => {
                                     value={companyDetails.address} 
                                     onChange={handleChange} 
                                     required
-                                    className="pl-10 w-full bg-[#222222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
+                                    className="pl-10 w-full bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
                                     placeholder="e.g. 123 Transport Nagar"
                                 />
                             </div>
@@ -179,7 +179,7 @@ const Settings = () => {
                                     value={companyDetails.city} 
                                     onChange={handleChange} 
                                     required
-                                    className="pl-10 w-full bg-[#222222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
+                                    className="pl-10 w-full bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
                                     placeholder="e.g. Chennai, Tamil Nadu 600001"
                                 />
                             </div>
@@ -197,14 +197,14 @@ const Settings = () => {
                                     value={companyDetails.phone} 
                                     onChange={handleChange} 
                                     required
-                                    className="pl-10 w-full bg-[#222222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
+                                    className="pl-10 w-full bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]" 
                                     placeholder="e.g. +91 98765 43210"
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <div className="pt-6 border-t border-[#333] flex items-center space-x-4">
+                    <div className="pt-6 border-t border-slate-200 dark:border-[#333] flex items-center space-x-4">
                         <button 
                             type="submit" 
                             className="bg-[#D8621C] hover:bg-orange-700 text-slate-900 dark:text-white px-8 py-3 rounded-xl font-bold flex items-center transition-colors shadow-lg"
@@ -223,7 +223,7 @@ const Settings = () => {
 
             {/* Security Section */}
             <div className="bg-slate-50 dark:bg-[#1A1A1A] p-6 rounded-2xl border border-slate-200 dark:border-[#2A2A2A] mb-8">
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 border-b border-[#333] pb-4 flex items-center">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 border-b border-slate-200 dark:border-[#333] pb-4 flex items-center">
                     <ShieldCheck className="mr-2 text-teal-400" size={20} /> Security Settings
                 </h2>
                 <p className="text-slate-500 dark:text-gray-400 text-sm mb-6">Change your password to secure your enterprise account.</p>
@@ -249,7 +249,7 @@ const Settings = () => {
                                     value={passwordData.currentPassword} 
                                     onChange={handlePasswordChange} 
                                     required
-                                    className="pl-10 pr-10 w-full bg-[#222222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-teal-500" 
+                                    className="pl-10 pr-10 w-full bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-teal-500" 
                                     placeholder="Enter current password"
                                 />
                                 <button
@@ -276,7 +276,7 @@ const Settings = () => {
                                     value={passwordData.newPassword} 
                                     onChange={handlePasswordChange} 
                                     required
-                                    className="pl-10 pr-10 w-full bg-[#222222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-teal-500" 
+                                    className="pl-10 pr-10 w-full bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-teal-500" 
                                     placeholder="New password (min 6 chars)"
                                 />
                                 <button
@@ -301,7 +301,7 @@ const Settings = () => {
                                     value={passwordData.confirmPassword} 
                                     onChange={handlePasswordChange} 
                                     required
-                                    className="pl-10 pr-10 w-full bg-[#222222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-teal-500" 
+                                    className="pl-10 pr-10 w-full bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:outline-none focus:border-teal-500" 
                                     placeholder="Re-type new password"
                                 />
                                 <button
@@ -315,7 +315,7 @@ const Settings = () => {
                         </div>
                     </div>
 
-                    <div className="pt-6 border-t border-[#333] flex items-center">
+                    <div className="pt-6 border-t border-slate-200 dark:border-[#333] flex items-center">
                         <button 
                             type="submit" 
                             disabled={isChangingPassword}

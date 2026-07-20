@@ -57,7 +57,7 @@ const DriverHome = () => {
             </div>
 
             {/* Quick Tips */}
-            <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl p-5 border border-[#333]">
+            <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl p-5 border border-slate-200 dark:border-[#333]">
                 <div className="flex items-center gap-3 mb-3">
                     <AlertCircle className="w-5 h-5 text-blue-400" />
                     <h3 className="font-bold text-slate-900 dark:text-white">Daily Reminder</h3>

@@ -43,14 +43,14 @@ const DriverTrips = () => {
             </div>
 
             {trips.length === 0 ? (
-                <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl p-8 border border-[#333] text-center">
+                <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl p-8 border border-slate-200 dark:border-[#333] text-center">
                     <Navigation className="w-12 h-12 text-gray-600 mx-auto mb-3" />
                     <h3 className="text-slate-500 dark:text-gray-400 font-medium">No trips assigned yet.</h3>
                 </div>
             ) : (
                 <div className="space-y-4">
                     {trips.map(trip => (
-                        <div key={trip.id} className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl p-5 border border-[#333]">
+                        <div key={trip.id} className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl p-5 border border-slate-200 dark:border-[#333]">
                             <div className="flex justify-between items-start mb-4">
                                 <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-gray-400">
                                     <Calendar className="w-4 h-4" />

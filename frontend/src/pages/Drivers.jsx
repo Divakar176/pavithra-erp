@@ -415,7 +415,7 @@ const Drivers = () => {
                                 
                                 <button 
                                     onClick={() => generatePayslip(sal)}
-                                    className="px-4 py-3 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] text-slate-900 dark:text-white rounded-xl transition-colors flex items-center gap-2 border border-[#333]"
+                                    className="px-4 py-3 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-[#333] text-slate-900 dark:text-white rounded-xl transition-colors flex items-center gap-2 border border-slate-200 dark:border-[#333]"
                                     title="Download Payslip PDF"
                                 >
                                     <FileText className="w-4 h-4 text-blue-400" />
@@ -498,8 +498,8 @@ const Drivers = () => {
             {/* Edit Driver Modal */}
             {isEditModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
-                        <div className="flex justify-between items-center p-6 border-b border-[#333]">
+                    <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-slate-200 dark:border-[#333] shadow-2xl overflow-hidden">
+                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#333]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Edit Staff Profile</h3>
                             <button onClick={() => setIsEditModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
                                 <X size={20} />
@@ -513,7 +513,7 @@ const Drivers = () => {
                                     required
                                     value={editForm.username}
                                     onChange={(e) => setEditForm({...editForm, username: e.target.value})}
-                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -523,7 +523,7 @@ const Drivers = () => {
                                     required
                                     value={editForm.mobile}
                                     onChange={(e) => setEditForm({...editForm, mobile: e.target.value})}
-                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -532,7 +532,7 @@ const Drivers = () => {
                                     type="email"
                                     value={editForm.email}
                                     onChange={(e) => setEditForm({...editForm, email: e.target.value})}
-                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -540,7 +540,7 @@ const Drivers = () => {
                                 <select
                                     value={editForm.role}
                                     onChange={(e) => setEditForm({...editForm, role: e.target.value})}
-                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 >
                                     <option value="DRIVER">Driver</option>
                                     <option value="ADMIN">Admin</option>
@@ -559,8 +559,8 @@ const Drivers = () => {
             {/* Add Driver Modal */}
             {isAddModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-[#333] shadow-2xl overflow-hidden">
-                        <div className="flex justify-between items-center p-6 border-b border-[#333]">
+                    <div className="bg-slate-50 dark:bg-[#1A1A1A] rounded-2xl w-full max-w-md border border-slate-200 dark:border-[#333] shadow-2xl overflow-hidden">
+                        <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-[#333]">
                             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Add New Staff</h3>
                             <button onClick={() => setIsAddModalOpen(false)} className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white">
                                 <X size={20} />
@@ -574,7 +574,7 @@ const Drivers = () => {
                                     required
                                     value={addForm.username}
                                     onChange={(e) => setAddForm({...addForm, username: e.target.value})}
-                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -584,7 +584,7 @@ const Drivers = () => {
                                     required
                                     value={addForm.mobile}
                                     onChange={(e) => setAddForm({...addForm, mobile: e.target.value})}
-                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -593,7 +593,7 @@ const Drivers = () => {
                                     type="email"
                                     value={addForm.email}
                                     onChange={(e) => setAddForm({...addForm, email: e.target.value})}
-                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -601,7 +601,7 @@ const Drivers = () => {
                                 <select
                                     value={addForm.role}
                                     onChange={(e) => setAddForm({...addForm, role: e.target.value})}
-                                    className="w-full bg-[#222] border border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 >
                                     <option value="DRIVER">Driver</option>
                                     <option value="ADMIN">Admin</option>

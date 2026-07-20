@@ -248,7 +248,7 @@ const Maintenance = () => {
                                         {new Date(log.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                                     </td>
                                     <td className="p-5">
-                                        <span className="font-bold text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] px-3 py-1 rounded-lg border border-[#333]">
+                                        <span className="font-bold text-slate-900 dark:text-white bg-slate-200 dark:bg-[#2A2A2A] px-3 py-1 rounded-lg border border-slate-200 dark:border-[#333]">
                                             {log.vehicleNumber}
                                         </span>
                                     </td>

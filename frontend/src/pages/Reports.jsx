@@ -56,7 +56,7 @@ const Reports = () => {
                     <select 
                         value={dateRange}
                         onChange={(e) => setDateRange(e.target.value)}
-                        className="bg-[#222222] text-slate-900 dark:text-white border border-[#333] px-4 py-2 rounded-lg focus:outline-none focus:border-[#D8621C]"
+                        className="bg-white dark:bg-[#222222] text-slate-900 dark:text-white border border-slate-200 dark:border-[#333] px-4 py-2 rounded-lg focus:outline-none focus:border-[#D8621C]"
                     >
                         <option value="This Month">This Month</option>
                         <option value="Last Month">Last Month</option>
@@ -67,7 +67,7 @@ const Reports = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Total Revenue */}
-                    <div className="bg-[#222222] border border-[#333] p-6 rounded-xl">
+                    <div className="bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] p-6 rounded-xl">
                         <div className="flex items-center justify-between mb-4">
                             <div className="w-12 h-12 rounded-full bg-[#10B981]/10 flex items-center justify-center text-[#10B981]">
                                 <IndianRupee size={24} />
@@ -79,7 +79,7 @@ const Reports = () => {
                     </div>
 
                     {/* Total Expenses */}
-                    <div className="bg-[#222222] border border-[#333] p-6 rounded-xl">
+                    <div className="bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] p-6 rounded-xl">
                         <div className="flex items-center justify-between mb-4">
                             <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-500">
                                 <TrendingUp size={24} />
@@ -93,7 +93,7 @@ const Reports = () => {
                     </div>
 
                     {/* Net Profit */}
-                    <div className="bg-[#222222] border border-[#333] p-6 rounded-xl ring-1 ring-[#D8621C]/50 relative overflow-hidden">
+                    <div className="bg-white dark:bg-[#222222] border border-slate-200 dark:border-[#333] p-6 rounded-xl ring-1 ring-[#D8621C]/50 relative overflow-hidden">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-[#D8621C]/10 rounded-full blur-2xl"></div>
                         <div className="flex items-center justify-between mb-4 relative z-10">
                             <div className="w-12 h-12 rounded-full bg-[#D8621C]/20 flex items-center justify-center text-[#D8621C]">
@@ -113,7 +113,7 @@ const Reports = () => {
                         <FileText className="mr-2 text-[#D8621C]" size={20} /> Available Reports
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between p-4 bg-[#222222] rounded-xl border border-[#333]">
+                        <div className="flex items-center justify-between p-4 bg-white dark:bg-[#222222] rounded-xl border border-slate-200 dark:border-[#333]">
                             <div>
                                 <h4 className="text-slate-900 dark:text-white font-medium">Profit & Loss Statement</h4>
                                 <p className="text-sm text-slate-500 dark:text-gray-500">Summary of all income and expenses</p>
@@ -122,7 +122,7 @@ const Reports = () => {
                                 <Download size={20} />
                             </button>
                         </div>
-                        <div className="flex items-center justify-between p-4 bg-[#222222] rounded-xl border border-[#333] opacity-50">
+                        <div className="flex items-center justify-between p-4 bg-white dark:bg-[#222222] rounded-xl border border-slate-200 dark:border-[#333] opacity-50">
                             <div>
                                 <h4 className="text-slate-900 dark:text-white font-medium">Driver Performance Report</h4>
                                 <p className="text-sm text-slate-500 dark:text-gray-500">Detailed stats on driver trips (Coming Soon)</p>
@@ -139,7 +139,7 @@ const Reports = () => {
                         <Truck className="mr-2 text-blue-500" size={20} /> Vehicle Health Summary
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between p-4 bg-[#222222] rounded-xl border border-[#333] opacity-50">
+                        <div className="flex items-center justify-between p-4 bg-white dark:bg-[#222222] rounded-xl border border-slate-200 dark:border-[#333] opacity-50">
                             <div>
                                 <h4 className="text-slate-900 dark:text-white font-medium">Fleet Maintenance Logs</h4>
                                 <p className="text-sm text-slate-500 dark:text-gray-500">Summary of recent services (Coming Soon)</p>
