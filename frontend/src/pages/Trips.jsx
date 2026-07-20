@@ -767,8 +767,8 @@ const Trips = () => {
 
             {/* Add Trip Modal */}
             {isAddModalOpen && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-lg shadow-2xl my-8">
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-lg shadow-2xl h-max max-h-[90vh] flex flex-col">
                         <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515] sticky top-0 rounded-t-2xl z-10">
                             <h2 className="text-white font-bold text-lg">Add New Trip</h2>
                             <button onClick={() => setIsAddModalOpen(false)} className="text-gray-400 hover:text-white">
@@ -793,7 +793,7 @@ const Trips = () => {
                             </label>
                         </div>
 
-                        <form onSubmit={handleAddSubmit} className="p-6 space-y-4">
+                        <form onSubmit={handleAddSubmit} className="p-6 space-y-4 overflow-y-auto">
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
@@ -1215,15 +1215,15 @@ const Trips = () => {
             )}
             {/* Edit Trip Modal */}
             {isEditModalOpen && editingTrip && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-lg shadow-2xl my-8">
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-lg shadow-2xl h-max max-h-[90vh] flex flex-col">
                         <div className="p-5 border-b border-[#2A2A2A] flex justify-between items-center bg-[#151515] sticky top-0 rounded-t-2xl z-10">
                             <h2 className="text-white font-bold text-lg">Edit Trip</h2>
                             <button onClick={() => setIsEditModalOpen(false)} className="text-gray-400 hover:text-white">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
-                        <form onSubmit={handleEditSubmit} className="p-6 space-y-4">
+                        <form onSubmit={handleEditSubmit} className="p-6 space-y-4 overflow-y-auto">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs text-gray-400 uppercase tracking-wider mb-2">Trip Charges / Profit</label>
