@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
-import { Truck, Search, Filter, Plus, AlertCircle, Info, Navigation, Users, Calendar, Trash2, X, Car, Bike, Tractor, Pencil, Lock } from 'lucide-react';
+import { Truck, Search, Filter, Plus, AlertCircle, Info, Navigation, Users, Calendar, Trash2, X, Car, Bike, Tractor, Pencil, Lock, Wrench } from 'lucide-react';
 import SecurityPinModal from '../components/SecurityPinModal';
 import SecureVault from '../components/SecureVault';
 
