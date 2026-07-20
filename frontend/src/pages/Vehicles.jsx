@@ -10,6 +10,7 @@ const Vehicles = () => {
     const [vehicles, setVehicles] = useState([]);
     const [trips, setTrips] = useState([]);
     const [loans, setLoans] = useState([]);
+    const [drivers, setDrivers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [filter, setFilter] = useState('All Vehicles');
 
@@ -34,14 +35,16 @@ const Vehicles = () => {
 
     const fetchData = async () => {
         try {
-            const [vehRes, tripRes, loanRes] = await Promise.all([
+            const [vehRes, tripRes, loanRes, driverRes] = await Promise.all([
                 api.get('/vehicles'),
                 api.get('/trips'),
-                api.get('/loans')
+                api.get('/loans'),
+                api.get('/users/drivers')
             ]);
             setVehicles(vehRes.data);
             setTrips(tripRes.data.filter(t => t.status === 'IN_PROGRESS' || t.status === 'PENDING'));
             setLoans(loanRes.data);
+            setDrivers(driverRes.data);
         } catch (error) {
             console.error("Error fetching vehicles", error);
         } finally {
