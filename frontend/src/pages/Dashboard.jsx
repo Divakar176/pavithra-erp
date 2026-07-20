@@ -178,7 +178,7 @@ const DashboardLayout = () => {
                                 {user?.username?.substring(0, 2).toUpperCase() || 'KP'}
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-xs font-bold text-gray-200 capitalize">{user?.username || 'K. Pavithra'}</span>
+                                <span className="text-xs font-bold text-slate-900 dark:text-gray-200 capitalize">{user?.username || 'K. Pavithra'}</span>
                                 <span className="text-[10px] text-slate-500 dark:text-gray-500">{user?.role?.replace('_', ' ') || 'Admin (Owner)'}</span>
                             </div>
                         </div>
@@ -198,7 +198,7 @@ const DashboardLayout = () => {
                         >
                             <Menu className="w-6 h-6" />
                         </button>
-                        <div className="flex items-center text-xl font-bold text-gray-200 capitalize tracking-tight truncate max-w-[150px] lg:max-w-none">
+                        <div className="flex items-center text-xl font-bold text-slate-900 dark:text-gray-200 capitalize tracking-tight truncate max-w-[150px] lg:max-w-none">
                             {location.pathname.split('/').pop() === 'dashboard' ? 'Dashboard' : 
                              location.pathname.split('/').pop() === 'drivers' ? 'Staff Management' :
                              location.pathname.split('/').pop()}
@@ -208,7 +208,7 @@ const DashboardLayout = () => {
                     <div className="flex items-center gap-2 lg:gap-4 relative">
                         <button 
                             onClick={() => setIsDarkMode(!isDarkMode)}
-                            className="p-2.5 text-slate-500 dark:text-gray-400 border border-slate-200 dark:border-[#2A2A2A] rounded-xl hover:text-slate-900 dark:hover:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
+                            className="p-2.5 text-slate-500 dark:text-gray-400 border border-slate-200 dark:border-[#2A2A2A] rounded-xl hover:text-slate-900 dark:hover:text-slate-900 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
                             title="Toggle Theme"
                         >
                             {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -216,7 +216,7 @@ const DashboardLayout = () => {
                         
                         <button 
                             onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-                            className="relative p-2.5 text-slate-500 dark:text-gray-400 border border-slate-200 dark:border-[#2A2A2A] rounded-xl hover:text-slate-900 dark:hover:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
+                            className="relative p-2.5 text-slate-500 dark:text-gray-400 border border-slate-200 dark:border-[#2A2A2A] rounded-xl hover:text-slate-900 dark:hover:text-slate-900 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
                         >
                             <Bell className="w-4 h-4" />
                             {notifications.length > 0 && (

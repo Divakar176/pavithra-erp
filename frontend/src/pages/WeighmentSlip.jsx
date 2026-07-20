@@ -126,63 +126,63 @@ return (
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Company Header</label>
-                            <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Material</label>
-                            <input type="text" name="material" value={formData.material} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="material" value={formData.material} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Token No</label>
-                            <input type="text" name="tokenNo" value={formData.tokenNo} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="tokenNo" value={formData.tokenNo} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Ref No</label>
-                            <input type="text" name="refNo" value={formData.refNo} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="refNo" value={formData.refNo} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-3 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Date</label>
-                            <input type="text" name="date" value={formData.date} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="date" value={formData.date} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">In Time</label>
-                            <input type="text" name="inTime" value={formData.inTime} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="inTime" value={formData.inTime} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Out Time</label>
-                            <input type="text" name="outTime" value={formData.outTime} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="outTime" value={formData.outTime} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Customer</label>
-                            <input type="text" name="customer" value={formData.customer} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="customer" value={formData.customer} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Vehicle</label>
-                            <input type="text" name="vehicle" value={formData.vehicle} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="vehicle" value={formData.vehicle} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-3 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Empty (Kg)</label>
-                            <input type="number" name="emptyWeight" value={formData.emptyWeight} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="number" name="emptyWeight" value={formData.emptyWeight} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Load (Kg)</label>
-                            <input type="number" name="loadWeight" value={formData.loadWeight} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="number" name="loadWeight" value={formData.loadWeight} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Payment</label>
-                            <input type="text" name="paymentMode" value={formData.paymentMode} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-gray-200 focus:outline-none focus:border-indigo-500" />
+                            <input type="text" name="paymentMode" value={formData.paymentMode} onChange={handleChange} className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-2.5 text-slate-900 dark:text-gray-200 focus:outline-none focus:border-indigo-500" />
                         </div>
                     </div>
 

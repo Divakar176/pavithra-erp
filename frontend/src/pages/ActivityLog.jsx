@@ -74,7 +74,7 @@ const ActivityLog = () => {
                                         <div className="flex justify-between items-start mb-1">
                                             <div className="flex items-center gap-2">
                                                 <User className="w-4 h-4 text-slate-500 dark:text-gray-400" />
-                                                <span className="font-bold text-gray-200 capitalize">{log.username}</span>
+                                                <span className="font-bold text-slate-900 dark:text-gray-200 capitalize">{log.username}</span>
                                             </div>
                                             <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-gray-500 font-medium">
                                                 <Clock className="w-3.5 h-3.5" />

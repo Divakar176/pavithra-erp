@@ -102,7 +102,7 @@ const Billing = () => {
                             <p className="text-xs font-bold text-gray-700 mt-1">GSTIN: <span className="font-mono">33ABCDE1234F1Z5</span></p>
                         </div>
                         <div className="text-right">
-                            <h2 className="text-3xl font-black text-gray-200 uppercase tracking-widest">INVOICE</h2>
+                            <h2 className="text-3xl font-black text-slate-900 dark:text-gray-200 uppercase tracking-widest">INVOICE</h2>
                             <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                                 <span className="text-slate-500 dark:text-gray-500 font-semibold text-right">Invoice No:</span>
                                 <span className="font-bold text-gray-900 text-left">#{invoiceNo}</span>
@@ -199,7 +199,7 @@ const Billing = () => {
         <div className="p-8 animate-fade-in w-full mx-auto h-full flex flex-col">
             <div className="flex justify-between items-center mb-8 shrink-0">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-200 tracking-tight">Billing & Invoices</h1>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-200 tracking-tight">Billing & Invoices</h1>
                     <p className="text-sm text-slate-500 dark:text-gray-500 font-medium mt-1">Select trips and generate professional PDF invoices</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -223,7 +223,7 @@ const Billing = () => {
                             <select 
                                 value={selectedCustomerId}
                                 onChange={handleCustomerChange}
-                                className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-gray-200 font-medium focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors appearance-none"
+                                className="w-full bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-gray-200 font-medium focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors appearance-none"
                             >
                                 <option value="">-- Choose Customer --</option>
                                 {customers.map(c => (
@@ -303,7 +303,7 @@ const Billing = () => {
                                                 <div className="flex-1 grid grid-cols-4 gap-4 items-center">
                                                     <div>
                                                         <p className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase mb-0.5">Date</p>
-                                                        <p className="text-sm font-medium text-gray-200">{new Date(trip.startDate || trip.createdAt).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})}</p>
+                                                        <p className="text-sm font-medium text-slate-900 dark:text-gray-200">{new Date(trip.startDate || trip.createdAt).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})}</p>
                                                     </div>
                                                     <div>
                                                         <p className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase mb-0.5">Vehicle</p>
@@ -311,7 +311,7 @@ const Billing = () => {
                                                     </div>
                                                     <div>
                                                         <p className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase mb-0.5">Route/Material</p>
-                                                        <p className="text-sm font-medium text-gray-200 truncate">{trip.source} {trip.destination ? `→ ${trip.destination}` : ''}</p>
+                                                        <p className="text-sm font-medium text-slate-900 dark:text-gray-200 truncate">{trip.source} {trip.destination ? `→ ${trip.destination}` : ''}</p>
                                                     </div>
                                                     <div className="text-right">
                                                         <p className="text-xs text-slate-500 dark:text-gray-500 font-bold uppercase mb-0.5">Charges</p>
