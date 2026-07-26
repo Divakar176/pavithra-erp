@@ -1,6 +1,17 @@
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-3cf0c353-diva-6648.l.aivencloud.com:12108/defaultdb?ssl-mode=REQUIRED
+    username: avnadmin
+    password: AVNS_9Y5_n3TBKiDGViDpuuk
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO

@@ -93,6 +93,9 @@ public class Trip {
     @Column(nullable = false)
     private Boolean isDeleted = false;
 
+    @OneToMany(mappedBy = "trip")
+    private java.util.List<Expense> expenses;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

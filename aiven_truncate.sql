@@ -1,0 +1,16 @@
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE customer_payments;
+TRUNCATE TABLE driver_attendance;
+TRUNCATE TABLE expenses;
+TRUNCATE TABLE fuel_logs;
+TRUNCATE TABLE incomes;
+TRUNCATE TABLE inventory_items;
+TRUNCATE TABLE maintenance_logs;
+TRUNCATE TABLE notifications;
+TRUNCATE TABLE trips;
+TRUNCATE TABLE vehicle_documents;
+TRUNCATE TABLE vehicle_loans;
+TRUNCATE TABLE vehicles;
+TRUNCATE TABLE customers;
+TRUNCATE TABLE audit_logs;
+SET FOREIGN_KEY_CHECKS = 1;

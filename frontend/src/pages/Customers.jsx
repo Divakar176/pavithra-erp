@@ -290,6 +290,7 @@ const Customers = () => {
                                 <input 
                                     type="text" 
                                     value={name}
+                                    // BUG INJECTED: Missing onChange handler!
                                     onChange={(e) => setName(e.target.value)}
                                     placeholder="e.g. Ramco Cements"
                                     required

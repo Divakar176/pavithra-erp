@@ -23,6 +23,7 @@ public class AiController {
 
     @PostMapping("/ocr/extract")
     public ResponseEntity<OcrResult> extractReceiptData(@RequestParam("file") MultipartFile file) {
+        System.out.println("Hey ! I received a file named :"+ file.getOriginalFilename());
         return ResponseEntity.ok(ocrService.extractTextFromReceipt(file));
     }
 

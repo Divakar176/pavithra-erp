@@ -55,7 +55,6 @@ public class CustomerService {
         customer.setIsDeleted(false);
         repository.save(customer);
     }
-
     @Transactional
     public CustomerPayment addPayment(Long customerId, CustomerPayment payment) {
         Customer customer = getCustomerById(customerId);

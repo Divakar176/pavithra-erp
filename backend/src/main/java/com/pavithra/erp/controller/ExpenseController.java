@@ -17,10 +17,11 @@ public class ExpenseController {
 
     private final ExpenseService expenseService;
 
-    @PostMapping
+       @PostMapping
     public ResponseEntity<Expense> createExpense(@RequestBody Expense expense) {
         return ResponseEntity.ok(expenseService.addExpense(expense));
     }
+
 
     @GetMapping
     public ResponseEntity<List<Expense>> getAllExpenses() {

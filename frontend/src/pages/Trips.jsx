@@ -137,6 +137,14 @@ const Trips = () => {
 
 
     // Calculate total hours for machinery
+    const formatHours = (hrs) => {
+        if (hrs === null || hrs === undefined || hrs === '') return '-';
+        const num = parseFloat(hrs);
+        if (isNaN(num)) return '-';
+        return (Math.round(num * 10) / 10).toString();
+    };
+
+    // Calculate total hours for machinery (1 point = 6 minutes = 0.1 hour)
     const calculateHours = (start, end, breakH) => {
         if (!start || !end) return 0;
         const [sH, sM] = start.split(':').map(Number);
@@ -151,21 +159,29 @@ const Trips = () => {
         }
 
         let diffMins = endMins - startMins;
-        let totalHrs = (diffMins / 60) - (parseFloat(breakH) || 0);
-        return Math.max(0, totalHrs).toFixed(2);
+        let breakMins = (parseFloat(breakH) || 0) * 60;
+        let netMins = Math.max(0, diffMins - breakMins);
+
+        // 1 point = 6 minutes = 0.1 hour
+        let points = Math.round(netMins / 6);
+        return points / 10;
     };
 
     const calculatedTotalHours = (isMachinery && newTrip.machineryBillingMode === 'HOURLY') ? (
         newTrip.calculationType === 'METER' ?
-            Math.max(0, (parseFloat(newTrip.endMeter) || 0) - (parseFloat(newTrip.startMeter) || 0)).toFixed(2)
+            (newTrip.startMeter !== '' && newTrip.endMeter !== '' && !isNaN(parseFloat(newTrip.endMeter)) && !isNaN(parseFloat(newTrip.startMeter)) ?
+                Math.max(0, Math.round(((parseFloat(newTrip.endMeter) || 0) - (parseFloat(newTrip.startMeter) || 0)) * 10) / 10)
+                : 0)
             : newTrip.calculationType === 'MANUAL' ?
-                (parseFloat(newTrip.manualTotalHours) || 0).toFixed(2)
+                Math.max(0, Math.round((parseFloat(newTrip.manualTotalHours) || 0) * 10) / 10)
                 : calculateHours(newTrip.startTime, newTrip.endTime, newTrip.breakHours)
     ) : null;
 
     useEffect(() => {
         if (isMachinery && newTrip.machineryBillingMode === 'HOURLY') {
-            const calculated = ((parseFloat(calculatedTotalHours) || 0) * (parseFloat(newTrip.hourlyRate) || 0)).toFixed(0);
+            const hours = parseFloat(calculatedTotalHours) || 0;
+            const rate = parseFloat(newTrip.hourlyRate) || 0;
+            const calculated = Math.round(hours * rate).toFixed(0);
             if (calculated > 0) {
                 setNewTrip(prev => ({ ...prev, tripCharges: calculated }));
             }
@@ -369,7 +385,7 @@ const Trips = () => {
             const isMachine = t.vehicle?.type === 'JCB' || t.vehicle?.type === 'Harvesting Machine';
             let detailValue = "-";
             if (isMachine) {
-                detailValue = t.totalHours ? `${t.totalHours} Hrs` : "-";
+                detailValue = t.totalHours !== null && t.totalHours !== undefined ? `${formatHours(t.totalHours)} Hrs` : "-";
             } else {
                 detailValue = t.loadWeight ? `${t.loadWeight} Tons` : "-";
             }
@@ -668,9 +684,9 @@ const Trips = () => {
                                                     <>
                                                         <span className="font-semibold text-black">{trip.source}</span>
                                                         <span className="text-xs text-orange-600 mt-1">
-                                                            {trip.startTime && trip.endTime ? `${trip.startTime} to ${trip.endTime} (${trip.totalHours} Hrs)` :
-                                                                trip.startMeter && trip.endMeter ? `Meter: ${trip.startMeter} to ${trip.endMeter} (${trip.totalHours} Hrs)` :
-                                                                    `${trip.totalHours || 0} Hrs Total`}
+                                                            {trip.startTime && trip.endTime ? `${trip.startTime} to ${trip.endTime} (${formatHours(trip.totalHours)} Hrs)` :
+                                                                trip.startMeter && trip.endMeter ? `Meter: ${trip.startMeter} to ${trip.endMeter} (${formatHours(trip.totalHours)} Hrs)` :
+                                                                    `${formatHours(trip.totalHours)} Hrs Total`}
                                                         </span>
                                                     </>
                                                 ) : (

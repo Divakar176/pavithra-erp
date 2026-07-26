@@ -147,7 +147,7 @@ const Billing = () => {
                                         <div className="font-semibold text-gray-900">{trip.source} {trip.destination ? `→ ${trip.destination}` : ''}</div>
                                         {trip.material && <div className="text-xs text-slate-500 dark:text-gray-500 mt-0.5">{trip.material}</div>}
                                     </td>
-                                    <td className="py-4 px-2 text-right">{trip.loadWeight ? `${trip.loadWeight} Tons` : (trip.totalHours ? `${trip.totalHours} Hrs` : '-')}</td>
+                                    <td className="py-4 px-2 text-right">{trip.loadWeight ? `${trip.loadWeight} Tons` : (trip.totalHours ? `${(Math.round(parseFloat(trip.totalHours) * 10) / 10)} Hrs` : '-')}</td>
                                     <td className="py-4 px-2 text-right font-semibold">{(trip.tripCharges || 0).toLocaleString('en-IN')}</td>
                                 </tr>
                             ))}
