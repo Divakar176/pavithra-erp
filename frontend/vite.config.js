@@ -15,8 +15,8 @@ export default defineConfig({
         name: 'Pavithra ERP',
         short_name: 'Pavithra ERP',
         description: 'Enterprise Fleet Management App',
-        theme_color: '#121212',
-        background_color: '#121212',
+        theme_color: '#060814',
+        background_color: '#060814',
         display: 'standalone',
         icons: [
           {
@@ -34,26 +34,12 @@ export default defineConfig({
       workbox: {
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/pavithra-backend\.onrender\.com\/api\/v1\/.*/i,
+            urlPattern: /^https:\/\/.*\/api\/v1\/.*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
               expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 // 24 hours
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          {
-            urlPattern: /^http:\/\/localhost:8080\/api\/v1\/.*/i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-cache-local',
-              expiration: {
-                maxEntries: 50,
+                maxEntries: 100,
                 maxAgeSeconds: 60 * 60 * 24 // 24 hours
               },
               cacheableResponse: {
@@ -64,5 +50,26 @@ export default defineConfig({
         ]
       }
     })
-  ]
+  ],
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'vendor-core';
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('recharts') || id.includes('d3')) {
+              return 'vendor-charts';
+            }
+            return 'vendor-utils';
+          }
+        }
+      }
+    }
+  }
 })

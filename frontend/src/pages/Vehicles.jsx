@@ -273,12 +273,12 @@ const Vehicles = () => {
                                 className="absolute inset-0 z-0 opacity-90 transition-opacity duration-500 group-hover:scale-105 transform"
                                 style={{
                                     backgroundImage: `url('/vehicles/${getBackgroundImage(vehicle.type)}?v=${Date.now()}')`,
-                                    backgroundSize: isJcb ? 'contain' : 'cover',
+                                    backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
-                                    backgroundPosition: isJcb ? 'right -10px bottom -10px' : 'center',
+                                    backgroundPosition: 'center',
                                 }}
                             />
-                            <div className={`absolute inset-0 z-0 ${isJcb ? 'bg-gradient-to-t from-white via-white/85 to-amber-500/10 dark:from-[#151515] dark:via-[#151515]/90 dark:to-amber-500/10' : 'bg-gradient-to-t from-white via-white/80 to-white/30 dark:from-[#151515] dark:via-[#151515]/80 dark:to-[#151515]/30'}`}></div>
+                            <div className="absolute inset-0 z-0 bg-gradient-to-t from-white via-white/80 to-white/30 dark:from-[#151515] dark:via-[#151515]/80 dark:to-[#151515]/30"></div>
 
                             <div className="relative z-10">
                                 <div className="flex justify-between items-start mb-4">

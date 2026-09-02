@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/register", "/api/v1/auth/authenticate").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/trips/*").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/trips/*/location").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")

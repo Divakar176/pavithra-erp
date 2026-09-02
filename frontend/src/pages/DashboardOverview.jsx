@@ -82,7 +82,7 @@ const DashboardOverview = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="stripe-card p-5 border-t-4 border-t-[#D8621C]">
-                    <div className="text-slate-500 dark:text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Today's Income</div>
+                    <div className="text-white  text-xs font-bold uppercase tracking-wider mb-2">Today's Income</div>
                     <div className="text-2xl font-semibold text-slate-900 dark:text-white mb-1">{formatCurrency(kpis?.todayIncome)}</div>
                     <div className="flex items-center text-xs text-[#10B981]">
                         <ArrowUpRight className="w-3 h-3 mr-1" />
@@ -91,7 +91,7 @@ const DashboardOverview = () => {
                 </div>
 
                 <div className="stripe-card p-5 border-t-4 border-t-[#EF4444]">
-                    <div className="text-slate-500 dark:text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Today's Expense</div>
+                    <div className="text-white text-xs font-bold uppercase tracking-wider mb-2">Today's Expense</div>
                     <div className="text-2xl font-semibold text-slate-900 dark:text-white mb-1">{formatCurrency(kpis?.todayExpense)}</div>
                     <div className="flex items-center text-xs text-[#EF4444]">
                         <ArrowUpRight className="w-3 h-3 mr-1" />
@@ -100,7 +100,7 @@ const DashboardOverview = () => {
                 </div>
 
                 <div className="stripe-card p-5 border-t-4 border-t-[#10B981]">
-                    <div className="text-slate-500 dark:text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Today's Profit</div>
+                    <div className="text-white  text-xs font-bold uppercase tracking-wider mb-2">Today's Profit</div>
                     <div className="text-2xl font-semibold text-[#10B981] mb-1">{formatCurrency(kpis?.todayProfit)}</div>
                     <div className="flex items-center text-xs text-slate-500 dark:text-gray-400">
                         <span>Net margin</span>
@@ -108,7 +108,7 @@ const DashboardOverview = () => {
                 </div>
 
                 <div className="stripe-card p-5 border-t-4 border-t-blue-500 relative overflow-hidden">
-                    <div className="text-slate-500 dark:text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Active Vehicles</div>
+                    <div className="text-white text-xs font-bold uppercase tracking-wider mb-2">Active Vehicles</div>
                     <div className="text-2xl font-semibold text-slate-900 dark:text-white mb-1">{activeVehicles} / {vehicles.length}</div>
                     <div className="flex items-center text-xs text-yellow-500">
                         <span>{idleVehicles} idle today</span>

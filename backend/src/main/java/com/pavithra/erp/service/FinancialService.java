@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,12 +46,14 @@ public class FinancialService {
         List<com.pavithra.erp.model.entity.Vehicle> allVehicles = vehicleRepository.findAll();
         double monthlyContractRevenue = 0;
         for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
-            if (!Boolean.TRUE.equals(v.getIsDeleted()) && "MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null) {
+            if (!Boolean.TRUE.equals(v.getIsDeleted()) && "MONTHLY".equals(v.getBillingType())
+                    && v.getMonthlyContractAmount() != null) {
                 monthlyContractRevenue += v.getMonthlyContractAmount();
             }
         }
 
-        double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0) + monthlyContractRevenue;
+        double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0)
+                + monthlyContractRevenue;
         double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0) + (tripExpense != null ? tripExpense : 0.0)
                 + (maintenanceExpense != null ? maintenanceExpense : 0.0);
 
@@ -68,7 +71,11 @@ public class FinancialService {
      * Used for the bar/line chart on the Finances page.
      */
     public List<Map<String, Object>> getYearlyProfitTrend() {
-        int year = java.time.Year.now().getValue();
+        return getYearlyProfitTrend(null);
+    }
+
+    public List<Map<String, Object>> getYearlyProfitTrend(Integer targetYear) {
+        int year = (targetYear != null) ? targetYear : java.time.Year.now().getValue();
         String[] monthNames = { "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
@@ -76,21 +83,47 @@ public class FinancialService {
         List<Object[]> incomeRows = incomeRepository.monthlyIncomeTotals(year);
         List<Object[]> expenseRows = expenseRepository.monthlyExpenseTotals(year);
         List<Object[]> maintenanceRows = maintenanceLogRepository.monthlyMaintenanceTotals(year);
+        List<Object[]> tripIncomeRows = tripRepository.monthlyTripIncomeTotals(year);
+        List<Object[]> tripExpenseRows = tripRepository.monthlyTripExpenseTotals(year);
+
+        // Vehicle monthly contract revenue
+        List<com.pavithra.erp.model.entity.Vehicle> allVehicles = vehicleRepository.findAll();
+        double monthlyContractRevenue = 0;
+        for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
+            if (!Boolean.TRUE.equals(v.getIsDeleted()) && "MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null) {
+                monthlyContractRevenue += v.getMonthlyContractAmount();
+            }
+        }
 
         Map<Integer, Double> incomeMap = new HashMap<>();
         Map<Integer, Double> expenseMap = new HashMap<>();
         for (int m = 1; m <= 12; m++) {
-            incomeMap.put(m, 0.0);
+            incomeMap.put(m, monthlyContractRevenue);
             expenseMap.put(m, 0.0);
         }
 
         for (Object[] row : incomeRows) {
-            incomeMap.put(((Number) row[0]).intValue(), row[1] != null ? ((Number) row[1]).doubleValue() : 0.0);
+            int m = ((Number) row[0]).intValue();
+            double val = row[1] != null ? ((Number) row[1]).doubleValue() : 0.0;
+            incomeMap.put(m, incomeMap.get(m) + val);
         }
+        for (Object[] row : tripIncomeRows) {
+            int m = ((Number) row[0]).intValue();
+            double val = row[1] != null ? ((Number) row[1]).doubleValue() : 0.0;
+            incomeMap.put(m, incomeMap.get(m) + val);
+        }
+
         for (Object[] row : expenseRows) {
-            expenseMap.put(((Number) row[0]).intValue(), row[1] != null ? ((Number) row[1]).doubleValue() : 0.0);
+            int m = ((Number) row[0]).intValue();
+            double val = row[1] != null ? ((Number) row[1]).doubleValue() : 0.0;
+            expenseMap.put(m, expenseMap.get(m) + val);
         }
         for (Object[] row : maintenanceRows) {
+            int m = ((Number) row[0]).intValue();
+            double val = row[1] != null ? ((Number) row[1]).doubleValue() : 0.0;
+            expenseMap.put(m, expenseMap.get(m) + val);
+        }
+        for (Object[] row : tripExpenseRows) {
             int m = ((Number) row[0]).intValue();
             double val = row[1] != null ? ((Number) row[1]).doubleValue() : 0.0;
             expenseMap.put(m, expenseMap.get(m) + val);
@@ -193,22 +226,31 @@ public class FinancialService {
 
         for (com.pavithra.erp.model.entity.Vehicle v : vehicles) {
             double totalIncome = 0;
+            double totalExpense = 0;
             for (com.pavithra.erp.model.entity.Trip t : allTrips) {
                 if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId())
-                        && !Boolean.TRUE.equals(t.getIsDeleted())
-                        && t.getEndDate() != null && !t.getEndDate().isBefore(startOfMonth)
-                        && !t.getEndDate().isAfter(endOfMonth)) {
-                    totalIncome += (t.getTripCharges() != null ? t.getTripCharges() : 0);
+                        && !Boolean.TRUE.equals(t.getIsDeleted())) {
+                    java.time.LocalDate tripDate = t.getEndDate() != null ? t.getEndDate() : t.getStartDate();
+                    if (tripDate != null && !tripDate.isBefore(startOfMonth) && !tripDate.isAfter(endOfMonth)) {
+                        totalIncome += (t.getTripCharges() != null ? t.getTripCharges() : 0);
+                        totalExpense += (t.getDieselCost() != null ? t.getDieselCost() : 0)
+                                + (t.getDriverSalary() != null ? t.getDriverSalary() : 0)
+                                + (t.getFoodAmount() != null ? t.getFoodAmount() : 0)
+                                + (t.getMaterialPurchaseCost() != null ? t.getMaterialPurchaseCost() : 0);
+                    }
                 }
             }
 
-            double totalExpense = 0;
-            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
+            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null
+                    && !Boolean.TRUE.equals(v.getIsDeleted())) {
                 totalIncome += v.getMonthlyContractAmount();
             }
             for (com.pavithra.erp.model.entity.Expense e : allExpenses) {
                 if (e.getVehicle() != null && e.getVehicle().getId().equals(v.getId())
                         && !e.getDate().isBefore(startOfMonth) && !e.getDate().isAfter(endOfMonth)) {
+                    if (e.getTrip() != null) {
+                        continue;
+                    }
                     totalExpense += (e.getAmount() != null ? e.getAmount() : 0);
                 }
             }
@@ -269,11 +311,12 @@ public class FinancialService {
             double tripMaterialPurchase = 0;
 
             for (com.pavithra.erp.model.entity.Trip t : allTrips) {
-                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId()) && !Boolean.TRUE.equals(t.getIsDeleted())) {
-                    
+                if (t.getVehicle() != null && t.getVehicle().getId().equals(v.getId())
+                        && !Boolean.TRUE.equals(t.getIsDeleted())) {
+
                     // Use endDate if available, otherwise fallback to startDate
                     java.time.LocalDate tripDate = t.getEndDate() != null ? t.getEndDate() : t.getStartDate();
-                    
+
                     if (tripDate != null && !tripDate.isBefore(startDate) && !tripDate.isAfter(endDate)) {
                         tripRevenue += (t.getTripCharges() != null ? t.getTripCharges() : 0);
                         tripDiesel += (t.getDieselCost() != null ? t.getDieselCost() : 0);
@@ -284,14 +327,16 @@ public class FinancialService {
                 }
             }
 
-            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
+            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null
+                    && !Boolean.TRUE.equals(v.getIsDeleted())) {
                 LocalDate effectiveStartDate = startDate;
                 if (v.getCreatedAt() != null && v.getCreatedAt().toLocalDate().isAfter(startDate)) {
                     effectiveStartDate = v.getCreatedAt().toLocalDate();
                 } else if (v.getCreatedAt() == null && startDate.getYear() == 2000) {
                     effectiveStartDate = LocalDate.now().withDayOfYear(1);
                 }
-                long months = ChronoUnit.MONTHS.between(effectiveStartDate.withDayOfMonth(1), endDate.withDayOfMonth(1)) + 1;
+                long months = ChronoUnit.MONTHS.between(effectiveStartDate.withDayOfMonth(1), endDate.withDayOfMonth(1))
+                        + 1;
                 double expectedRevenue = v.getMonthlyContractAmount() * months;
                 tripRevenue += expectedRevenue;
             }
@@ -304,6 +349,10 @@ public class FinancialService {
             for (com.pavithra.erp.model.entity.Expense e : allExpenses) {
                 if (e.getVehicle() != null && e.getVehicle().getId().equals(v.getId())
                         && e.getDate() != null && !e.getDate().isBefore(startDate) && !e.getDate().isAfter(endDate)) {
+
+                    if (e.getTrip() != null) {
+                        continue; // Skip expenses tied to trips to avoid double-counting
+                    }
 
                     double amt = e.getAmount() != null ? e.getAmount() : 0;
                     String type = e.getExpenseType() != null ? e.getExpenseType() : "";
@@ -390,7 +439,8 @@ public class FinancialService {
         List<com.pavithra.erp.model.entity.Vehicle> allVehicles = vehicleRepository.findAll();
         double monthlyContractRevenue = 0;
         for (com.pavithra.erp.model.entity.Vehicle v : allVehicles) {
-            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null && !Boolean.TRUE.equals(v.getIsDeleted())) {
+            if ("MONTHLY".equals(v.getBillingType()) && v.getMonthlyContractAmount() != null
+                    && !Boolean.TRUE.equals(v.getIsDeleted())) {
                 LocalDate effectiveStartDate = startDate;
                 if (v.getCreatedAt() != null && v.getCreatedAt().toLocalDate().isAfter(startDate)) {
                     effectiveStartDate = v.getCreatedAt().toLocalDate();
@@ -402,7 +452,8 @@ public class FinancialService {
             }
         }
 
-        double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0) + monthlyContractRevenue;
+        double totalIncome = (ledgerIncome != null ? ledgerIncome : 0.0) + (tripIncome != null ? tripIncome : 0.0)
+                + monthlyContractRevenue;
         double totalExpense = (ledgerExpense != null ? ledgerExpense : 0.0)
                 + (tripExpenses != null ? tripExpenses : 0.0) + (maintenanceExpense != null ? maintenanceExpense : 0.0);
         if (dieselSpend == null)

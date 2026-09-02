@@ -11,15 +11,15 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-[#151515] dark:text-gray-200 antialiased;
+    @apply bg-slate-50 text-slate-900 dark:bg-[#060814] dark:text-gray-100 antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }
 
-/* Apple/Stripe inspired utilities updated for Dark Theme */
+/* Apple/Stripe inspired utilities updated for Dark AI Theme */
 @layer utilities {
   .stripe-card {
-    @apply bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-white/5 shadow-lg dark:shadow-[0_4px_24px_-4px_rgba(0,0,0,0.3)] rounded-2xl transition-all duration-300;
+    @apply bg-white dark:bg-[#0f1422] border border-slate-200 dark:border-cyan-500/20 shadow-lg dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] rounded-2xl transition-all duration-300;
   }
   
   .custom-scrollbar::-webkit-scrollbar {

@@ -18,7 +18,7 @@ const Finances = () => {
     const [driverSalaries, setDriverSalaries] = useState([]);
     const [documents, setDocuments] = useState([]);
     const [period, setPeriod] = useState('monthly');
-    
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const [reportPeriod, setReportPeriod] = useState('monthly');
     const [reportVehicleId, setReportVehicleId] = useState('');
     const [customReportData, setCustomReportData] = useState([]);
@@ -46,7 +46,7 @@ const Finances = () => {
                 const [summaryRes, periodRes, trendRes, breakdownRes, kpisRes, vpRes, dsRes, docRes] = await Promise.all([
                     api.get('/finances/summary'),
                     api.get(`/finances/period-summary?period=${period}`),
-                    api.get('/finances/yearly-trend'),
+                    api.get(`/finances/yearly-trend${selectedYear ? `?year=${selectedYear}` : ''}`),
                     api.get('/finances/expense-breakdown'),
                     api.get('/finances/kpis'),
                     api.get('/finances/vehicle-profit'),
@@ -59,7 +59,7 @@ const Finances = () => {
                 setVehicleProfit(vpRes.data);
                 setDriverSalaries(dsRes.data);
                 setDocuments(docRes.data);
-                
+
                 // Format expense breakdown for Recharts
                 const formattedBreakdown = Object.entries(breakdownRes.data).map(([name, value]) => ({
                     name, value
@@ -91,7 +91,7 @@ const Finances = () => {
         fetchFinances();
         fetchVehicles();
         fetchCustomers();
-    }, [period]);
+    }, [period, selectedYear]);
 
     useEffect(() => {
         const fetchCustomReport = async () => {
@@ -170,7 +170,7 @@ const Finances = () => {
                             </thead>
                             <tbody className="divide-y divide-[#2A2A2A]">
                                 {customers.length > 0 ? customers.map(c => (
-                                    <tr key={c.id} className="hover:bg-slate-50 dark:bg-[#1A1A1A] transition-colors">
+                                    <tr key={c.id} className="hover:bg-slate-100 dark:hover:bg-[#252525] dark:bg-[#1A1A1A] transition-colors">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">{c.name}</td>
                                         <td className="px-6 py-4 text-slate-500 dark:text-gray-400">
                                             <div>{c.mobile || '-'}</div>
@@ -182,7 +182,7 @@ const Finances = () => {
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <button 
+                                            <button
                                                 onClick={() => {
                                                     setSelectedCustomerForPayment(c);
                                                     setPaymentForm({
@@ -258,7 +258,7 @@ const Finances = () => {
                     <div className="text-slate-500 dark:text-gray-500 text-sm mt-1">Today - {todayString}</div>
                 </div>
                 <div className="flex items-center gap-3">
-                    <select 
+                    <select
                         value={period}
                         onChange={(e) => setPeriod(e.target.value)}
                         className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] text-slate-600 dark:text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
@@ -269,7 +269,7 @@ const Finances = () => {
                         <option value="yearly">Yearly</option>
                         <option value="all_time">All Time (Overall)</option>
                     </select>
-                    <button 
+                    <button
                         onClick={handleExportExcel}
                         className="flex items-center px-4 py-2 bg-[#D8621C] text-slate-900 dark:text-white rounded-xl text-sm font-medium shadow-lg shadow-orange-500/20 hover:bg-[#c25617]"
                     >
@@ -328,15 +328,27 @@ const Finances = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Bar/Line Chart */}
                 <div className="stripe-card p-6 lg:col-span-2">
-                    <h3 className="text-slate-900 dark:text-white font-semibold mb-6">Income vs Expense - 2025</h3>
+                    <div className="flex justify-between items-center mb-6">
+                        <h3 className="text-slate-900 dark:text-white font-semibold">Income vs Expense</h3>
+                        <select
+                            value={selectedYear}
+                            onChange={(e) => setSelectedYear(Number(e.target.value))}
+                            className="bg-slate-100 dark:bg-[#2A2A2A] text-slate-700 dark:text-gray-300 text-xs font-semibold px-3 py-1.5 rounded-lg focus:outline-none"
+                        >
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+
                     <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={yearlyTrend} margin={{ top: 5, right: 20, left: -20, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#2A2A2A" />
-                                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#6b7280', fontSize: 12}} dy={10} />
-                                <YAxis axisLine={false} tickLine={false} tick={{fill: '#6b7280', fontSize: 12}} tickFormatter={(value) => `₹${value/1000}k`} />
-                                <RechartsTooltip 
-                                    cursor={{fill: '#2A2A2A'}}
+                                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#6b7280', fontSize: 12 }} dy={10} />
+                                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#6b7280', fontSize: 12 }} tickFormatter={(value) => `₹${value / 1000}k`} />
+                                <RechartsTooltip
+                                    cursor={{ fill: '#2A2A2A' }}
                                     contentStyle={{ backgroundColor: '#1A1A1A', borderColor: '#2A2A2A', borderRadius: '12px', color: '#fff' }}
                                     itemStyle={{ color: '#E5E7EB' }}
                                 />
@@ -369,7 +381,7 @@ const Finances = () => {
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <RechartsTooltip 
+                                    <RechartsTooltip
                                         contentStyle={{ backgroundColor: '#1A1A1A', borderColor: '#2A2A2A', borderRadius: '12px', color: '#fff' }}
                                     />
                                     <Legend verticalAlign="bottom" height={36} iconType="circle" />
@@ -398,7 +410,7 @@ const Finances = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <h2 className="text-slate-900 dark:text-white font-bold text-lg">Detailed Vehicle Profit & Loss</h2>
                 <div className="flex flex-col md:flex-row gap-3">
-                    <select 
+                    <select
                         value={reportPeriod}
                         onChange={(e) => setReportPeriod(e.target.value)}
                         className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] text-slate-600 dark:text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
@@ -408,7 +420,7 @@ const Finances = () => {
                         <option value="yearly">Yearly</option>
                         <option value="all_time">All Time</option>
                     </select>
-                    <select 
+                    <select
                         value={reportVehicleId}
                         onChange={(e) => setReportVehicleId(e.target.value)}
                         className="bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] text-slate-600 dark:text-gray-300 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:border-[#D8621C]"
@@ -425,7 +437,7 @@ const Finances = () => {
                 {customReportData.map((v, i) => (
                     <div key={i} className="bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-2xl p-6 shadow-xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#D8621C]/10 to-transparent rounded-bl-full pointer-events-none"></div>
-                        
+
                         <div className="flex justify-between items-center mb-6 border-b border-slate-200 dark:border-[#2A2A2A] pb-4">
                             <div>
                                 <div className="text-slate-500 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1">Vehicle</div>
@@ -469,7 +481,7 @@ const Finances = () => {
                                     <span className="text-red-400 font-medium">-{formatCurrency(v.otherExpenses)}</span>
                                 </div>
                             </div>
-                            
+
                             {/* Total Expenses */}
                             <div className="flex justify-between items-center bg-slate-50 dark:bg-[#1A1A1A] p-3 rounded-lg border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="flex items-center gap-2">
@@ -527,7 +539,7 @@ const Finances = () => {
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <RechartsTooltip 
+                                    <RechartsTooltip
                                         contentStyle={{ backgroundColor: '#1A1A1A', borderColor: '#2A2A2A', borderRadius: '12px', color: '#fff' }}
                                     />
                                     <Legend verticalAlign="bottom" height={36} iconType="circle" />
@@ -547,12 +559,12 @@ const Finances = () => {
                         )}
                     </div>
                 </div>
-                
+
                 {/* List View */}
                 <div className="stripe-card p-6">
                     <h3 className="text-slate-900 dark:text-white font-semibold mb-6">Category Totals</h3>
                     <div className="space-y-4">
-                        {expenseBreakdown.sort((a,b) => b.value - a.value).map((item, index) => (
+                        {expenseBreakdown.sort((a, b) => b.value - a.value).map((item, index) => (
                             <div key={index} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-[#1A1A1A] rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
                                 <div className="flex items-center gap-3">
                                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
@@ -632,18 +644,17 @@ const Finances = () => {
 
     return (
         <div className="flex flex-col h-full bg-slate-50 dark:bg-[#121212]">
-            
+
             {/* Top Sub-Navbar */}
             <div className="flex items-center px-8 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A]">
                 {tabs.map(tab => (
-                    <button 
+                    <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
-                        className={`py-4 px-6 text-sm font-medium border-b-2 transition-all ${
-                            activeTab === tab 
-                            ? 'border-[#D8621C] text-[#D8621C]' 
+                        className={`py-4 px-6 text-sm font-medium border-b-2 transition-all ${activeTab === tab
+                            ? 'border-[#D8621C] text-[#D8621C]'
                             : 'border-transparent text-slate-900 dark:text-white hover:text-[#D8621C]'
-                        }`}
+                            }`}
                     >
                         {tab}
                     </button>
@@ -658,7 +669,7 @@ const Finances = () => {
                 {activeTab === 'Documents' && renderDocuments()}
                 {activeTab === 'Customer Ledger' && renderCustomerLedger()}
             </div>
-            
+
             {/* Payment Modal */}
             {isPaymentModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -677,17 +688,17 @@ const Finances = () => {
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Date</label>
-                                    <input type="date" required className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.paymentDate} onChange={e => setPaymentForm({...paymentForm, paymentDate: e.target.value})} />
+                                    <input type="date" required className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.paymentDate} onChange={e => setPaymentForm({ ...paymentForm, paymentDate: e.target.value })} />
                                 </div>
                                 <div>
                                     <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Amount (Rs)</label>
-                                    <input type="number" required placeholder="0" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.amount} onChange={e => setPaymentForm({...paymentForm, amount: e.target.value})} />
+                                    <input type="number" required placeholder="0" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.amount} onChange={e => setPaymentForm({ ...paymentForm, amount: e.target.value })} />
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Mode</label>
-                                    <select className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.paymentMode} onChange={e => setPaymentForm({...paymentForm, paymentMode: e.target.value})}>
+                                    <select className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.paymentMode} onChange={e => setPaymentForm({ ...paymentForm, paymentMode: e.target.value })}>
                                         <option value="CASH">CASH</option>
                                         <option value="BANK_TRANSFER">BANK TRANSFER</option>
                                         <option value="UPI">UPI</option>
@@ -696,12 +707,12 @@ const Finances = () => {
                                 </div>
                                 <div>
                                     <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Ref No (Optional)</label>
-                                    <input type="text" placeholder="e.g. UTR or Cheque No" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.referenceNumber} onChange={e => setPaymentForm({...paymentForm, referenceNumber: e.target.value})} />
+                                    <input type="text" placeholder="e.g. UTR or Cheque No" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.referenceNumber} onChange={e => setPaymentForm({ ...paymentForm, referenceNumber: e.target.value })} />
                                 </div>
                             </div>
                             <div>
                                 <label className="block text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-2">Remarks</label>
-                                <textarea rows="2" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.remarks} onChange={e => setPaymentForm({...paymentForm, remarks: e.target.value})}></textarea>
+                                <textarea rows="2" className="w-full bg-slate-100 dark:bg-[#151515] border border-slate-200 dark:border-[#2A2A2A] rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-green-500" value={paymentForm.remarks} onChange={e => setPaymentForm({ ...paymentForm, remarks: e.target.value })}></textarea>
                             </div>
                             <button type="submit" disabled={isSubmittingPayment} className="w-full bg-green-600 hover:bg-green-700 text-slate-900 dark:text-white font-bold py-3 px-4 rounded-xl transition-colors mt-2">
                                 {isSubmittingPayment ? 'Saving...' : 'Save Payment'}

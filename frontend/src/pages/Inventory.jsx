@@ -147,7 +147,7 @@ const Inventory = () => {
                                 items.map(item => {
                                     const isLowStock = item.stockQuantity <= item.reorderLevel;
                                     return (
-                                        <tr key={item.id} className="hover:bg-white dark:bg-[#222222] transition-colors">
+                                        <tr key={item.id} className="hover:bg-slate-100 dark:hover:bg-[#2A2A2A] dark:bg-[#222222] transition-colors">
                                             <td className="p-4">
                                                 <div className="flex items-center space-x-3">
                                                     <div className={`p-2 rounded-lg ${isLowStock ? 'bg-red-500/10 text-red-500' : 'bg-slate-200 dark:bg-[#2A2A2A] text-[#A0A0A0]'}`}>

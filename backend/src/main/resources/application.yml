@@ -1,18 +1,26 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-3cf0c353-diva-6648.l.aivencloud.com:12108/defaultdb?ssl-mode=REQUIRED
+    url: jdbc:mysql://mysql-3cf0c353-diva-6648.l.aivencloud.com:12108/defaultdb?ssl-mode=REQUIRED&useSSL=true&cachePrepStmts=true&prepStmtCacheSize=250&prepStmtCacheSqlLimit=2048&useServerPrepStmts=true&rewriteBatchedStatements=true
     username: avnadmin
     password: AVNS_9Y5_n3TBKiDGViDpuuk
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 1800000
+      connection-timeout: 20000
+      keepalive-time: 30000
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
+    open-in-view: false
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
-    username: your_company_email@gmail.com
-    password: your_google_app_password
+    username: ${MAIL_USERNAME:epavithra704@gmail.com}
+    password: ${MAIL_PASSWORD:spapivhjwcltfkxc}
     properties:
       mail:
         smtp:
@@ -22,6 +30,10 @@ spring:
 
 server:
   port: ${PORT:8080}
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json
+    min-response-size: 1024
 
 logging:
   level:

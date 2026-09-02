@@ -658,7 +658,7 @@ const Trips = () => {
                                 const isMachineTrip = trip.vehicle?.type === 'JCB' || trip.vehicle?.type === 'Harvesting Machine' || trip.vehicle?.type === 'Tractor';
 
                                 return (
-                                    <tr key={trip.id} className="hover:bg-blue-50 transition-colors group">
+                                    <tr key={trip.id} className="hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors group">
                                         <td className="px-6 py-4 border border-gray-300 text-center cursor-pointer" onClick={() => toggleTripSelection(trip.id)}>
                                             {selectedTrips.includes(trip.id) ? (
                                                 <CheckSquare className="w-5 h-5 text-[#D8621C]" />

@@ -44,4 +44,16 @@ public class AuthenticationController {
     ) {
         return ResponseEntity.ok(java.util.Map.of("success", service.verifyPin(request.get("pin"))));
     }
+
+    @PostMapping("/setup-password")
+    public ResponseEntity<?> setupPassword(@RequestBody java.util.Map<String, String> request) {
+        try {
+            String token = request.get("token");
+            String newPassword = request.get("newPassword");
+            service.setupPassword(token, newPassword);
+            return ResponseEntity.ok(java.util.Map.of("message", "Password configured successfully! You can now log in."));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(java.util.Map.of("message", e.getMessage()));
+        }
+    }
 }

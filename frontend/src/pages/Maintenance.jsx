@@ -243,7 +243,7 @@ const Maintenance = () => {
                                     </td>
                                 </tr>
                             ) : filteredLogs.map(log => (
-                                <tr key={log.id} className="hover:bg-slate-50 dark:bg-[#1A1A1A] transition-colors">
+                                <tr key={log.id} className="hover:bg-slate-100 dark:hover:bg-[#252525] dark:bg-[#1A1A1A] transition-colors">
                                     <td className="p-5 text-sm text-slate-600 dark:text-gray-300">
                                         {new Date(log.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                                     </td>

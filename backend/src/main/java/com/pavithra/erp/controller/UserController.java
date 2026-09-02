@@ -51,6 +51,11 @@ public class UserController {
                 .role(role)
                 .build();
         repository.save(user);
+        if (user.getEmail() != null && !user.getEmail().isBlank()) {
+            try {
+                authenticationService.sendInvitationEmail(user);
+            } catch (Exception e) {}
+        }
         return ResponseEntity.ok(user);
     }
 

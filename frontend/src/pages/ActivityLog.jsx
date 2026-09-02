@@ -65,7 +65,7 @@ const ActivityLog = () => {
                             <div className="p-8 text-center text-slate-500 dark:text-gray-500">No activity recorded yet.</div>
                         ) : (
                             logs.map((log) => (
-                                <div key={log.id} className="p-5 flex items-start gap-4 hover:bg-white dark:bg-[#222222] transition-colors">
+                                <div key={log.id} className="p-5 flex items-start gap-4 hover:bg-slate-100 dark:hover:bg-[#2A2A2A] dark:bg-[#222222] transition-colors">
                                     <div className="bg-slate-100 dark:bg-[#151515] p-3 rounded-xl border border-slate-200 dark:border-[#2A2A2A]">
                                         {getIconForAction(log.actionName)}
                                     </div>

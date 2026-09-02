@@ -25,6 +25,7 @@ import DriverHome from './pages/DriverHome';
 import DriverTrips from './pages/DriverTrips';
 import DriverTracking from './pages/DriverTracking';
 import LandingPage from './pages/LandingPage';
+import SetPassword from './pages/SetPassword';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useContext(AuthContext);
@@ -52,6 +53,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/setup-password" element={<SetPassword />} />
           
           <Route 
             path="/dashboard" 

@@ -24,8 +24,8 @@ public class FinancialController {
     }
 
     @GetMapping("/yearly-trend")
-    public ResponseEntity<List<Map<String, Object>>> getYearlyTrend() {
-        return ResponseEntity.ok(financialService.getYearlyProfitTrend());
+    public ResponseEntity<List<Map<String, Object>>> getYearlyTrend(@RequestParam(required = false) Integer year) {
+        return ResponseEntity.ok(financialService.getYearlyProfitTrend(year));
     }
 
     @GetMapping("/vehicle-profit")

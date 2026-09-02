@@ -23,4 +23,11 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
 
     @org.springframework.data.jpa.repository.Query("SELECT SUM(t.dieselCost) FROM Trip t WHERE t.isDeleted = false AND t.status = 'COMPLETED' AND COALESCE(t.endDate, t.startDate, CURRENT_DATE) BETWEEN :startDate AND :endDate")
     Double sumTripDieselCostByDateBetween(@org.springframework.data.repository.query.Param("startDate") java.time.LocalDate startDate, @org.springframework.data.repository.query.Param("endDate") java.time.LocalDate endDate);
+
+    @org.springframework.data.jpa.repository.Query("SELECT MONTH(COALESCE(t.endDate, t.startDate)), SUM(t.tripCharges) FROM Trip t WHERE t.isDeleted = false AND t.status = 'COMPLETED' AND YEAR(COALESCE(t.endDate, t.startDate)) = :year GROUP BY MONTH(COALESCE(t.endDate, t.startDate))")
+    List<Object[]> monthlyTripIncomeTotals(@org.springframework.data.repository.query.Param("year") int year);
+
+    @org.springframework.data.jpa.repository.Query("SELECT MONTH(COALESCE(t.endDate, t.startDate)), SUM(COALESCE(t.dieselCost, 0) + COALESCE(t.driverSalary, 0) + COALESCE(t.foodAmount, 0) + COALESCE(t.materialPurchaseCost, 0)) FROM Trip t WHERE t.isDeleted = false AND t.status = 'COMPLETED' AND YEAR(COALESCE(t.endDate, t.startDate)) = :year GROUP BY MONTH(COALESCE(t.endDate, t.startDate))")
+    List<Object[]> monthlyTripExpenseTotals(@org.springframework.data.repository.query.Param("year") int year);
 }
+

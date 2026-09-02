@@ -13,6 +13,27 @@ const Billing = () => {
     // Invoice details
     const [invoiceNo] = useState(`INV-${new Date().getTime().toString().slice(-6)}`);
     const [invoiceDate] = useState(new Date().toISOString().split('T')[0]);
+    const [includeGst, setIncludeGst] = useState(true);
+    const [gstRate, setGstRate] = useState(5);
+    const [companyDetails, setCompanyDetails] = useState({
+        name: 'Pavithra Enterprises',
+        address: 'NO:151,PILLAIYAR KOVIL ST,MADUVANGARAI,F',
+        city: 'SEEKINAMKUPPAM 603305',
+        phone: '6369517838',
+        email: 'epavithra704@gmail.com',
+        gstin: '33AABCP1234D1Z5'
+    });
+
+    useEffect(() => {
+        const savedData = localStorage.getItem('companyDetails');
+        if (savedData) {
+            try {
+                setCompanyDetails(prev => ({ ...prev, ...JSON.parse(savedData) }));
+            } catch (e) {
+                console.error("Failed to parse company details", e);
+            }
+        }
+    }, []);
 
     useEffect(() => {
         const fetchInitialData = async () => {
@@ -64,7 +85,7 @@ const Billing = () => {
     const tripsToBill = trips.filter(t => selectedTrips.has(t.id));
     
     const subtotal = tripsToBill.reduce((sum, t) => sum + (t.tripCharges || 0), 0);
-    const taxRate = 0.05; // 5% GST
+    const taxRate = includeGst ? (parseFloat(gstRate || 0) / 100) : 0;
     const gstAmount = subtotal * taxRate;
     const grandTotal = subtotal + gstAmount;
     
@@ -82,12 +103,41 @@ const Billing = () => {
                     >
                         <ChevronLeft className="w-4 h-4 mr-2" /> Back to Selection
                     </button>
-                    <button 
-                        onClick={handlePrint}
-                        className="flex items-center bg-indigo-600 text-slate-900 dark:text-white px-6 py-2.5 rounded-xl shadow-lg hover:bg-indigo-700 font-bold transition-all"
-                    >
-                        <Printer className="w-4 h-4 mr-2" /> Print / Save PDF
-                    </button>
+
+                    <div className="flex items-center gap-3">
+                        {/* GST Toggle Control */}
+                        <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-200">
+                            <label className="flex items-center gap-2 cursor-pointer text-sm font-bold text-gray-700 select-none">
+                                <input 
+                                    type="checkbox" 
+                                    checked={includeGst} 
+                                    onChange={(e) => setIncludeGst(e.target.checked)} 
+                                    className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500 accent-indigo-600 cursor-pointer"
+                                />
+                                <span>Apply GST</span>
+                            </label>
+                            {includeGst && (
+                                <div className="flex items-center gap-1 border-l border-gray-200 pl-3">
+                                    <input 
+                                        type="number" 
+                                        min="0"
+                                        max="28"
+                                        value={gstRate} 
+                                        onChange={(e) => setGstRate(e.target.value)} 
+                                        className="w-14 bg-gray-50 border border-gray-300 rounded-lg px-2 py-1 text-xs font-bold text-gray-900 text-center outline-none focus:border-indigo-500"
+                                    />
+                                    <span className="text-xs font-bold text-gray-500">%</span>
+                                </div>
+                            )}
+                        </div>
+
+                        <button 
+                            onClick={handlePrint}
+                            className="flex items-center bg-indigo-600 text-slate-900 dark:text-white px-6 py-2.5 rounded-xl shadow-lg hover:bg-indigo-700 font-bold transition-all"
+                        >
+                            <Printer className="w-4 h-4 mr-2" /> Print / Save PDF
+                        </button>
+                    </div>
                 </div>
 
                 {/* Printable A4 Page */}
@@ -96,19 +146,20 @@ const Billing = () => {
                     {/* Header */}
                     <div className="flex justify-between items-start border-b-2 border-gray-100 pb-8 mb-8">
                         <div>
-                            <h1 className="text-4xl font-black tracking-tighter text-indigo-900 uppercase">Pavithra<br/><span className="text-orange-500">Enterprises</span></h1>
-                            <p className="text-sm text-slate-500 dark:text-gray-500 font-semibold mt-2">Transport & Logistics Management</p>
-                            <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">123 Logistics Park, Highway Road<br/>Coimbatore, Tamil Nadu 641001</p>
-                            <p className="text-xs font-bold text-gray-700 mt-1">GSTIN: <span className="font-mono">33ABCDE1234F1Z5</span></p>
+                            <h1 className="text-3xl font-black tracking-tighter text-indigo-900 uppercase">{companyDetails.name || 'PAVITHRA ENTERPRISES'}</h1>
+                            <p className="text-xs text-slate-500 font-semibold mt-1">Transport & Logistics Management</p>
+                            <p className="text-xs text-gray-600 mt-1 whitespace-pre-line">{companyDetails.address}<br/>{companyDetails.city}</p>
+                            {companyDetails.phone && <p className="text-xs text-gray-600 mt-0.5">Phone: {companyDetails.phone}</p>}
+                            <p className="text-xs font-bold text-gray-700 mt-1">GSTIN: <span className="font-mono">{companyDetails.gstin || '33AABCP1234D1Z5'}</span></p>
                         </div>
                         <div className="text-right">
-                            <h2 className="text-3xl font-black text-slate-900 dark:text-gray-200 uppercase tracking-widest">INVOICE</h2>
+                            <h2 className="text-3xl font-black text-slate-900 uppercase tracking-widest">INVOICE</h2>
                             <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-                                <span className="text-slate-500 dark:text-gray-500 font-semibold text-right">Invoice No:</span>
+                                <span className="text-slate-500 font-semibold text-right">Invoice No:</span>
                                 <span className="font-bold text-gray-900 text-left">#{invoiceNo}</span>
-                                <span className="text-slate-500 dark:text-gray-500 font-semibold text-right">Date:</span>
+                                <span className="text-slate-500 font-semibold text-right">Date:</span>
                                 <span className="font-bold text-gray-900 text-left">{new Date(invoiceDate).toLocaleDateString('en-IN', {day: '2-digit', month: 'short', year: 'numeric'})}</span>
-                                <span className="text-slate-500 dark:text-gray-500 font-semibold text-right">Due Date:</span>
+                                <span className="text-slate-500 font-semibold text-right">Due Date:</span>
                                 <span className="font-bold text-gray-900 text-left">Immediate</span>
                             </div>
                         </div>
@@ -116,14 +167,16 @@ const Billing = () => {
 
                     {/* Bill To */}
                     <div className="mb-10">
-                        <h3 className="text-xs font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest mb-2">Billed To</h3>
+                        <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Billed To</h3>
                         <h4 className="text-xl font-bold text-gray-900">{selectedCustomerDetails?.name}</h4>
                         {selectedCustomerDetails?.address && (
                             <p className="text-sm text-gray-600 mt-1 whitespace-pre-wrap max-w-xs">{selectedCustomerDetails.address}</p>
                         )}
                         <p className="text-sm text-gray-600 mt-1">Phone: {selectedCustomerDetails?.phone}</p>
-                        {selectedCustomerDetails?.gstNumber && (
-                            <p className="text-sm font-bold text-gray-700 mt-1">GSTIN: <span className="font-mono">{selectedCustomerDetails.gstNumber !== 'TEMP-GST' ? selectedCustomerDetails.gstNumber : 'N/A'}</span></p>
+                        {selectedCustomerDetails?.gstNumber && !selectedCustomerDetails.gstNumber.startsWith('TEMP-') && selectedCustomerDetails.gstNumber !== 'TEMP-GST' && selectedCustomerDetails.gstNumber !== 'N/A' ? (
+                            <p className="text-sm font-bold text-gray-700 mt-1">GSTIN: <span className="font-mono">{selectedCustomerDetails.gstNumber}</span></p>
+                        ) : (
+                            <p className="text-xs text-slate-400 font-semibold mt-1">GSTIN: <span className="font-mono">Unregistered / N/A</span></p>
                         )}
                     </div>
 
@@ -139,36 +192,75 @@ const Billing = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
-                            {tripsToBill.map(trip => (
-                                <tr key={trip.id} className="text-sm text-gray-800">
-                                    <td className="py-4 px-2 whitespace-nowrap">{new Date(trip.startDate || trip.createdAt).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})}</td>
-                                    <td className="py-4 px-2 font-bold text-gray-900">{trip.vehicle?.vehicleNumber}</td>
-                                    <td className="py-4 px-2">
-                                        <div className="font-semibold text-gray-900">{trip.source} {trip.destination ? `→ ${trip.destination}` : ''}</div>
-                                        {trip.material && <div className="text-xs text-slate-500 dark:text-gray-500 mt-0.5">{trip.material}</div>}
-                                    </td>
-                                    <td className="py-4 px-2 text-right">{trip.loadWeight ? `${trip.loadWeight} Tons` : (trip.totalHours ? `${(Math.round(parseFloat(trip.totalHours) * 10) / 10)} Hrs` : '-')}</td>
-                                    <td className="py-4 px-2 text-right font-semibold">{(trip.tripCharges || 0).toLocaleString('en-IN')}</td>
-                                </tr>
-                            ))}
+                            {tripsToBill.map(trip => {
+                                const cleanSource = (trip.source || '').replace(/(?:\s*-\s*)+$/, '').trim();
+                                const cleanDest = (trip.destination || '').replace(/(?:\s*-\s*)+$/, '').trim();
+                                const cleanMat = (trip.material || '').replace(/(?:\s*-\s*)+$/, '').trim();
+                                
+                                let route = cleanSource;
+                                if (cleanDest && cleanDest !== '-' && cleanDest !== cleanSource) {
+                                    route += ` → ${cleanDest}`;
+                                }
+
+                                // Smart material fallback if material is empty or '-'
+                                let materialLabel = cleanMat;
+                                if (!materialLabel || materialLabel === '-') {
+                                    const vType = (trip.vehicle?.vehicleType || '').toUpperCase();
+                                    const vName = (trip.vehicle?.vehicleName || '').toUpperCase();
+                                    if (vType.includes('JCB') || vName.includes('JCB') || vType.includes('MACHINERY') || vType.includes('HARVEST')) {
+                                        materialLabel = 'Earthwork & Machinery Charges';
+                                    } else if (vType.includes('TIPPER') || vType.includes('LORRY') || vType.includes('TRUCK')) {
+                                        materialLabel = 'Blue Metal / Quarry Material';
+                                    } else {
+                                        materialLabel = 'Logistics & Transport';
+                                    }
+                                }
+
+                                const weightQty = trip.loadWeight && parseFloat(trip.loadWeight) > 0 ? `${trip.loadWeight} Tons` :
+                                                  trip.totalHours && parseFloat(trip.totalHours) > 0 ? `${(Math.round(parseFloat(trip.totalHours) * 10) / 10)} Hrs` :
+                                                  trip.shiftCount && parseFloat(trip.shiftCount) > 0 ? `${trip.shiftCount} Shift` :
+                                                  trip.tripCount && parseFloat(trip.tripCount) > 0 ? `${trip.tripCount} Trips` : '1 Load';
+
+                                return (
+                                    <tr key={trip.id} className="text-sm text-gray-800">
+                                        <td className="py-4 px-2 whitespace-nowrap">{new Date(trip.startDate || trip.createdAt).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})}</td>
+                                        <td className="py-4 px-2 font-bold text-gray-900">{trip.vehicle?.vehicleNumber}</td>
+                                        <td className="py-4 px-2">
+                                            <div className="font-semibold text-gray-900">{route || 'Local Transport'}</div>
+                                            <div className="text-xs text-slate-500 mt-0.5">{materialLabel}</div>
+                                        </td>
+                                        <td className="py-4 px-2 text-right font-medium">{weightQty}</td>
+                                        <td className="py-4 px-2 text-right font-semibold">{(trip.tripCharges || 0).toLocaleString('en-IN')}</td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
 
                     {/* Totals */}
                     <div className="flex justify-end">
                         <div className="w-72 bg-gray-50 rounded-xl p-6 border border-gray-100">
-                            <div className="flex justify-between items-center mb-3">
-                                <span className="text-sm text-gray-600 font-semibold">Subtotal</span>
-                                <span className="text-sm font-bold text-gray-900">₹{subtotal.toLocaleString('en-IN')}</span>
-                            </div>
-                            <div className="flex justify-between items-center mb-3">
-                                <span className="text-sm text-gray-600 font-semibold">GST (5%)</span>
-                                <span className="text-sm font-bold text-gray-900">₹{gstAmount.toLocaleString('en-IN')}</span>
-                            </div>
-                            <div className="pt-3 border-t-2 border-gray-900 flex justify-between items-center">
-                                <span className="font-black text-gray-900 uppercase">Grand Total</span>
-                                <span className="font-black text-indigo-600 text-xl">₹{grandTotal.toLocaleString('en-IN')}</span>
-                            </div>
+                            {includeGst ? (
+                                <>
+                                    <div className="flex justify-between items-center mb-3">
+                                        <span className="text-sm text-gray-600 font-semibold">Subtotal</span>
+                                        <span className="text-sm font-bold text-gray-900">₹{subtotal.toLocaleString('en-IN')}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center mb-3">
+                                        <span className="text-sm text-gray-600 font-semibold">GST ({gstRate}%)</span>
+                                        <span className="text-sm font-bold text-gray-900">₹{gstAmount.toLocaleString('en-IN')}</span>
+                                    </div>
+                                    <div className="pt-3 border-t-2 border-gray-900 flex justify-between items-center">
+                                        <span className="font-black text-gray-900 uppercase">Grand Total</span>
+                                        <span className="font-black text-indigo-600 text-xl">₹{grandTotal.toLocaleString('en-IN')}</span>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="flex justify-between items-center">
+                                    <span className="font-black text-gray-900 uppercase text-base">Total Amount</span>
+                                    <span className="font-black text-indigo-600 text-2xl">₹{subtotal.toLocaleString('en-IN')}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
 

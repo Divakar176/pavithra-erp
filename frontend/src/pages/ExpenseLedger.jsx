@@ -183,7 +183,7 @@ const ExpenseLedger = () => {
                                     </thead>
                                     <tbody className="divide-y divide-gray-50">
                                         {data.expenses.map(expense => (
-                                            <tr key={expense.id} className="hover:bg-gray-50 transition-colors group">
+                                            <tr key={expense.id} className="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group">
                                                 <td className="p-4 pl-6">
                                                     <div className="flex items-center text-gray-700 font-bold text-sm">
                                                         <Calendar className="w-4 h-4 mr-2 text-slate-500 dark:text-gray-400" />

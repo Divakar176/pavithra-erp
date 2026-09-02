@@ -17,7 +17,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     List<Expense> findByExpenseType(String expenseType);
     List<Expense> findByBillUrlIsNotNullAndBillUrlNot(String emptyString);
 
-    @Query("SELECT SUM(e.amount) FROM Expense e WHERE e.date BETWEEN :startDate AND :endDate")
+    @Query("SELECT SUM(e.amount) FROM Expense e WHERE e.trip IS NULL AND e.date BETWEEN :startDate AND :endDate")
     Double sumAmountByDateBetween(LocalDate startDate, LocalDate endDate);
 
     @Query("SELECT SUM(e.amount) FROM Expense e WHERE e.date BETWEEN :startDate AND :endDate AND e.expenseType = :type")
@@ -29,10 +29,10 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     @Query("SELECT SUM(e.amount) FROM Expense e WHERE e.trip.id = :tripId")
     Double sumAmountByTripId(@Param("tripId") Long tripId);
 
-    @Query("SELECT e.expenseType, SUM(e.amount) FROM Expense e GROUP BY e.expenseType")
+    @Query("SELECT e.expenseType, SUM(e.amount) FROM Expense e WHERE e.trip IS NULL GROUP BY e.expenseType")
     List<Object[]> sumAmountGroupByType();
 
-    @Query("SELECT MONTH(e.date), SUM(e.amount) FROM Expense e WHERE YEAR(e.date) = :year GROUP BY MONTH(e.date)")
+    @Query("SELECT MONTH(e.date), SUM(e.amount) FROM Expense e WHERE e.trip IS NULL AND YEAR(e.date) = :year GROUP BY MONTH(e.date)")
     List<Object[]> monthlyExpenseTotals(@Param("year") int year);
 }
 

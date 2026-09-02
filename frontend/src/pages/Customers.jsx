@@ -52,7 +52,7 @@ const Customers = () => {
                 name,
                 mobile,
                 email,
-                gstNumber,
+                gstNumber: (gstNumber && gstNumber.trim()) ? gstNumber.trim() : null,
                 address
             });
             setIsModalOpen(false);
@@ -76,7 +76,7 @@ const Customers = () => {
                 name,
                 mobile,
                 email,
-                gstNumber,
+                gstNumber: (gstNumber && gstNumber.trim()) ? gstNumber.trim() : null,
                 address
             });
             setIsEditModalOpen(false);
@@ -210,7 +210,7 @@ const Customers = () => {
                                 const displayGst = (c.gstNumber && !c.gstNumber.startsWith('TEMP-')) ? c.gstNumber : 'N/A';
                                 
                                 return (
-                                <tr key={c.id} className="hover:bg-slate-50 dark:bg-[#1A1A1A] transition-colors group align-middle">
+                                <tr key={c.id} className="hover:bg-slate-100 dark:hover:bg-[#252525] dark:bg-[#1A1A1A] transition-colors group align-middle">
                                     <td className="p-5 align-middle">
                                         <div className="flex items-center">
                                             <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-[#2A2A2A] text-[#D8621C] flex items-center justify-center mr-4 border border-[#D8621C]/20 group-hover:scale-105 transition-transform font-black">

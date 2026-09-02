@@ -5,10 +5,10 @@ import api from '../api/axios';
 const Settings = () => {
     const [companyDetails, setCompanyDetails] = useState({
         name: 'Pavithra Enterprises',
-        address: '123 Transport Nagar, Logistics Hub',
-        city: 'Chennai, Tamil Nadu 600001',
-        phone: '+91 98765 43210',
-        email: 'info@pavithraenterprises.in',
+        address: 'NO:151,PILLAIYAR KOVIL ST,MADUVANGARAI,F',
+        city: 'SEEKINAMKUPPAM 603305',
+        phone: '6369517838',
+        email: 'epavithra704@gmail.com',
         gstin: '33AABCP1234D1Z5'
     });
     

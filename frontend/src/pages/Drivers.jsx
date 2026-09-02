@@ -9,7 +9,7 @@ const Drivers = () => {
     const [salaries, setSalaries] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('Directory');
-    
+
     // Attendance State
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [attendanceDraft, setAttendanceDraft] = useState({});
@@ -42,12 +42,12 @@ const Drivers = () => {
             ]);
             setDrivers(driversRes.data);
             setSalaries(salaryRes.data);
-            
+
             // Initialize draft
             const draft = {};
             driversRes.data.forEach(d => draft[d.id] = { status: 'PRESENT', remarks: '' });
             setAttendanceDraft(draft);
-            
+
             fetchAttendanceForDate(selectedDate);
         } catch (error) {
             console.error("Error fetching driver data", error);
@@ -60,7 +60,7 @@ const Drivers = () => {
         try {
             const res = await api.get(`/attendance?startDate=${date}&endDate=${date}`);
             setAttendance(res.data);
-            
+
             // Update draft with existing records
             setAttendanceDraft(prev => {
                 const newDraft = { ...prev };
@@ -77,7 +77,7 @@ const Drivers = () => {
     const submitPayment = async () => {
         const amount = parseFloat(paymentForm.amount);
         const currentBalance = selectedDriverForPayment.netPayable;
-        
+
         // Validation check for overpayment
         if (amount > currentBalance && paymentForm.expenseType === 'Driver Salary') {
             const overAmount = amount - currentBalance;
@@ -215,7 +215,7 @@ const Drivers = () => {
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Staff Management</h1>
                     <p className="text-sm text-slate-500 dark:text-gray-500 font-medium mt-1">Manage staff directory, roles, daily attendance, and salary settlements</p>
                 </div>
-                <button 
+                <button
                     onClick={() => setIsAddModalOpen(true)}
                     className="flex items-center gap-2 px-4 py-2 bg-[#D8621C] text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-orange-700 transition-colors"
                 >
@@ -229,9 +229,8 @@ const Drivers = () => {
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
-                        className={`px-6 py-3 font-semibold text-sm transition-all border-b-2 whitespace-nowrap flex items-center gap-2 ${
-                            activeTab === tab ? 'border-[#D8621C] text-[#D8621C]' : 'border-transparent text-slate-500 dark:text-gray-500 hover:text-slate-600 dark:text-gray-300'
-                        }`}
+                        className={`px-6 py-3 font-semibold text-sm transition-all border-b-2 whitespace-nowrap flex items-center gap-2 ${activeTab === tab ? 'border-[#D8621C] text-[#D8621C]' : 'border-transparent text-slate-500 dark:text-gray-500 hover:text-slate-600 dark:text-gray-300'
+                            }`}
                     >
                         {tab === 'Directory' && <Users className="w-4 h-4" />}
                         {tab === 'Attendance' && <CalendarIcon className="w-4 h-4" />}
@@ -253,14 +252,14 @@ const Drivers = () => {
                                         {driver.username.charAt(0)}
                                     </div>
                                     <div className="flex gap-2">
-                                        <button 
+                                        <button
                                             onClick={() => handleEditClick(driver)}
                                             className="text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:text-white p-1 rounded hover:bg-white/10 transition-colors"
                                             title="Edit Driver"
                                         >
                                             ✏️
                                         </button>
-                                        <button 
+                                        <button
                                             onClick={() => handleDeleteDriver(driver.id)}
                                             className="text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-500/10 transition-colors ml-1"
                                             title="Delete Driver"
@@ -298,14 +297,14 @@ const Drivers = () => {
                     <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div className="flex items-center gap-3">
                             <label className="text-sm font-bold text-slate-500 dark:text-gray-400 uppercase tracking-wider">Date:</label>
-                            <input 
-                                type="date" 
+                            <input
+                                type="date"
                                 value={selectedDate}
                                 onChange={(e) => setSelectedDate(e.target.value)}
                                 className="px-4 py-2 bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] transition-all"
                             />
                         </div>
-                        <button 
+                        <button
                             onClick={handleSaveAttendance}
                             disabled={isSaving}
                             className="flex items-center px-6 py-2.5 bg-[#D8621C] hover:bg-[#c25617] text-slate-900 dark:text-white rounded-xl text-sm font-bold shadow-lg shadow-orange-500/20 transition-all disabled:opacity-50"
@@ -314,7 +313,7 @@ const Drivers = () => {
                             {isSaving ? 'Saving...' : 'Save Attendance'}
                         </button>
                     </div>
-                    
+
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
                             <thead className="bg-slate-100 dark:bg-[#151515] text-xs uppercase text-slate-500 dark:text-gray-500 border-b border-slate-200 dark:border-[#2A2A2A]">
@@ -336,15 +335,14 @@ const Drivers = () => {
                                                 {['PRESENT', 'ABSENT', 'HALF_DAY', 'ON_TRIP'].map(status => (
                                                     <button
                                                         key={status}
-                                                        onClick={() => setAttendanceDraft(prev => ({...prev, [driver.id]: {...prev[driver.id], status}}))}
-                                                        className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${
-                                                            attendanceDraft[driver.id]?.status === status
-                                                            ? (status === 'PRESENT' ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' :
-                                                               status === 'ABSENT' ? 'bg-red-500/20 border-red-500 text-red-400' :
-                                                               status === 'HALF_DAY' ? 'bg-yellow-500/20 border-yellow-500 text-yellow-400' :
-                                                               'bg-blue-500/20 border-blue-500 text-blue-400')
-                                                            : 'bg-transparent border-slate-200 dark:border-[#2A2A2A] text-slate-500 dark:text-gray-500 hover:border-gray-500'
-                                                        }`}
+                                                        onClick={() => setAttendanceDraft(prev => ({ ...prev, [driver.id]: { ...prev[driver.id], status } }))}
+                                                        className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${attendanceDraft[driver.id]?.status === status
+                                                                ? (status === 'PRESENT' ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' :
+                                                                    status === 'ABSENT' ? 'bg-red-500/20 border-red-500 text-red-400' :
+                                                                        status === 'HALF_DAY' ? 'bg-yellow-500/20 border-yellow-500 text-yellow-400' :
+                                                                            'bg-blue-500/20 border-blue-500 text-blue-400')
+                                                                : 'bg-transparent border-slate-200 dark:border-[#2A2A2A] text-slate-500 dark:text-gray-500 hover:border-gray-500'
+                                                            }`}
                                                     >
                                                         {status.replace('_', ' ')}
                                                     </button>
@@ -352,11 +350,11 @@ const Drivers = () => {
                                             </div>
                                         </td>
                                         <td className="p-5">
-                                            <input 
+                                            <input
                                                 type="text"
                                                 placeholder="Add remark..."
                                                 value={attendanceDraft[driver.id]?.remarks || ''}
-                                                onChange={(e) => setAttendanceDraft(prev => ({...prev, [driver.id]: {...prev[driver.id], remarks: e.target.value}}))}
+                                                onChange={(e) => setAttendanceDraft(prev => ({ ...prev, [driver.id]: { ...prev[driver.id], remarks: e.target.value } }))}
                                                 className="w-full px-3 py-2 bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
                                             />
                                         </td>
@@ -387,7 +385,7 @@ const Drivers = () => {
                                     <div className="text-xs text-slate-500 dark:text-gray-500 uppercase tracking-wider font-bold mt-1">Driver</div>
                                 </div>
                             </div>
-                            
+
                             <div className="flex flex-wrap items-center gap-8">
                                 <div>
                                     <div className="text-[10px] text-slate-500 dark:text-gray-500 font-bold uppercase tracking-wider mb-1">Total Trip Salary</div>
@@ -404,16 +402,16 @@ const Drivers = () => {
                                     </div>
                                     {sal.netPayable < 0 && <div className="text-[10px] text-red-500 mt-1">Negative Balance</div>}
                                 </div>
-                                
-                                <button 
+
+                                <button
                                     onClick={() => setSelectedDriverForPayment(sal)}
                                     className="px-6 py-3 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-200 dark:border-[#2A2A2A] hover:border-[#D8621C] text-[#D8621C] rounded-xl font-bold transition-all text-sm flex items-center gap-2"
                                 >
                                     <Plus className="w-4 h-4" />
                                     Add Payment
                                 </button>
-                                
-                                <button 
+
+                                <button
                                     onClick={() => generatePayslip(sal)}
                                     className="px-4 py-3 bg-slate-200 dark:bg-[#2A2A2A] hover:bg-slate-300 dark:hover:bg-[#333] text-slate-900 dark:text-white rounded-xl transition-colors flex items-center gap-2 border border-slate-200 dark:border-[#333]"
                                     title="Download Payslip PDF"
@@ -444,9 +442,9 @@ const Drivers = () => {
                         <div className="p-6 space-y-4">
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Payment Type</label>
-                                <select 
+                                <select
                                     value={paymentForm.expenseType}
-                                    onChange={(e) => setPaymentForm({...paymentForm, expenseType: e.target.value})}
+                                    onChange={(e) => setPaymentForm({ ...paymentForm, expenseType: e.target.value })}
                                     className="w-full px-4 py-3 bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 >
                                     <option value="Driver Advance">Driver Advance</option>
@@ -455,18 +453,18 @@ const Drivers = () => {
                             </div>
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Amount (₹)</label>
-                                <input 
-                                    type="number" 
+                                <input
+                                    type="number"
                                     value={paymentForm.amount}
-                                    onChange={(e) => setPaymentForm({...paymentForm, amount: e.target.value})}
+                                    onChange={(e) => setPaymentForm({ ...paymentForm, amount: e.target.value })}
                                     className="w-full px-4 py-3 bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-slate-900 dark:text-white focus:border-[#D8621C] outline-none font-bold text-xl"
                                 />
                             </div>
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Payment Mode</label>
-                                <select 
+                                <select
                                     value={paymentForm.paymentMode}
-                                    onChange={(e) => setPaymentForm({...paymentForm, paymentMode: e.target.value})}
+                                    onChange={(e) => setPaymentForm({ ...paymentForm, paymentMode: e.target.value })}
                                     className="w-full px-4 py-3 bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 >
                                     <option value="Cash">Cash</option>
@@ -476,14 +474,14 @@ const Drivers = () => {
                             </div>
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 dark:text-gray-500 uppercase mb-2">Date</label>
-                                <input 
-                                    type="date" 
+                                <input
+                                    type="date"
                                     value={paymentForm.date}
-                                    onChange={(e) => setPaymentForm({...paymentForm, date: e.target.value})}
+                                    onChange={(e) => setPaymentForm({ ...paymentForm, date: e.target.value })}
                                     className="w-full px-4 py-3 bg-white dark:bg-[#1C1C1C] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
-                            <button 
+                            <button
                                 onClick={submitPayment}
                                 disabled={!paymentForm.amount || isSaving}
                                 className="w-full py-4 mt-2 bg-[#D8621C] hover:bg-[#c25617] text-slate-900 dark:text-white rounded-xl font-bold shadow-lg shadow-orange-500/20 transition-all disabled:opacity-50"
@@ -494,7 +492,7 @@ const Drivers = () => {
                     </div>
                 </div>
             )}
-            
+
             {/* Edit Driver Modal */}
             {isEditModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -512,8 +510,8 @@ const Drivers = () => {
                                     type="text"
                                     required
                                     value={editForm.username}
-                                    onChange={(e) => setEditForm({...editForm, username: e.target.value})}
-                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    onChange={(e) => setEditForm({ ...editForm, username: e.target.value })}
+                                    className="w-full bg-white dark:bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -522,8 +520,8 @@ const Drivers = () => {
                                     type="text"
                                     required
                                     value={editForm.mobile}
-                                    onChange={(e) => setEditForm({...editForm, mobile: e.target.value})}
-                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    onChange={(e) => setEditForm({ ...editForm, mobile: e.target.value })}
+                                    className="w-full bg-white dark:bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -531,20 +529,20 @@ const Drivers = () => {
                                 <input
                                     type="email"
                                     value={editForm.email}
-                                    onChange={(e) => setEditForm({...editForm, email: e.target.value})}
-                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                                    className="w-full bg-white dark:bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-slate-500 dark:text-gray-400 mb-1">Role</label>
                                 <select
                                     value={editForm.role}
-                                    onChange={(e) => setEditForm({...editForm, role: e.target.value})}
-                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
+                                    className="w-full bg-white dark:bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 >
-                                    <option value="DRIVER">Driver</option>
-                                    <option value="ADMIN">Admin</option>
-                                    <option value="SUPER_ADMIN">Super Admin</option>
+                                    <option value="DRIVER" className="bg-white dark:bg-[#222] text-slate-900 dark:text-white">Driver</option>
+                                    <option value="ADMIN" className="bg-white dark:bg-[#222] text-slate-900 dark:text-white">Admin</option>
+                                    <option value="SUPER_ADMIN" className="bg-white dark:bg-[#222] text-slate-900 dark:text-white">Super Admin</option>
                                 </select>
                             </div>
                             <div className="pt-4 flex justify-end gap-3">
@@ -573,8 +571,8 @@ const Drivers = () => {
                                     type="text"
                                     required
                                     value={addForm.username}
-                                    onChange={(e) => setAddForm({...addForm, username: e.target.value})}
-                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    onChange={(e) => setAddForm({ ...addForm, username: e.target.value })}
+                                    className="w-full bg-white dark:bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -583,8 +581,8 @@ const Drivers = () => {
                                     type="text"
                                     required
                                     value={addForm.mobile}
-                                    onChange={(e) => setAddForm({...addForm, mobile: e.target.value})}
-                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    onChange={(e) => setAddForm({ ...addForm, mobile: e.target.value })}
+                                    className="w-full bg-white dark:bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
@@ -592,20 +590,20 @@ const Drivers = () => {
                                 <input
                                     type="email"
                                     value={addForm.email}
-                                    onChange={(e) => setAddForm({...addForm, email: e.target.value})}
-                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    onChange={(e) => setAddForm({ ...addForm, email: e.target.value })}
+                                    className="w-full bg-white dark:bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-slate-500 dark:text-gray-400 mb-1">Role</label>
                                 <select
                                     value={addForm.role}
-                                    onChange={(e) => setAddForm({...addForm, role: e.target.value})}
-                                    className="w-full bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
+                                    onChange={(e) => setAddForm({ ...addForm, role: e.target.value })}
+                                    className="w-full bg-white dark:bg-[#222] border border-slate-200 dark:border-[#333] rounded-xl p-3 text-slate-900 dark:text-white focus:border-[#D8621C] outline-none"
                                 >
-                                    <option value="DRIVER">Driver</option>
-                                    <option value="ADMIN">Admin</option>
-                                    <option value="SUPER_ADMIN">Super Admin</option>
+                                    <option value="DRIVER" className="bg-white dark:bg-[#222] text-slate-900 dark:text-white">Driver</option>
+                                    <option value="ADMIN" className="bg-white dark:bg-[#222] text-slate-900 dark:text-white">Admin</option>
+                                    <option value="SUPER_ADMIN" className="bg-white dark:bg-[#222] text-slate-900 dark:text-white">Super Admin</option>
                                 </select>
                             </div>
                             <div className="pt-4 flex justify-end gap-3">
