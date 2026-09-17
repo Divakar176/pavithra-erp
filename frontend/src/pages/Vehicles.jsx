@@ -35,18 +35,33 @@ const Vehicles = () => {
 
     const fetchData = async () => {
         try {
-            const [vehRes, tripRes, loanRes, driverRes] = await Promise.all([
-                api.get('/vehicles'),
-                api.get('/trips'),
-                api.get('/loans'),
-                api.get('/users/drivers')
-            ]);
-            setVehicles(vehRes.data);
-            setTrips(tripRes.data.filter(t => t.status === 'IN_PROGRESS' || t.status === 'PENDING'));
-            setLoans(loanRes.data);
-            setDrivers(driverRes.data);
+            const vehRes = await api.get('/vehicles');
+            setVehicles(vehRes.data || []);
         } catch (error) {
             console.error("Error fetching vehicles", error);
+        }
+
+        try {
+            const tripRes = await api.get('/trips');
+            if (Array.isArray(tripRes.data)) {
+                setTrips(tripRes.data.filter(t => t.status === 'IN_PROGRESS' || t.status === 'PENDING'));
+            }
+        } catch (error) {
+            console.warn("Could not fetch trips for vehicles page", error);
+        }
+
+        try {
+            const loanRes = await api.get('/loans');
+            setLoans(loanRes.data || []);
+        } catch (error) {
+            console.warn("Could not fetch loans", error);
+        }
+
+        try {
+            const driverRes = await api.get('/users/drivers');
+            setDrivers(driverRes.data || []);
+        } catch (error) {
+            console.warn("Could not fetch drivers", error);
         } finally {
             setIsLoading(false);
         }

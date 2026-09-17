@@ -22,9 +22,11 @@ public class DriverAttendanceController {
 
     @GetMapping
     public ResponseEntity<List<DriverAttendance>> getAttendance(
-            @RequestParam String startDate, 
-            @RequestParam String endDate) {
-        return ResponseEntity.ok(repository.findByDateBetween(LocalDate.parse(startDate), LocalDate.parse(endDate)));
+            @RequestParam(required = false) String startDate, 
+            @RequestParam(required = false) String endDate) {
+        LocalDate start = (startDate != null && !startDate.isBlank()) ? LocalDate.parse(startDate) : LocalDate.now().withDayOfMonth(1);
+        LocalDate end = (endDate != null && !endDate.isBlank()) ? LocalDate.parse(endDate) : LocalDate.now().plusDays(1);
+        return ResponseEntity.ok(repository.findByDateBetween(start, end));
     }
 
     @PostMapping("/batch")

@@ -14,6 +14,9 @@ const Drivers = () => {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [attendanceDraft, setAttendanceDraft] = useState({});
     const [isSaving, setIsSaving] = useState(false);
+    const [historyMonth, setHistoryMonth] = useState(new Date().toISOString().substring(0, 7));
+    const [historyRecords, setHistoryRecords] = useState([]);
+    const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
     // Edit State
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -48,7 +51,7 @@ const Drivers = () => {
             driversRes.data.forEach(d => draft[d.id] = { status: 'PRESENT', remarks: '' });
             setAttendanceDraft(draft);
 
-            fetchAttendanceForDate(selectedDate);
+            fetchAttendanceForDate(selectedDate, driversRes.data);
         } catch (error) {
             console.error("Error fetching driver data", error);
         } finally {
@@ -56,19 +59,22 @@ const Drivers = () => {
         }
     };
 
-    const fetchAttendanceForDate = async (date) => {
+    const fetchAttendanceForDate = async (date, currentDrivers = drivers) => {
         try {
             const res = await api.get(`/attendance?startDate=${date}&endDate=${date}`);
             setAttendance(res.data);
 
-            // Update draft with existing records
-            setAttendanceDraft(prev => {
-                const newDraft = { ...prev };
-                res.data.forEach(att => {
-                    newDraft[att.driver.id] = { status: att.status, remarks: att.remarks || '' };
-                });
-                return newDraft;
+            const newDraft = {};
+            currentDrivers.forEach(d => {
+                newDraft[d.id] = { status: 'PRESENT', remarks: '' };
             });
+            res.data.forEach(att => {
+                const driverId = att.driver?.id;
+                if (driverId) {
+                    newDraft[driverId] = { status: att.status, remarks: att.remarks || '' };
+                }
+            });
+            setAttendanceDraft(newDraft);
         } catch (error) {
             console.error("Error fetching attendance", error);
         }
@@ -121,6 +127,22 @@ const Drivers = () => {
         }
     };
 
+    const fetchMonthlyAttendanceHistory = async (yearMonth) => {
+        setIsLoadingHistory(true);
+        try {
+            const [year, month] = yearMonth.split('-');
+            const startDate = `${year}-${month}-01`;
+            const lastDay = new Date(year, month, 0).getDate();
+            const endDate = `${year}-${month}-${lastDay < 10 ? '0' + lastDay : lastDay}`;
+            const res = await api.get(`/attendance?startDate=${startDate}&endDate=${endDate}`);
+            setHistoryRecords(res.data);
+        } catch (error) {
+            console.error("Error fetching attendance history", error);
+        } finally {
+            setIsLoadingHistory(false);
+        }
+    };
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -130,6 +152,12 @@ const Drivers = () => {
             fetchAttendanceForDate(selectedDate);
         }
     }, [selectedDate]);
+
+    useEffect(() => {
+        if (activeTab === 'Attendance') {
+            fetchMonthlyAttendanceHistory(historyMonth);
+        }
+    }, [historyMonth, activeTab]);
 
     const handleEditClick = (driver) => {
         setEditingDriver(driver);
@@ -192,6 +220,7 @@ const Drivers = () => {
             await api.post('/attendance/batch', payload);
             alert('Attendance saved successfully!');
             fetchAttendanceForDate(selectedDate);
+            fetchMonthlyAttendanceHistory(historyMonth);
         } catch (error) {
             console.error("Error saving attendance", error);
             alert("Failed to save attendance");
@@ -293,82 +322,154 @@ const Drivers = () => {
 
             {/* ATTENDANCE TAB */}
             {activeTab === 'Attendance' && (
-                <div className="stripe-card p-0 overflow-hidden">
-                    <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div className="flex items-center gap-3">
-                            <label className="text-sm font-bold text-slate-500 dark:text-gray-400 uppercase tracking-wider">Date:</label>
-                            <input
-                                type="date"
-                                value={selectedDate}
-                                onChange={(e) => setSelectedDate(e.target.value)}
-                                className="px-4 py-2 bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] transition-all"
-                            />
+                <>
+                    <div className="stripe-card p-0 overflow-hidden">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div className="flex items-center gap-3">
+                                <label className="text-sm font-bold text-slate-500 dark:text-gray-400 uppercase tracking-wider">Date:</label>
+                                <input
+                                    type="date"
+                                    value={selectedDate}
+                                    onChange={(e) => setSelectedDate(e.target.value)}
+                                    className="px-4 py-2 bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] transition-all"
+                                />
+                            </div>
+                            <button
+                                onClick={handleSaveAttendance}
+                                disabled={isSaving}
+                                className="flex items-center px-6 py-2.5 bg-[#D8621C] hover:bg-[#c25617] text-slate-900 dark:text-white rounded-xl text-sm font-bold shadow-lg shadow-orange-500/20 transition-all disabled:opacity-50"
+                            >
+                                <Save className="w-4 h-4 mr-2" />
+                                {isSaving ? 'Saving...' : 'Save Attendance'}
+                            </button>
                         </div>
-                        <button
-                            onClick={handleSaveAttendance}
-                            disabled={isSaving}
-                            className="flex items-center px-6 py-2.5 bg-[#D8621C] hover:bg-[#c25617] text-slate-900 dark:text-white rounded-xl text-sm font-bold shadow-lg shadow-orange-500/20 transition-all disabled:opacity-50"
-                        >
-                            <Save className="w-4 h-4 mr-2" />
-                            {isSaving ? 'Saving...' : 'Save Attendance'}
-                        </button>
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead className="bg-slate-100 dark:bg-[#151515] text-xs uppercase text-slate-500 dark:text-gray-500 border-b border-slate-200 dark:border-[#2A2A2A]">
+                                    <tr>
+                                        <th className="p-5 font-bold">Driver Name</th>
+                                        <th className="p-5 font-bold text-center">Status</th>
+                                        <th className="p-5 font-bold">Remarks (Optional)</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-[#2A2A2A] bg-white dark:bg-[#1C1C1C]">
+                                    {drivers.map(driver => (
+                                        <tr key={driver.id} className="hover:bg-slate-100 dark:hover:bg-[#222] transition-colors">
+                                            <td className="p-5">
+                                                <div className="font-bold text-slate-900 dark:text-white">{driver.username}</div>
+                                                <div className="text-xs text-slate-500 dark:text-gray-500">{driver.mobile}</div>
+                                            </td>
+                                            <td className="p-5">
+                                                <div className="flex justify-center gap-2">
+                                                    {['PRESENT', 'ABSENT', 'HALF_DAY', 'ON_TRIP'].map(status => (
+                                                        <button
+                                                            key={status}
+                                                            onClick={() => setAttendanceDraft(prev => ({ ...prev, [driver.id]: { ...prev[driver.id], status } }))}
+                                                            className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${attendanceDraft[driver.id]?.status === status
+                                                                    ? (status === 'PRESENT' ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' :
+                                                                        status === 'ABSENT' ? 'bg-red-500/20 border-red-500 text-red-400' :
+                                                                            status === 'HALF_DAY' ? 'bg-yellow-500/20 border-yellow-500 text-yellow-400' :
+                                                                                'bg-blue-500/20 border-blue-500 text-blue-400')
+                                                                    : 'bg-transparent border-slate-200 dark:border-[#2A2A2A] text-slate-500 dark:text-gray-500 hover:border-gray-500'
+                                                                }`}
+                                                        >
+                                                            {status.replace('_', ' ')}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </td>
+                                            <td className="p-5">
+                                                <input
+                                                    type="text"
+                                                    placeholder="Add remark..."
+                                                    value={attendanceDraft[driver.id]?.remarks || ''}
+                                                    onChange={(e) => setAttendanceDraft(prev => ({ ...prev, [driver.id]: { ...prev[driver.id], remarks: e.target.value } }))}
+                                                    className="w-full px-3 py-2 bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {drivers.length === 0 && (
+                                        <tr>
+                                            <td colSpan="3" className="p-8 text-center text-slate-500 dark:text-gray-500 font-medium">No drivers found.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left">
-                            <thead className="bg-slate-100 dark:bg-[#151515] text-xs uppercase text-slate-500 dark:text-gray-500 border-b border-slate-200 dark:border-[#2A2A2A]">
-                                <tr>
-                                    <th className="p-5 font-bold">Driver Name</th>
-                                    <th className="p-5 font-bold text-center">Status</th>
-                                    <th className="p-5 font-bold">Remarks (Optional)</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-[#2A2A2A] bg-white dark:bg-[#1C1C1C]">
-                                {drivers.map(driver => (
-                                    <tr key={driver.id} className="hover:bg-slate-100 dark:hover:bg-[#222] transition-colors">
-                                        <td className="p-5">
-                                            <div className="font-bold text-slate-900 dark:text-white">{driver.username}</div>
-                                            <div className="text-xs text-slate-500 dark:text-gray-500">{driver.mobile}</div>
-                                        </td>
-                                        <td className="p-5">
-                                            <div className="flex justify-center gap-2">
-                                                {['PRESENT', 'ABSENT', 'HALF_DAY', 'ON_TRIP'].map(status => (
-                                                    <button
-                                                        key={status}
-                                                        onClick={() => setAttendanceDraft(prev => ({ ...prev, [driver.id]: { ...prev[driver.id], status } }))}
-                                                        className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${attendanceDraft[driver.id]?.status === status
-                                                                ? (status === 'PRESENT' ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' :
-                                                                    status === 'ABSENT' ? 'bg-red-500/20 border-red-500 text-red-400' :
-                                                                        status === 'HALF_DAY' ? 'bg-yellow-500/20 border-yellow-500 text-yellow-400' :
-                                                                            'bg-blue-500/20 border-blue-500 text-blue-400')
-                                                                : 'bg-transparent border-slate-200 dark:border-[#2A2A2A] text-slate-500 dark:text-gray-500 hover:border-gray-500'
-                                                            }`}
-                                                    >
-                                                        {status.replace('_', ' ')}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </td>
-                                        <td className="p-5">
-                                            <input
-                                                type="text"
-                                                placeholder="Add remark..."
-                                                value={attendanceDraft[driver.id]?.remarks || ''}
-                                                onChange={(e) => setAttendanceDraft(prev => ({ ...prev, [driver.id]: { ...prev[driver.id], remarks: e.target.value } }))}
-                                                className="w-full px-3 py-2 bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C]"
-                                            />
-                                        </td>
-                                    </tr>
-                                ))}
-                                {drivers.length === 0 && (
+                    {/* MONTHLY ATTENDANCE HISTORY LOG */}
+                    <div className="stripe-card p-0 overflow-hidden mt-6">
+                        <div className="p-5 border-b border-slate-200 dark:border-[#2A2A2A] bg-slate-50 dark:bg-[#1A1A1A] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <h3 className="font-bold text-slate-900 dark:text-white text-lg">Attendance History Log</h3>
+                                <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">View historical attendance records for any month</p>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <label className="text-xs font-bold text-slate-500 dark:text-gray-400 uppercase tracking-wider">Select Month:</label>
+                                <input
+                                    type="month"
+                                    value={historyMonth}
+                                    onChange={(e) => setHistoryMonth(e.target.value)}
+                                    className="px-4 py-2 bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#2A2A2A] rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-[#D8621C] transition-all text-sm font-semibold"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead className="bg-slate-100 dark:bg-[#151515] text-xs uppercase text-slate-500 dark:text-gray-500 border-b border-slate-200 dark:border-[#2A2A2A]">
                                     <tr>
-                                        <td colSpan="3" className="p-8 text-center text-slate-500 dark:text-gray-500 font-medium">No drivers found.</td>
+                                        <th className="p-4 font-bold">Date</th>
+                                        <th className="p-4 font-bold">Driver Name</th>
+                                        <th className="p-4 font-bold">Status</th>
+                                        <th className="p-4 font-bold">Remarks</th>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="divide-y divide-[#2A2A2A] bg-white dark:bg-[#1C1C1C]">
+                                    {isLoadingHistory ? (
+                                        <tr>
+                                            <td colSpan="4" className="p-8 text-center text-slate-500 dark:text-gray-400">Loading attendance history...</td>
+                                        </tr>
+                                    ) : historyRecords.length > 0 ? (
+                                        historyRecords.slice().sort((a, b) => new Date(b.date) - new Date(a.date)).map((rec, idx) => (
+                                            <tr key={rec.id || idx} className="hover:bg-slate-100 dark:hover:bg-[#222] transition-colors">
+                                                <td className="p-4 font-semibold text-slate-900 dark:text-white text-sm">
+                                                    {rec.date}
+                                                </td>
+                                                <td className="p-4">
+                                                    <div className="font-bold text-slate-900 dark:text-white text-sm">{rec.driver?.username || 'Unknown'}</div>
+                                                    <div className="text-xs text-slate-500 dark:text-gray-500">{rec.driver?.mobile}</div>
+                                                </td>
+                                                <td className="p-4">
+                                                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                                        rec.status === 'PRESENT' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                                                        rec.status === 'ABSENT' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
+                                                        rec.status === 'HALF_DAY' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
+                                                        'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                                                    }`}>
+                                                        {rec.status ? rec.status.replace('_', ' ') : 'PRESENT'}
+                                                    </span>
+                                                </td>
+                                                <td className="p-4 text-sm text-slate-500 dark:text-gray-400">
+                                                    {rec.remarks || '-'}
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="4" className="p-8 text-center text-slate-500 dark:text-gray-500 font-medium">
+                                                No attendance logs found for {historyMonth}.
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                </>
             )}
 
             {/* SALARY & ADVANCES TAB */}

@@ -84,107 +84,180 @@ public class DataSeeder implements CommandLineRunner {
                         }
                 }
 
-                // 2. Seed Vehicles if active vehicles count is 0
-                if (vehicleRepository.findByIsDeletedFalse().isEmpty()) {
-                        log.info("Seeding vehicles into database...");
+                // 2. Ensure all 12 vehicles exist and are active
+                log.info("Ensuring 12 real vehicles exist in database...");
 
-                        // If archived vehicles exist, restore them first
-                        List<Vehicle> archived = vehicleRepository.findByIsDeletedTrue();
-                        if (!archived.isEmpty()) {
-                                for (Vehicle v : archived) {
-                                        v.setIsDeleted(false);
-                                        vehicleRepository.save(v);
-                                }
-                                log.info("Restored {} archived vehicles.", archived.size());
+                // Restore any archived vehicles
+                List<Vehicle> archivedVehicles = vehicleRepository.findByIsDeletedTrue();
+                for (Vehicle v : archivedVehicles) {
+                        v.setIsDeleted(false);
+                        vehicleRepository.save(v);
+                }
+
+                // Save or activate initial real fleet (12 Vehicles)
+                String[][] realVehicles = {
+                        {"TN 19 BU 1792", "Tipper Lorry", "PER_TRIP", "Active"},
+                        {"TN 57 AC 5727", "Tipper Lorry", "MONTHLY", "Active"},
+                        {"TN 19 T 7672", "JCB", "HOURLY", "Active"},
+                        {"TN 19 BX 8021", "JCB", "HOURLY", "Active"},
+                        {"TN 59 CF 6093", "Container Lorry", "PER_TRIP", "Active"},
+                        {"TN 19 BS 4030", "Container Lorry", "PER_TRIP", "Active"},
+                        {"TN 19 HARVEST", "Harvesting Machine", "HOURLY", "Active"},
+                        {"TN 19 BU 8687", "Bike", "OWN_USE", "Active"},
+                        {"TN 15 MC 0200", "Open Type Lorry", "PER_TRIP", "Active"},
+                        {"TN 19 BS 9631", "Cars", "PER_TRIP", "Active"},
+                        {"TN 25 AZ 1234", "Tipper Lorry", "PER_TRIP", "Active"},
+                        {"TN 25 TR 4455", "Tractor", "PER_TRIP", "Active"}
+                };
+
+                for (String[] v : realVehicles) {
+                        var existingOpt = vehicleRepository.findByVehicleNumber(v[0]);
+                        if (existingOpt.isEmpty()) {
+                                vehicleRepository.save(Vehicle.builder()
+                                        .vehicleNumber(v[0])
+                                        .type(v[1])
+                                        .billingType(v[2])
+                                        .status(v[3])
+                                        .insuranceExpiry(LocalDate.now().plusMonths(6))
+                                        .fcExpiry(LocalDate.now().plusMonths(8))
+                                        .taxExpiry(LocalDate.now().plusMonths(12))
+                                        .permitExpiry(LocalDate.now().plusMonths(10))
+                                        .pollutionExpiry(LocalDate.now().plusMonths(3))
+                                        .isDeleted(false)
+                                        .build());
                         } else {
-                                // Save initial fleet
-                                vehicleRepository.save(Vehicle.builder()
-                                                .vehicleNumber("TN 25 AZ 1234")
-                                                .type("Tipper Lorry")
-                                                .status("Active")
-                                                .billingType("PER_TRIP")
-                                                .maxLoadTons(25)
-                                                .insuranceExpiry(LocalDate.now().plusMonths(6))
-                                                .fcExpiry(LocalDate.now().plusMonths(8))
-                                                .taxExpiry(LocalDate.now().plusMonths(12))
-                                                .permitExpiry(LocalDate.now().plusMonths(10))
-                                                .pollutionExpiry(LocalDate.now().plusMonths(3))
-                                                .isDeleted(false)
-                                                .build());
-
-                                vehicleRepository.save(Vehicle.builder()
-                                                .vehicleNumber("TN 25 B 5678")
-                                                .type("Container Lorry")
-                                                .status("Active")
-                                                .billingType("PER_TRIP")
-                                                .containerSize("32 FT")
-                                                .maxLoadTons(30)
-                                                .insuranceExpiry(LocalDate.now().plusMonths(4))
-                                                .fcExpiry(LocalDate.now().plusMonths(5))
-                                                .taxExpiry(LocalDate.now().plusMonths(9))
-                                                .permitExpiry(LocalDate.now().plusMonths(7))
-                                                .pollutionExpiry(LocalDate.now().plusMonths(2))
-                                                .isDeleted(false)
-                                                .build());
-
-                                vehicleRepository.save(Vehicle.builder()
-                                                .vehicleNumber("TN 25 C 9012")
-                                                .type("Open Type Lorry")
-                                                .status("Active")
-                                                .billingType("PER_TRIP")
-                                                .maxLoadTons(20)
-                                                .insuranceExpiry(LocalDate.now().plusMonths(5))
-                                                .fcExpiry(LocalDate.now().plusMonths(6))
-                                                .taxExpiry(LocalDate.now().plusMonths(11))
-                                                .permitExpiry(LocalDate.now().plusMonths(8))
-                                                .pollutionExpiry(LocalDate.now().plusMonths(4))
-                                                .isDeleted(false)
-                                                .build());
-
-                                vehicleRepository.save(Vehicle.builder()
-                                                .vehicleNumber("TN 25 JCB 001")
-                                                .type("JCB")
-                                                .status("Active")
-                                                .billingType("MONTHLY")
-                                                .monthlyContractAmount(75000.0)
-                                                .insuranceExpiry(LocalDate.now().plusMonths(7))
-                                                .fcExpiry(LocalDate.now().plusMonths(9))
-                                                .taxExpiry(LocalDate.now().plusMonths(10))
-                                                .permitExpiry(LocalDate.now().plusMonths(12))
-                                                .pollutionExpiry(LocalDate.now().plusMonths(5))
-                                                .isDeleted(false)
-                                                .build());
-
-                                vehicleRepository.save(Vehicle.builder()
-                                                .vehicleNumber("TN 25 HAR 007")
-                                                .type("Harvesting Machine")
-                                                .status("Active")
-                                                .billingType("MONTHLY")
-                                                .monthlyContractAmount(90000.0)
-                                                .insuranceExpiry(LocalDate.now().plusMonths(8))
-                                                .fcExpiry(LocalDate.now().plusMonths(10))
-                                                .taxExpiry(LocalDate.now().plusMonths(11))
-                                                .permitExpiry(LocalDate.now().plusMonths(12))
-                                                .pollutionExpiry(LocalDate.now().plusMonths(6))
-                                                .isDeleted(false)
-                                                .build());
-
-                                vehicleRepository.save(Vehicle.builder()
-                                                .vehicleNumber("TN 25 TR 4455")
-                                                .type("Tractor")
-                                                .status("Active")
-                                                .billingType("PER_TRIP")
-                                                .maxLoadTons(10)
-                                                .insuranceExpiry(LocalDate.now().plusMonths(9))
-                                                .fcExpiry(LocalDate.now().plusMonths(11))
-                                                .taxExpiry(LocalDate.now().plusMonths(12))
-                                                .permitExpiry(LocalDate.now().plusMonths(12))
-                                                .pollutionExpiry(LocalDate.now().plusMonths(5))
-                                                .isDeleted(false)
-                                                .build());
-
-                                log.info("Seeded 6 initial vehicles into database.");
+                                Vehicle vExisting = existingOpt.get();
+                                if (Boolean.TRUE.equals(vExisting.getIsDeleted())) {
+                                        vExisting.setIsDeleted(false);
+                                        vehicleRepository.save(vExisting);
+                                }
                         }
+                }
+                log.info("Completed vehicle seeding check (12 vehicles ready).");
+
+                // Restore any archived trips
+                List<Trip> archivedTrips = tripRepository.findByIsDeletedTrue();
+                for (Trip t : archivedTrips) {
+                        t.setIsDeleted(false);
+                        tripRepository.save(t);
+                }
+
+                // 3. Seed Customers & Trips if active trips are empty
+                if (tripRepository.findByIsDeletedFalse().isEmpty()) {
+                        log.info("Seeding initial trips into database...");
+
+                        Customer cust1 = customerRepository.save(Customer.builder()
+                                        .name("Sri Infrastructure Ltd")
+                                        .mobile("9840123456")
+                                        .gstNumber("33AAAAA0000A1Z5")
+                                        .address("Chennai Highway, Villupuram")
+                                        .outstandingBalance(45000.0)
+                                        .isDeleted(false)
+                                        .build());
+
+                        Customer cust2 = customerRepository.save(Customer.builder()
+                                        .name("Ramesh Builders")
+                                        .mobile("9840987654")
+                                        .gstNumber("33BBBBB1111B2Z6")
+                                        .address("Gudiyatham Road, Vellore")
+                                        .outstandingBalance(28000.0)
+                                        .isDeleted(false)
+                                        .build());
+
+                        List<Vehicle> vehicles = vehicleRepository.findAll();
+                        List<User> drivers = userRepository.findAll().stream()
+                                        .filter(u -> Role.DRIVER.equals(u.getRole()))
+                                        .toList();
+
+                        User defaultDriver = drivers.isEmpty() ? userRepository.findAll().get(0) : drivers.get(0);
+                        Vehicle v1 = vehicles.isEmpty() ? null : vehicles.get(0);
+                        Vehicle v2 = vehicles.size() > 1 ? vehicles.get(1) : v1;
+                        Vehicle v3 = vehicles.size() > 2 ? vehicles.get(2) : v1;
+                        Vehicle v4 = vehicles.size() > 4 ? vehicles.get(4) : v1;
+
+                        // Trip 1 (Completed & Paid)
+                        tripRepository.save(Trip.builder()
+                                        .source("Tiruvannamalai")
+                                        .destination("Chennai Port")
+                                        .material("M-Sand")
+                                        .loadWeight(25.0)
+                                        .distanceKm(195.0)
+                                        .tripCharges(22000.0)
+                                        .dieselCost(6500.0)
+                                        .driverSalary(2000.0)
+                                        .foodAmount(600.0)
+                                        .startDate(LocalDate.now().minusDays(5))
+                                        .endDate(LocalDate.now().minusDays(4))
+                                        .status("COMPLETED")
+                                        .paymentStatus("PAID")
+                                        .vehicle(v1)
+                                        .driver(defaultDriver)
+                                        .customer(cust1)
+                                        .isDeleted(false)
+                                        .build());
+
+                        // Trip 2 (Completed & Unpaid)
+                        tripRepository.save(Trip.builder()
+                                        .source("Vellore")
+                                        .destination("Bangalore Electronic City")
+                                        .material("Blue Metal")
+                                        .loadWeight(30.0)
+                                        .distanceKm(210.0)
+                                        .tripCharges(28000.0)
+                                        .dieselCost(8000.0)
+                                        .driverSalary(2500.0)
+                                        .foodAmount(800.0)
+                                        .startDate(LocalDate.now().minusDays(3))
+                                        .endDate(LocalDate.now().minusDays(2))
+                                        .status("COMPLETED")
+                                        .paymentStatus("UNPAID")
+                                        .vehicle(v2)
+                                        .driver(defaultDriver)
+                                        .customer(cust2)
+                                        .isDeleted(false)
+                                        .build());
+
+                        // Trip 3 (In Progress)
+                        tripRepository.save(Trip.builder()
+                                        .source("Coimbatore")
+                                        .destination("Madurai Quarry")
+                                        .material("Gravel")
+                                        .loadWeight(20.0)
+                                        .distanceKm(215.0)
+                                        .tripCharges(19500.0)
+                                        .dieselCost(5500.0)
+                                        .driverSalary(1800.0)
+                                        .foodAmount(500.0)
+                                        .startDate(LocalDate.now().minusDays(1))
+                                        .status("IN_PROGRESS")
+                                        .paymentStatus("UNPAID")
+                                        .vehicle(v3)
+                                        .driver(defaultDriver)
+                                        .customer(cust1)
+                                        .isDeleted(false)
+                                        .build());
+
+                        // Trip 4 (Pending)
+                        tripRepository.save(Trip.builder()
+                                        .source("Salem")
+                                        .destination("Trichy Bypass")
+                                        .material("Cement Bags")
+                                        .loadWeight(28.0)
+                                        .distanceKm(145.0)
+                                        .tripCharges(16500.0)
+                                        .dieselCost(4800.0)
+                                        .driverSalary(1500.0)
+                                        .foodAmount(400.0)
+                                        .startDate(LocalDate.now())
+                                        .status("PENDING")
+                                        .paymentStatus("UNPAID")
+                                        .vehicle(v4)
+                                        .driver(defaultDriver)
+                                        .customer(cust2)
+                                        .isDeleted(false)
+                                        .build());
+
+                        log.info("Seeded initial trip records into database.");
                 }
         }
 }
