@@ -3,22 +3,23 @@ services:
   # 1. Backend Web Service (Java Spring Boot)
   # -------------------------------------------------------------
   - type: web
-    name: pavithra-erp-backend
+    name: pavithra-erp-backend-live
     env: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     region: singapore # Change to your preferred region (singapore, frankfurt, oregon)
     plan: starter # Set to 'starter' ($7/mo) for 24/7 Enterprise uptime (no sleeping), or 'free'
-    healthCheckPath: /api/v1/vehicles
     envVars:
       - key: PORT
         value: 8080
+      - key: SPRING_DATASOURCE_DRIVER
+        value: org.h2.Driver
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://mysql-3cf0c353-diva-6648.l.aivencloud.com:12108/defaultdb?ssl-mode=REQUIRED&useSSL=true&cachePrepStmts=true&prepStmtCacheSize=250&prepStmtCacheSqlLimit=2048&useServerPrepStmts=true&rewriteBatchedStatements=true
+        value: jdbc:h2:file:./data/pavithradb;DB_CLOSE_DELAY=-1;MODE=MySQL
       - key: SPRING_DATASOURCE_USERNAME
-        value: avnadmin
+        value: sa
       - key: SPRING_DATASOURCE_PASSWORD
-        value: AVNS_9Y5_n3TBKiDGViDpuuk
+        value: ""
 
   # -------------------------------------------------------------
   # 2. Frontend Static Site (React + Vite)
