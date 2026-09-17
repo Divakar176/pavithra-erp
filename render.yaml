@@ -5,8 +5,8 @@ services:
   - type: web
     name: pavithra-erp-backend-live
     env: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    dockerfilePath: Dockerfile
+    dockerContext: .
     region: singapore # Change to your preferred region (singapore, frankfurt, oregon)
     plan: starter # Set to 'starter' ($7/mo) for 24/7 Enterprise uptime (no sleeping), or 'free'
     envVars:
