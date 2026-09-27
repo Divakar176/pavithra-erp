@@ -15,7 +15,7 @@ services:
       - key: SPRING_DATASOURCE_DRIVER
         value: org.h2.Driver
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:h2:file:./data/pavithradb;DB_CLOSE_DELAY=-1;MODE=MySQL
+        value: jdbc:h2:mem:pavithradb;DB_CLOSE_DELAY=-1;MODE=MySQL
       - key: SPRING_DATASOURCE_USERNAME
         value: sa
       - key: SPRING_DATASOURCE_PASSWORD
